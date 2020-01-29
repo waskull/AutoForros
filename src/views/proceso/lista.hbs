@@ -59,8 +59,11 @@
                 </thead>
                 <tbody>
                         {{#each solicitud}}
-                        <tr>
-                            <td>{{idSolicitud}} 
+                        {{#if retraso}}
+                        <tr class="table-danger">
+                          {{else}}
+                          <tr>{{/if}}
+                            <td class="table-light">{{idSolicitud}}
                                 {{#if retraso}} <span class="badge badge-danger" data-toggle="tooltip" data-html="true" href="/procesos/" title="Esta solicitud debio haberse entregado: {{timeago fechaTentativa}}">RETRASO</span> {{/if}}
                             </td>
                             <td>{{placa}}</td>

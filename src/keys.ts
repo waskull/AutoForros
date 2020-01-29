@@ -14,6 +14,5 @@ database:{
         password:'Zm5so7OS7axy0VcfMYRt',
         database:'bvtjaiwnchumfdpjgxrn',
         port:3306
-}    
+}
 };
-
