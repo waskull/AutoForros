@@ -1,3 +1,4 @@
+const pool = require('../database');
 export default class Bancos{
 	private codbanco:number = 1;
 	private _nombre:string = '';

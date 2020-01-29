@@ -1,4 +1,4 @@
 export default class tipoCostura{
-	idc:number;
-	texto:string;
+	idc:number = 0;
+	texto:string = '';
 }

@@ -1,4 +1,4 @@
 export default class tipoPago{
-	idpago:number;
-	descPago:string;
+	idpago:number = 1;
+	descPago:string = '';
 }

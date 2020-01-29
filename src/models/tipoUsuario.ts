@@ -1,4 +1,4 @@
 export default class tipoUsuario{
-	idTipo:number;
-	Descripcion:string;
+	idTipo:number=0;
+	Descripcion:string='';
 }
