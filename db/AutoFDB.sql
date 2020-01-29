@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 20-01-2020 a las 07:37:05
--- Versión del servidor: 10.4.11-MariaDB
--- Versión de PHP: 7.4.1
+-- Tiempo de generación: 29-01-2020 a las 05:18:21
+-- Versión del servidor: 10.4.11-MariaDB-1:10.4.11+maria~bionic
+-- Versión de PHP: 7.4.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,10 +25,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `Automovil`
+-- Estructura de tabla para la tabla `Automoviles`
 --
 
-CREATE TABLE `Automovil` (
+CREATE TABLE `Automoviles` (
   `idAutomovil` int(255) UNSIGNED NOT NULL,
   `idCliente` int(255) UNSIGNED NOT NULL,
   `placa` varchar(25) COLLATE utf8_spanish_ci NOT NULL,
@@ -39,35 +39,35 @@ CREATE TABLE `Automovil` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `Automovil`
+-- Volcado de datos para la tabla `Automoviles`
 --
 
-INSERT INTO `Automovil` (`idAutomovil`, `idCliente`, `placa`, `marca`, `modelo`, `year`, `fecha`) VALUES
+INSERT INTO `Automoviles` (`idAutomovil`, `idCliente`, `placa`, `marca`, `modelo`, `year`, `fecha`) VALUES
 (3, 34, 'ASD-QWE-123', 'NISSAN', 'SPORT GT', '2011', '2019-12-12 18:13:41'),
-(4, 33, 'ZXCQWEY', 'FIATSITO', 'FIATERO', '1931', '2019-12-11 18:13:41'),
 (5, 34, 'GG-325-ASDG', 'TOYOTA', 'MITSUBISHI', '1999', '2019-12-09 18:13:41'),
 (6, 34, 'XXCCVASCD', 'RENAULT', 'PEUGEUT', '2001', '2019-11-12 18:13:41'),
 (7, 33, 'CCC-XX_VOEE', 'Ferrari', 'FUT', '1999', '2019-12-04 18:13:41'),
 (9, 35, '434234-FGE', 'FERRARI', 'ENZO', '2018', '2019-12-13 03:08:42'),
 (10, 36, 'PPPP_AAAA-VE', 'BMW', 'i3', '2019', '2019-12-20 23:44:56'),
-(11, 35, 'RM434-GE-XXM', 'Audi', 'R8', '2018', '2019-12-20 23:47:08');
+(11, 35, 'RM434-GE-XXM', 'Audi', 'R8', '2018', '2019-12-20 23:47:08'),
+(15, 40, 'TTT-01', 'TESLA', '12345', '2020', '2020-01-24 19:42:29');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `Banco`
+-- Estructura de tabla para la tabla `Bancos`
 --
 
-CREATE TABLE `Banco` (
+CREATE TABLE `Bancos` (
   `codbanco` int(255) UNSIGNED NOT NULL,
   `_nombre` varchar(255) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `Banco`
+-- Volcado de datos para la tabla `Bancos`
 --
 
-INSERT INTO `Banco` (`codbanco`, `_nombre`) VALUES
+INSERT INTO `Bancos` (`codbanco`, `_nombre`) VALUES
 (175, 'BANCO BICENTENARIO'),
 (102, 'BANCO DE VENEZUELA'),
 (105, 'BANCO MERCANTIL C.A'),
@@ -79,20 +79,20 @@ INSERT INTO `Banco` (`codbanco`, `_nombre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `Bordado`
+-- Estructura de tabla para la tabla `Bordados`
 --
 
-CREATE TABLE `Bordado` (
+CREATE TABLE `Bordados` (
   `idBordado` int(10) UNSIGNED NOT NULL,
   `descripcion` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `img_url` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `Bordado`
+-- Volcado de datos para la tabla `Bordados`
 --
 
-INSERT INTO `Bordado` (`idBordado`, `descripcion`, `img_url`) VALUES
+INSERT INTO `Bordados` (`idBordado`, `descripcion`, `img_url`) VALUES
 (1, 'Bordado por defecto de la Marca', 'bordado.png'),
 (2, 'Bordado H', 'bordadoh.jpg'),
 (3, 'Ferrari', 'ferrari.jpg'),
@@ -105,19 +105,19 @@ INSERT INTO `Bordado` (`idBordado`, `descripcion`, `img_url`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `Color`
+-- Estructura de tabla para la tabla `Colores`
 --
 
-CREATE TABLE `Color` (
+CREATE TABLE `Colores` (
   `idColor` int(255) UNSIGNED NOT NULL,
   `descripcion` varchar(25) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `Color`
+-- Volcado de datos para la tabla `Colores`
 --
 
-INSERT INTO `Color` (`idColor`, `descripcion`) VALUES
+INSERT INTO `Colores` (`idColor`, `descripcion`) VALUES
 (2, 'Beige'),
 (1, 'Negro');
 
@@ -145,10 +145,10 @@ INSERT INTO `Inventario` (`cod`, `id_material`, `cantidadStock`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `Material`
+-- Estructura de tabla para la tabla `Materiales`
 --
 
-CREATE TABLE `Material` (
+CREATE TABLE `Materiales` (
   `idMaterial` int(255) UNSIGNED NOT NULL,
   `idTipo` int(255) UNSIGNED NOT NULL,
   `color` int(255) UNSIGNED NOT NULL,
@@ -156,22 +156,22 @@ CREATE TABLE `Material` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `Material`
+-- Volcado de datos para la tabla `Materiales`
 --
 
-INSERT INTO `Material` (`idMaterial`, `idTipo`, `color`, `url_img`) VALUES
-(9, 1, 1, 'd34ac202-ba74-4231-946d-81978b0f9cea.png'),
-(10, 2, 1, 'bordado.png'),
-(11, 2, 2, 'bordado.png'),
+INSERT INTO `Materiales` (`idMaterial`, `idTipo`, `color`, `url_img`) VALUES
+(9, 1, 1, 'bordado.png'),
+(10, 2, 1, 'sc-negro.jpg'),
+(11, 2, 2, 'sc-beige.jpg'),
 (12, 1, 2, 'bordado.png');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `Pago`
+-- Estructura de tabla para la tabla `Pagos`
 --
 
-CREATE TABLE `Pago` (
+CREATE TABLE `Pagos` (
   `idPago` int(255) UNSIGNED NOT NULL,
   `idSoli` int(255) UNSIGNED NOT NULL,
   `tipo` int(255) UNSIGNED NOT NULL,
@@ -182,10 +182,10 @@ CREATE TABLE `Pago` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `Pago`
+-- Volcado de datos para la tabla `Pagos`
 --
 
-INSERT INTO `Pago` (`idPago`, `idSoli`, `tipo`, `referencia`, `banco`, `monto`, `fecha`) VALUES
+INSERT INTO `Pagos` (`idPago`, `idSoli`, `tipo`, `referencia`, `banco`, `monto`, `fecha`) VALUES
 (2, 4, 1, '5465465465464', 105, 100, '2019-12-14 08:40:10'),
 (3, 3, 2, 'hndhjndhjj', 108, 555, '2019-12-14 09:16:33'),
 (4, 5, 3, NULL, 105, 0, '2019-12-14 09:23:45'),
@@ -210,15 +210,20 @@ INSERT INTO `Pago` (`idPago`, `idSoli`, `tipo`, `referencia`, `banco`, `monto`, 
 (23, 33, 2, '4534543', 134, 20, '2020-01-15 20:55:17'),
 (24, 34, 1, '54543534', 116, 10, '2020-01-15 20:56:40'),
 (25, 35, 2, 'gfhfdhf', 116, 40, '2020-01-18 14:15:31'),
-(26, 36, 1, 'gfdghsdfhfshsdfh', 102, 20, '2020-01-18 14:26:45');
+(26, 36, 1, 'gfdghsdfhfshsdfh', 102, 20, '2020-01-18 14:26:45'),
+(27, 37, 1, 'fjd35435345', 105, 20, '2020-01-20 20:49:13'),
+(28, 38, 1, '123', 116, 20, '2020-01-24 16:44:44'),
+(29, 39, 3, '', 1, 0, '2020-01-24 17:00:46'),
+(30, 40, 2, '434234', 175, 20, '2020-01-24 19:12:29'),
+(31, 41, 2, '2312324434', 134, 20, '2020-01-24 19:43:08');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `Pedido`
+-- Estructura de tabla para la tabla `Pedidos`
 --
 
-CREATE TABLE `Pedido` (
+CREATE TABLE `Pedidos` (
   `idPedido` int(255) UNSIGNED NOT NULL,
   `id_empleado` int(255) UNSIGNED NOT NULL,
   `id_proveedor` int(255) UNSIGNED NOT NULL,
@@ -229,10 +234,10 @@ CREATE TABLE `Pedido` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `Pedido`
+-- Volcado de datos para la tabla `Pedidos`
 --
 
-INSERT INTO `Pedido` (`idPedido`, `id_empleado`, `id_proveedor`, `idproducto`, `cantidad`, `costo`, `fecha`) VALUES
+INSERT INTO `Pedidos` (`idPedido`, `id_empleado`, `id_proveedor`, `idproducto`, `cantidad`, `costo`, `fecha`) VALUES
 (1, 33, 2, 9, 51, 100, '2019-12-10 20:50:11'),
 (2, 33, 2, 10, 20, 50, '2019-12-11 07:01:22'),
 (3, 33, 2, 9, 5, 10, '2019-12-11 07:02:22'),
@@ -250,19 +255,19 @@ INSERT INTO `Pedido` (`idPedido`, `id_empleado`, `id_proveedor`, `idproducto`, `
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `Proceso`
+-- Estructura de tabla para la tabla `Procesos`
 --
 
-CREATE TABLE `Proceso` (
+CREATE TABLE `Procesos` (
   `idProceso` int(10) UNSIGNED NOT NULL,
   `descripcion` varchar(50) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `Proceso`
+-- Volcado de datos para la tabla `Procesos`
 --
 
-INSERT INTO `Proceso` (`idProceso`, `descripcion`) VALUES
+INSERT INTO `Procesos` (`idProceso`, `descripcion`) VALUES
 (8, 'Bordado'),
 (1, 'Cancelado'),
 (2, 'Cancelado por la Gerencia'),
@@ -277,33 +282,10 @@ INSERT INTO `Proceso` (`idProceso`, `descripcion`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `Proveedor`
+-- Estructura de tabla para la tabla `Produccion`
 --
 
-CREATE TABLE `Proveedor` (
-  `idProveedor` int(255) UNSIGNED NOT NULL,
-  `nombre` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
-  `direccion` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
-  `telefono` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
-  `ciudad` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  `sector` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `Proveedor`
---
-
-INSERT INTO `Proveedor` (`idProveedor`, `nombre`, `direccion`, `telefono`, `ciudad`, `sector`) VALUES
-(2, 'POLAR S.A', 'fdhdfghdfsgh', '3432423432', 'sfgsdfg', 'sdfgsdfx'),
-(3, 'CUEROSLOCOS C.A', 'asd', '43424', 'Stormwind', 'Casco Antiguo');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `Registro`
---
-
-CREATE TABLE `Registro` (
+CREATE TABLE `Produccion` (
   `idReg` int(255) UNSIGNED NOT NULL,
   `solicitud` int(255) UNSIGNED NOT NULL,
   `vendedor` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
@@ -316,31 +298,51 @@ CREATE TABLE `Registro` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `Registro`
+-- Volcado de datos para la tabla `Produccion`
 --
 
-INSERT INTO `Registro` (`idReg`, `solicitud`, `vendedor`, `emsamblador`, `bordador`, `designer`, `costurero`, `cortador`, `fecha`) VALUES
+INSERT INTO `Produccion` (`idReg`, `solicitud`, `vendedor`, `emsamblador`, `bordador`, `designer`, `costurero`, `cortador`, `fecha`) VALUES
 (7, 23, 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', '2019-12-16 05:48:15'),
 (8, 24, 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', '2019-12-16 06:02:56'),
 (9, 25, 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', '2019-12-20 23:49:45'),
-(10, 26, 'Martin Castillo', 'Martin Castillo', NULL, 'Martin Castillo', NULL, 'Martin Castillo', NULL),
+(10, 26, 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', '2020-01-12 16:52:06'),
 (11, 27, 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', '2020-01-07 17:33:34'),
 (12, 28, 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', '2020-01-12 08:04:12'),
-(13, 29, 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', NULL),
-(14, 30, 'Martin Castillo', 'Martin Castillo', NULL, 'Martin Castillo', NULL, NULL, NULL),
-(15, 31, 'Martin Castillo', 'Martin Castillo', NULL, NULL, NULL, NULL, NULL),
+(13, 29, 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', '2020-01-13 16:52:09'),
+(14, 30, 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', '2020-01-24 19:21:42'),
+(15, 31, 'Martin Castillo', 'Martin Castillo', NULL, 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', NULL),
 (16, 32, 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', '2020-01-15 20:55:57'),
-(17, 33, 'Martin Castillo', 'Martin Castillo', NULL, 'Martin Castillo', NULL, 'Martin Castillo', NULL),
-(18, 34, 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', NULL),
-(19, 35, 'Martin Castillo', NULL, NULL, NULL, NULL, NULL, NULL),
-(20, 35, 'Martin Castillo', NULL, NULL, NULL, NULL, NULL, NULL),
-(21, 35, 'Martin Castillo', NULL, NULL, NULL, NULL, NULL, NULL),
-(22, 35, 'Martin Castillo', NULL, NULL, NULL, NULL, NULL, NULL),
-(23, 35, 'Martin Castillo', NULL, NULL, NULL, NULL, NULL, NULL),
-(24, 35, 'Martin Castillo', NULL, NULL, NULL, NULL, NULL, NULL),
-(25, 35, 'Martin Castillo', NULL, NULL, NULL, NULL, NULL, NULL),
+(17, 33, 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', NULL),
+(18, 34, 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', '2020-01-24 19:17:23'),
 (26, 35, 'Martin Castillo', NULL, NULL, NULL, NULL, NULL, NULL),
-(27, 36, 'Martin Castillo', NULL, NULL, NULL, NULL, NULL, NULL);
+(27, 36, 'Martin Castillo', NULL, NULL, NULL, NULL, NULL, NULL),
+(28, 37, 'Martin Castillo', NULL, NULL, NULL, NULL, NULL, NULL),
+(29, 38, 'Martin Castillo', NULL, NULL, NULL, NULL, NULL, NULL),
+(30, 40, 'Martin Castillo', NULL, NULL, NULL, NULL, NULL, NULL),
+(31, 41, 'Martin Castillo', NULL, NULL, NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `Proveedores`
+--
+
+CREATE TABLE `Proveedores` (
+  `idProveedor` int(255) UNSIGNED NOT NULL,
+  `nombre` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
+  `direccion` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
+  `telefono` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
+  `ciudad` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `sector` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `Proveedores`
+--
+
+INSERT INTO `Proveedores` (`idProveedor`, `nombre`, `direccion`, `telefono`, `ciudad`, `sector`) VALUES
+(2, 'POLAR S.A', 'fdhdfghdfsgh', '3432423432', 'sfgsdfg', 'sdfgsdfx'),
+(3, 'CUEROSLOCOS C.A', 'asd', '43424', 'Stormwind', 'Casco Antiguo');
 
 -- --------------------------------------------------------
 
@@ -357,10 +359,10 @@ CREATE TABLE `sessions` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `Solicitud`
+-- Estructura de tabla para la tabla `Solicitudes`
 --
 
-CREATE TABLE `Solicitud` (
+CREATE TABLE `Solicitudes` (
   `idSolicitud` int(255) UNSIGNED NOT NULL,
   `idUsuario` int(255) UNSIGNED NOT NULL,
   `idVehiculo` int(255) UNSIGNED NOT NULL,
@@ -375,10 +377,10 @@ CREATE TABLE `Solicitud` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `Solicitud`
+-- Volcado de datos para la tabla `Solicitudes`
 --
 
-INSERT INTO `Solicitud` (`idSolicitud`, `idUsuario`, `idVehiculo`, `id_material`, `id_color`, `id_bordado`, `cantidad`, `costura`, `fechaSolicitud`, `fechaTentativa`, `fase`) VALUES
+INSERT INTO `Solicitudes` (`idSolicitud`, `idUsuario`, `idVehiculo`, `id_material`, `id_color`, `id_bordado`, `cantidad`, `costura`, `fechaSolicitud`, `fechaTentativa`, `fase`) VALUES
 (2, 35, 9, 2, 1, 1, 2, 2, '2019-12-13 20:41:54', '2019-12-15 20:41:54', 2),
 (3, 34, 3, 1, 2, 1, 5, 2, '2019-12-13 21:44:03', '2019-12-15 20:41:54', 10),
 (4, 34, 5, 2, 1, 1, 3, 2, '2019-12-14 02:00:34', '2019-12-15 20:41:54', 10),
@@ -401,17 +403,22 @@ INSERT INTO `Solicitud` (`idSolicitud`, `idUsuario`, `idVehiculo`, `id_material`
 (23, 35, 9, 2, 1, 5, 1, 2, '2019-12-16 05:22:02', '2019-12-18 20:53:55', 10),
 (24, 34, 5, 1, 1, 3, 1, 2, '2019-12-16 05:59:45', '2019-12-18 21:53:55', 10),
 (25, 36, 10, 2, 1, 5, 5, 2, '2019-12-20 23:45:31', '2019-12-21 21:53:55', 10),
-(26, 35, 11, 1, 1, 1, 1, 2, '2019-12-20 23:47:39', '2019-12-22 21:53:55', 7),
+(26, 35, 11, 1, 1, 1, 1, 2, '2019-12-20 23:47:39', '2019-12-22 21:53:55', 10),
 (27, 34, 3, 1, 2, 1, 5, 2, '2020-01-06 20:11:52', '2020-01-08 20:11:52', 10),
 (28, 34, 6, 2, 1, 5, 1, 2, '2020-01-09 21:21:36', '2020-01-10 20:11:52', 10),
-(29, 34, 3, 1, 2, 1, 1, 2, '2020-01-10 02:41:19', '2020-01-11 20:11:52', 9),
-(30, 36, 10, 2, 1, 8, 2, 2, '2020-01-12 08:04:44', '2020-01-13 20:11:52', 6),
-(31, 36, 10, 1, 1, 7, 3, 2, '2020-01-17 06:12:52', '2020-01-17 06:13:52', 5),
+(29, 34, 3, 1, 2, 1, 1, 2, '2020-01-10 02:41:19', '2020-01-11 20:11:52', 10),
+(30, 36, 10, 2, 1, 8, 2, 2, '2020-01-12 08:04:44', '2020-01-13 20:11:52', 10),
+(31, 36, 10, 1, 1, 7, 3, 2, '2020-01-17 06:12:52', '2020-01-17 06:13:52', 8),
 (32, 34, 5, 1, 1, 1, 1, 2, '2020-01-15 20:48:58', '2020-01-16 22:11:52', 10),
-(33, 34, 5, 2, 1, 1, 1, 2, '2020-01-15 20:55:04', '2020-01-16 23:11:52', 7),
-(34, 34, 6, 1, 2, 1, 1, 2, '2020-01-15 20:56:28', '2020-01-19 00:11:52', 9),
+(33, 34, 5, 2, 1, 1, 1, 2, '2020-01-15 20:55:04', '2020-01-16 23:11:52', 9),
+(34, 34, 6, 1, 2, 1, 1, 2, '2020-01-15 20:56:28', '2020-01-19 00:11:52', 10),
 (35, 36, 10, 1, 2, 1, 2, 2, '2020-01-18 14:12:52', '2020-01-28 14:26:03', 4),
-(36, 36, 10, 1, 1, 7, 1, 2, '2020-01-18 14:26:31', '2020-01-31 14:26:53', 4);
+(36, 36, 10, 1, 1, 7, 1, 2, '2020-01-18 14:26:31', '2020-01-31 14:26:53', 4),
+(37, 34, 3, 2, 2, 1, 1, 2, '2020-01-20 20:48:53', '2020-02-09 16:03:13', 4),
+(38, 35, 11, 2, 2, 1, 1, 2, '2020-01-24 16:44:31', '2020-02-11 16:44:59', 4),
+(39, 34, 5, 2, 2, 1, 1, 2, '2020-01-24 17:00:46', NULL, 2),
+(40, 34, 3, 2, 1, 7, 1, 2, '2020-01-24 19:12:01', '2020-02-12 23:14:13', 4),
+(41, 40, 15, 2, 1, 5, 1, 2, '2020-01-24 19:42:56', '2020-02-12 03:43:20', 4);
 
 -- --------------------------------------------------------
 
@@ -498,10 +505,10 @@ INSERT INTO `tipoUsuario` (`idTipo`, `Descripcion`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `Usuario`
+-- Estructura de tabla para la tabla `Usuarios`
 --
 
-CREATE TABLE `Usuario` (
+CREATE TABLE `Usuarios` (
   `idUsuario` int(255) UNSIGNED NOT NULL,
   `nombre` varchar(25) COLLATE utf8_spanish_ci NOT NULL,
   `apellido` varchar(25) COLLATE utf8_spanish_ci NOT NULL,
@@ -515,22 +522,23 @@ CREATE TABLE `Usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `Usuario`
+-- Volcado de datos para la tabla `Usuarios`
 --
 
-INSERT INTO `Usuario` (`idUsuario`, `nombre`, `apellido`, `correo`, `sexo`, `clave`, `nivelAcceso`, `direccion`, `telefono`, `fechaInscripcion`) VALUES
+INSERT INTO `Usuarios` (`idUsuario`, `nombre`, `apellido`, `correo`, `sexo`, `clave`, `nivelAcceso`, `direccion`, `telefono`, `fechaInscripcion`) VALUES
 (33, 'Martin', 'Castillo', 'cbmj@gmail.com', 'Hombre', '$2a$10$yixpKD6j2sTuSThpAUwdAO.nzyeRitpU7cxneQQSuaPD3z3UXsApG', 1, 'bf', 'qwe', '2019-12-07 23:41:14'),
 (34, 'Waskll', 'QWERTY', 'cbmj92@gmail.com', 'Hombre', '$2a$10$mCZTeFJRzEqXiBPxZ405K.gGLjf.YP.y3fBNV64RCMk24Hm96F3y.', 3, 'asd', '67676576', '2019-11-07 23:56:13'),
 (35, 'Rommel', 'Guevara', 'rommel@gmail.com', 'Hombre', '$2a$10$iMAUVL3ZIHgHRMq0qJ/3eOHHQTMeRE.HFLh2o4wYQ/U4OkRUooz7m', 3, '12345', '12345', '2019-12-13 03:07:27'),
-(36, 'Pepe', 'Aguilar', 'pepe@gmail.com', 'Hombre', '$2a$10$UKp8tMOBPR9lViQO99OvvuIvM.4Ag8CH13Um1sXnltCVNK12pLfzu', 3, 'asd', '545345', '2019-12-20 07:29:00');
+(36, 'Pepe', 'Aguilar', 'pepe@gmail.com', 'Hombre', '$2a$10$UKp8tMOBPR9lViQO99OvvuIvM.4Ag8CH13Um1sXnltCVNK12pLfzu', 3, 'asd', '545345', '2019-12-20 07:29:00'),
+(40, 'Elon', 'Musk', 'cbmj00@gmail.com', 'Hombre', '$2a$10$PIcKJVqmKJl.uXBTEIvP0uD.9mnSrMGXCG86Posc5TyP5chhS9DI2', 3, 'USA', '000000', '2020-01-24 18:50:43');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `Venta`
+-- Estructura de tabla para la tabla `Ventas`
 --
 
-CREATE TABLE `Venta` (
+CREATE TABLE `Ventas` (
   `idVenta` int(255) UNSIGNED NOT NULL,
   `id_solicitud` int(255) UNSIGNED NOT NULL,
   `pago` int(255) UNSIGNED NOT NULL,
@@ -538,10 +546,10 @@ CREATE TABLE `Venta` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `Venta`
+-- Volcado de datos para la tabla `Ventas`
 --
 
-INSERT INTO `Venta` (`idVenta`, `id_solicitud`, `pago`, `fecha_pago`) VALUES
+INSERT INTO `Ventas` (`idVenta`, `id_solicitud`, `pago`, `fecha_pago`) VALUES
 (6, 4, 2, '2019-12-14 08:58:45'),
 (7, 3, 3, '2019-12-14 09:16:50'),
 (10, 16, 8, '2019-12-14 20:28:15'),
@@ -560,40 +568,43 @@ INSERT INTO `Venta` (`idVenta`, `id_solicitud`, `pago`, `fecha_pago`) VALUES
 (23, 32, 22, '2020-01-15 20:55:36'),
 (24, 33, 23, '2020-01-15 20:55:38'),
 (25, 34, 24, '2020-01-15 20:56:44'),
-(32, 35, 25, '2020-01-18 14:23:17'),
 (33, 35, 25, '2020-01-18 14:26:03'),
-(34, 36, 26, '2020-01-18 14:26:53');
+(34, 36, 26, '2020-01-18 14:26:53'),
+(35, 37, 27, '2020-01-24 16:03:13'),
+(36, 38, 28, '2020-01-24 16:44:59'),
+(37, 40, 30, '2020-01-24 19:14:13'),
+(38, 41, 31, '2020-01-24 19:43:20');
 
 --
 -- Índices para tablas volcadas
 --
 
 --
--- Indices de la tabla `Automovil`
+-- Indices de la tabla `Automoviles`
 --
-ALTER TABLE `Automovil`
+ALTER TABLE `Automoviles`
   ADD PRIMARY KEY (`idAutomovil`),
   ADD UNIQUE KEY `placa` (`placa`),
   ADD KEY `idCliente` (`idCliente`);
 
 --
--- Indices de la tabla `Banco`
+-- Indices de la tabla `Bancos`
 --
-ALTER TABLE `Banco`
+ALTER TABLE `Bancos`
   ADD PRIMARY KEY (`codbanco`),
   ADD UNIQUE KEY `_nombre` (`_nombre`);
 
 --
--- Indices de la tabla `Bordado`
+-- Indices de la tabla `Bordados`
 --
-ALTER TABLE `Bordado`
+ALTER TABLE `Bordados`
   ADD PRIMARY KEY (`idBordado`),
   ADD UNIQUE KEY `descripcion` (`descripcion`);
 
 --
--- Indices de la tabla `Color`
+-- Indices de la tabla `Colores`
 --
-ALTER TABLE `Color`
+ALTER TABLE `Colores`
   ADD PRIMARY KEY (`idColor`),
   ADD UNIQUE KEY `descripcion` (`descripcion`);
 
@@ -605,48 +616,42 @@ ALTER TABLE `Inventario`
   ADD UNIQUE KEY `id_material` (`id_material`);
 
 --
--- Indices de la tabla `Material`
+-- Indices de la tabla `Materiales`
 --
-ALTER TABLE `Material`
+ALTER TABLE `Materiales`
   ADD PRIMARY KEY (`idMaterial`),
   ADD KEY `color` (`color`),
   ADD KEY `Material_ibfk_2` (`idTipo`);
 
 --
--- Indices de la tabla `Pago`
+-- Indices de la tabla `Pagos`
 --
-ALTER TABLE `Pago`
+ALTER TABLE `Pagos`
   ADD PRIMARY KEY (`idPago`),
   ADD KEY `tipo` (`tipo`),
   ADD KEY `Pago_ibfk_3` (`banco`),
   ADD KEY `Pago_ibfk_1` (`idSoli`);
 
 --
--- Indices de la tabla `Pedido`
+-- Indices de la tabla `Pedidos`
 --
-ALTER TABLE `Pedido`
+ALTER TABLE `Pedidos`
   ADD PRIMARY KEY (`idPedido`),
   ADD KEY `Compra_ibfk_2` (`id_empleado`),
   ADD KEY `Compra_ibfk_1` (`id_proveedor`),
   ADD KEY `Pedido_ibfk_3` (`idproducto`);
 
 --
--- Indices de la tabla `Proceso`
+-- Indices de la tabla `Procesos`
 --
-ALTER TABLE `Proceso`
+ALTER TABLE `Procesos`
   ADD PRIMARY KEY (`idProceso`),
   ADD UNIQUE KEY `descripcion` (`descripcion`);
 
 --
--- Indices de la tabla `Proveedor`
+-- Indices de la tabla `Produccion`
 --
-ALTER TABLE `Proveedor`
-  ADD PRIMARY KEY (`idProveedor`);
-
---
--- Indices de la tabla `Registro`
---
-ALTER TABLE `Registro`
+ALTER TABLE `Produccion`
   ADD PRIMARY KEY (`idReg`),
   ADD KEY `vendedor` (`vendedor`),
   ADD KEY `costurero` (`costurero`),
@@ -657,15 +662,21 @@ ALTER TABLE `Registro`
   ADD KEY `solicitud` (`solicitud`);
 
 --
+-- Indices de la tabla `Proveedores`
+--
+ALTER TABLE `Proveedores`
+  ADD PRIMARY KEY (`idProveedor`);
+
+--
 -- Indices de la tabla `sessions`
 --
 ALTER TABLE `sessions`
   ADD PRIMARY KEY (`session_id`);
 
 --
--- Indices de la tabla `Solicitud`
+-- Indices de la tabla `Solicitudes`
 --
-ALTER TABLE `Solicitud`
+ALTER TABLE `Solicitudes`
   ADD PRIMARY KEY (`idSolicitud`),
   ADD KEY `idUsuario` (`idUsuario`),
   ADD KEY `idVehiculo` (`idVehiculo`),
@@ -704,17 +715,17 @@ ALTER TABLE `tipoUsuario`
   ADD UNIQUE KEY `Descripcion` (`Descripcion`);
 
 --
--- Indices de la tabla `Usuario`
+-- Indices de la tabla `Usuarios`
 --
-ALTER TABLE `Usuario`
+ALTER TABLE `Usuarios`
   ADD PRIMARY KEY (`idUsuario`),
   ADD UNIQUE KEY `correo` (`correo`),
   ADD KEY `nivelAcceso` (`nivelAcceso`);
 
 --
--- Indices de la tabla `Venta`
+-- Indices de la tabla `Ventas`
 --
-ALTER TABLE `Venta`
+ALTER TABLE `Ventas`
   ADD PRIMARY KEY (`idVenta`),
   ADD KEY `id_solicitud` (`id_solicitud`),
   ADD KEY `pago` (`pago`);
@@ -724,22 +735,22 @@ ALTER TABLE `Venta`
 --
 
 --
--- AUTO_INCREMENT de la tabla `Automovil`
+-- AUTO_INCREMENT de la tabla `Automoviles`
 --
-ALTER TABLE `Automovil`
-  MODIFY `idAutomovil` int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+ALTER TABLE `Automoviles`
+  MODIFY `idAutomovil` int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT de la tabla `Bordado`
+-- AUTO_INCREMENT de la tabla `Bordados`
 --
-ALTER TABLE `Bordado`
+ALTER TABLE `Bordados`
   MODIFY `idBordado` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT de la tabla `Color`
+-- AUTO_INCREMENT de la tabla `Colores`
 --
-ALTER TABLE `Color`
-  MODIFY `idColor` int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `Colores`
+  MODIFY `idColor` int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `Inventario`
@@ -748,52 +759,52 @@ ALTER TABLE `Inventario`
   MODIFY `cod` int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT de la tabla `Material`
+-- AUTO_INCREMENT de la tabla `Materiales`
 --
-ALTER TABLE `Material`
-  MODIFY `idMaterial` int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+ALTER TABLE `Materiales`
+  MODIFY `idMaterial` int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
--- AUTO_INCREMENT de la tabla `Pago`
+-- AUTO_INCREMENT de la tabla `Pagos`
 --
-ALTER TABLE `Pago`
-  MODIFY `idPago` int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+ALTER TABLE `Pagos`
+  MODIFY `idPago` int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
--- AUTO_INCREMENT de la tabla `Pedido`
+-- AUTO_INCREMENT de la tabla `Pedidos`
 --
-ALTER TABLE `Pedido`
+ALTER TABLE `Pedidos`
   MODIFY `idPedido` int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT de la tabla `Proceso`
+-- AUTO_INCREMENT de la tabla `Procesos`
 --
-ALTER TABLE `Proceso`
+ALTER TABLE `Procesos`
   MODIFY `idProceso` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT de la tabla `Proveedor`
+-- AUTO_INCREMENT de la tabla `Produccion`
 --
-ALTER TABLE `Proveedor`
-  MODIFY `idProveedor` int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+ALTER TABLE `Produccion`
+  MODIFY `idReg` int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
--- AUTO_INCREMENT de la tabla `Registro`
+-- AUTO_INCREMENT de la tabla `Proveedores`
 --
-ALTER TABLE `Registro`
-  MODIFY `idReg` int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+ALTER TABLE `Proveedores`
+  MODIFY `idProveedor` int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT de la tabla `Solicitud`
+-- AUTO_INCREMENT de la tabla `Solicitudes`
 --
-ALTER TABLE `Solicitud`
-  MODIFY `idSolicitud` int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+ALTER TABLE `Solicitudes`
+  MODIFY `idSolicitud` int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT de la tabla `tipoCostura`
 --
 ALTER TABLE `tipoCostura`
-  MODIFY `idc` int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idc` int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `tipoMaterial`
@@ -814,86 +825,86 @@ ALTER TABLE `tipoUsuario`
   MODIFY `idTipo` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT de la tabla `Usuario`
+-- AUTO_INCREMENT de la tabla `Usuarios`
 --
-ALTER TABLE `Usuario`
-  MODIFY `idUsuario` int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+ALTER TABLE `Usuarios`
+  MODIFY `idUsuario` int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
--- AUTO_INCREMENT de la tabla `Venta`
+-- AUTO_INCREMENT de la tabla `Ventas`
 --
-ALTER TABLE `Venta`
-  MODIFY `idVenta` int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+ALTER TABLE `Ventas`
+  MODIFY `idVenta` int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- Restricciones para tablas volcadas
 --
 
 --
--- Filtros para la tabla `Automovil`
+-- Filtros para la tabla `Automoviles`
 --
-ALTER TABLE `Automovil`
-  ADD CONSTRAINT `Automovil_ibfk_1` FOREIGN KEY (`idCliente`) REFERENCES `Usuario` (`idUsuario`);
+ALTER TABLE `Automoviles`
+  ADD CONSTRAINT `Automoviles_ibfk_1` FOREIGN KEY (`idCliente`) REFERENCES `Usuarios` (`idUsuario`);
 
 --
 -- Filtros para la tabla `Inventario`
 --
 ALTER TABLE `Inventario`
-  ADD CONSTRAINT `Inventario_ibfk_1` FOREIGN KEY (`id_material`) REFERENCES `Material` (`idMaterial`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `Inventario_ibfk_1` FOREIGN KEY (`id_material`) REFERENCES `Materiales` (`idMaterial`) ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `Material`
+-- Filtros para la tabla `Materiales`
 --
-ALTER TABLE `Material`
-  ADD CONSTRAINT `Material_ibfk_1` FOREIGN KEY (`color`) REFERENCES `Color` (`idColor`),
-  ADD CONSTRAINT `Material_ibfk_2` FOREIGN KEY (`idTipo`) REFERENCES `tipoMaterial` (`idTipo`);
+ALTER TABLE `Materiales`
+  ADD CONSTRAINT `Materiales_ibfk_1` FOREIGN KEY (`color`) REFERENCES `Colores` (`idColor`),
+  ADD CONSTRAINT `Materiales_ibfk_2` FOREIGN KEY (`idTipo`) REFERENCES `tipoMaterial` (`idTipo`);
 
 --
--- Filtros para la tabla `Pago`
+-- Filtros para la tabla `Pagos`
 --
-ALTER TABLE `Pago`
-  ADD CONSTRAINT `Pago_ibfk_1` FOREIGN KEY (`idSoli`) REFERENCES `Solicitud` (`idSolicitud`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `Pago_ibfk_2` FOREIGN KEY (`tipo`) REFERENCES `tipoPago` (`idpago`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `Pago_ibfk_3` FOREIGN KEY (`banco`) REFERENCES `Banco` (`codbanco`) ON UPDATE CASCADE;
+ALTER TABLE `Pagos`
+  ADD CONSTRAINT `Pagos_ibfk_1` FOREIGN KEY (`idSoli`) REFERENCES `Solicitudes` (`idSolicitud`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `Pagos_ibfk_2` FOREIGN KEY (`tipo`) REFERENCES `tipoPago` (`idpago`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `Pagos_ibfk_3` FOREIGN KEY (`banco`) REFERENCES `Bancos` (`codbanco`) ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `Pedido`
+-- Filtros para la tabla `Pedidos`
 --
-ALTER TABLE `Pedido`
-  ADD CONSTRAINT `Pedido_ibfk_1` FOREIGN KEY (`id_proveedor`) REFERENCES `Proveedor` (`idProveedor`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `Pedido_ibfk_2` FOREIGN KEY (`id_empleado`) REFERENCES `Usuario` (`idUsuario`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `Pedido_ibfk_3` FOREIGN KEY (`idproducto`) REFERENCES `Material` (`idMaterial`);
+ALTER TABLE `Pedidos`
+  ADD CONSTRAINT `Pedidos_ibfk_1` FOREIGN KEY (`id_proveedor`) REFERENCES `Proveedores` (`idProveedor`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `Pedidos_ibfk_2` FOREIGN KEY (`id_empleado`) REFERENCES `Usuarios` (`idUsuario`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `Pedidos_ibfk_3` FOREIGN KEY (`idproducto`) REFERENCES `Materiales` (`idMaterial`);
 
 --
--- Filtros para la tabla `Registro`
+-- Filtros para la tabla `Produccion`
 --
-ALTER TABLE `Registro`
-  ADD CONSTRAINT `Registro_ibfk_1` FOREIGN KEY (`solicitud`) REFERENCES `Solicitud` (`idSolicitud`) ON UPDATE CASCADE;
+ALTER TABLE `Produccion`
+  ADD CONSTRAINT `Produccion_ibfk_1` FOREIGN KEY (`solicitud`) REFERENCES `Solicitudes` (`idSolicitud`) ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `Solicitud`
+-- Filtros para la tabla `Solicitudes`
 --
-ALTER TABLE `Solicitud`
-  ADD CONSTRAINT `Solicitud_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `Usuario` (`idUsuario`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `Solicitud_ibfk_2` FOREIGN KEY (`idVehiculo`) REFERENCES `Automovil` (`idAutomovil`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `Solicitud_ibfk_4` FOREIGN KEY (`id_material`) REFERENCES `tipoMaterial` (`idTipo`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `Solicitud_ibfk_5` FOREIGN KEY (`id_color`) REFERENCES `Color` (`idColor`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `Solicitud_ibfk_6` FOREIGN KEY (`fase`) REFERENCES `Proceso` (`idProceso`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `Solicitud_ibfk_7` FOREIGN KEY (`id_bordado`) REFERENCES `Bordado` (`idBordado`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `Solicitud_ibfk_8` FOREIGN KEY (`costura`) REFERENCES `tipoCostura` (`idc`) ON UPDATE CASCADE;
+ALTER TABLE `Solicitudes`
+  ADD CONSTRAINT `Solicitudes_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `Usuarios` (`idUsuario`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `Solicitudes_ibfk_2` FOREIGN KEY (`idVehiculo`) REFERENCES `Automoviles` (`idAutomovil`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `Solicitudes_ibfk_4` FOREIGN KEY (`id_material`) REFERENCES `tipoMaterial` (`idTipo`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `Solicitudes_ibfk_5` FOREIGN KEY (`id_color`) REFERENCES `Colores` (`idColor`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `Solicitudes_ibfk_6` FOREIGN KEY (`fase`) REFERENCES `Procesos` (`idProceso`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `Solicitudes_ibfk_7` FOREIGN KEY (`id_bordado`) REFERENCES `Bordados` (`idBordado`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `Solicitudes_ibfk_8` FOREIGN KEY (`costura`) REFERENCES `tipoCostura` (`idc`) ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `Usuario`
+-- Filtros para la tabla `Usuarios`
 --
-ALTER TABLE `Usuario`
-  ADD CONSTRAINT `Usuario_ibfk_1` FOREIGN KEY (`nivelAcceso`) REFERENCES `tipoUsuario` (`idTipo`) ON UPDATE CASCADE;
+ALTER TABLE `Usuarios`
+  ADD CONSTRAINT `Usuarios_ibfk_1` FOREIGN KEY (`nivelAcceso`) REFERENCES `tipoUsuario` (`idTipo`) ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `Venta`
+-- Filtros para la tabla `Ventas`
 --
-ALTER TABLE `Venta`
-  ADD CONSTRAINT `Venta_ibfk_1` FOREIGN KEY (`id_solicitud`) REFERENCES `Solicitud` (`idSolicitud`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `Venta_ibfk_2` FOREIGN KEY (`pago`) REFERENCES `Pago` (`idPago`);
+ALTER TABLE `Ventas`
+  ADD CONSTRAINT `Ventas_ibfk_1` FOREIGN KEY (`id_solicitud`) REFERENCES `Solicitudes` (`idSolicitud`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `Ventas_ibfk_2` FOREIGN KEY (`pago`) REFERENCES `Pagos` (`idPago`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
