@@ -9,10 +9,10 @@ database:{
 }
 */
 database:{
-        host:'b5qqxqh4x0t1phinoi1f-mysql.services.clever-cloud.com',
-        user:'ultivom9o4dxwrcq',
-        password:'jY8hyn9aK3XkCzRAnixq',
-        database:'b5qqxqh4x0t1phinoi1f',
+        host:'bvtjaiwnchumfdpjgxrn-mysql.services.clever-cloud.com',
+        user:'ukqxtbvogba239k8',
+        password:'Zm5so7OS7axy0VcfMYRt',
+        database:'bvtjaiwnchumfdpjgxrn',
         port:3306
 }    
 };
