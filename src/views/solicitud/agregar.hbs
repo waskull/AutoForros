@@ -1,0 +1,99 @@
+<div class="container p-4">
+      <div class="card-deck">
+               <div class="card">
+                    <div class="card-body">
+                        <form action="/solicitud/agregar" method="POST">
+                            <h3 class="card-title">Hacer Solicitud</h3>
+                            <div class="form-group">
+                                <label>Usuario</label>
+                                <select id="usuario" name="idUsuario" class="form-control">
+                                    {{#each usuarios}}
+                                      <option value={{idUsuario}}>{{nombre}} {{apellido}}</option>
+                                    {{/each}}
+                                </select>
+                                <label>Vehiculos</label>
+                                <select id="autos" name="idVehiculo" class="form-control" required>
+                                    {{#each vehiculos}}
+                                      <option value="{{idAutomovil}}">{{placa}} {{marca}} {{modelo}}</option>
+                                    {{/each}}
+                                </select>
+                                <label>Tipo de Material</label>
+                                <select id="id_material" name="id_material" class="form-control">
+                                    {{#each materiales}}
+                                      <option value={{idTipo}}>{{descrip}}</option>
+                                    {{/each}}
+                                </select>
+                                <label>Color</label>
+                                <select id="colores" name="id_color" class="form-control">
+                                    {{#each colores}}
+                                      <option value={{idColor}}>{{descripcion}}</option>
+                                    {{/each}}
+                                </select>
+                                <label>Tipo de Bordado</label>
+                                <select id="id_bordado" name="id_bordado" class="form-control">
+                                    {{#each bordados}}
+                                      <option value={{idBordado}}>{{descripcion}}</option>
+                                    {{/each}}
+                                </select>
+                                <label>Tipo de Costura</label>
+                                <select id="costura" name="costura" class="form-control">
+                                    {{#each costuras}}
+                                      <option value={{idc}}>{{texto}}</option>
+                                    {{/each}}
+                                </select>
+                                <label>Cantidad</label>
+                                <input id="cantidad" type="number" value=1 min=1 name="cantidad" class="form-control" placeholder="Cantidad" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" / required>
+                            </div>
+
+                    </div>
+
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-text text-center">Bordado Seleccionado</h4>
+                <div class="form-group">
+                    <img id="bordado" src="/static/img/logo.png" class="rounded mx-auto d-block w-25" alt="">
+                </div><h4 class="card-text text-center">Producto Estimado</h4>
+                <div class="form-group">
+                    <img id="imgmaterial" src="/static/img/logo.png" class="rounded mx-auto d-block w-50" alt="">
+                </div>
+                <div class="form-group">
+                    <button type="submit" href="/solicitud/agregar" name="button" class="btn btn-outline-success btn-block">Agregar Solicitud</button>
+                </div>
+                <div class="form-group">
+                    <small class="text-center">El pago es 20$ por unidad, por lo que el total a pagar sera: <b class="text-center" id="total">20$</b></small>
+                </div>
+            </div>
+        </div>
+        </form>
+      </div>
+    </div>
+    <script src="/static/js/scripts.js" charset="utf-8"></script>
+    <script type="text/javascript">
+    $(document).ready( function () {
+        $("#autos").empty();
+        $("#colores").empty();
+        getDatos();
+        getColores();
+        totalPago(); 
+        setImagenBordado();
+        setImagenMaterial();
+    });
+    $('#usuario').change(function () {
+        $("#autos").empty();
+        getDatos();
+    });
+    $('#cantidad').change(function(){
+        totalPago();        
+    });
+    $('#id_bordado').change(function () {
+        setImagenBordado();
+    });
+    $('#id_material').change(function () {
+         $("#colores").empty();
+         getColores();
+    });
+    $('#colores').change(function () {
+        setImagenMaterial();
+    });
+    </script>

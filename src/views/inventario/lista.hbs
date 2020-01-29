@@ -1,0 +1,51 @@
+<div class="container-fluid">
+        {{#if inventario}}
+        <div class="mx-auto p-2">
+            <a href="/perfil" class="btn btn-outline-dark btn-block">Volver</a>
+            <a href="/pedido" class="btn btn-primary btn-block">Ir a Pedidos</a>
+            <hr>
+            <h3 class="text-center">Inventario</h3>
+            <table id="tabla" class="table table-sm table-hover table-striped text-center">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Item #</th>
+      <th scope="col">Material</th>
+      <th scope="col">Color</th>
+      <th scope="col">Unidades Disponibles</th>
+    </tr>
+  </thead>
+  <tbody>
+      {{#each inventario}}
+    <tr>
+      <th scope="row">{{cod}}</th>
+      <td>{{descrip}}</td>
+      <td>{{descripcion}}</td>
+      <td>{{cantidadStock}}</td>
+
+      {{/each}}
+    </tr>
+  </tbody>
+</table>
+                        </div>
+
+                        {{else}}
+
+                            <div class="col-md-4 mx-auto">
+                                <div class="card card-body text-center">
+                                    <p>No se ha agregado ningun producto al inventario</p>
+                                </div>
+                                <hr>
+                                {{/if}}
+                            </div>
+
+
+                </div>
+                <script src="/static/js/scripts.js"></script>
+                <script type="text/javascript">
+                $(document).ready( function () {
+                    tabla();
+                } );
+                </script>
+                <link rel="stylesheet" type="text/css" href="/static/css/dataTables.bootstrap4.css">
+                <script type="text/javascript" src="/static/js/jquery.dataTables.min.js"></script>
+                <script type="text/javascript" src="/static/js/dataTables.bootstrap4.min.js"></script>

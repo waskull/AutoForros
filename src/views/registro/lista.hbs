@@ -1,0 +1,66 @@
+<div class="container-fluid">
+    <div class="row mt-5">
+        {{#if registros}}
+        <div class="mx-auto">
+            <a href="/produccion" class="btn btn-outline-primary btn-block">Volver</a>
+            <hr>
+            <table id="tabla" class="table table-bordered table-hover text-center">
+                <h4 class="text-center">Registros</h4>
+                <thead>
+                    <tr>
+
+                        <th>Registro #</th>
+                        <th>Solicitud</th>
+                        <th>Vendedor</th>
+                        <th>Emsamblador</th>
+                        <th>Diseñador</th>
+                        <th>Cortador</th>
+                        <th>Costurero</th>
+                        <th>Bordador</th>
+                        <th>Fecha de Completacion</th>
+                        {{/if}}
+                    </tr>
+                </thead>
+                <tbody>
+                        {{#each registros}}
+
+                        <tr>
+                            <td>{{idReg}}</td>
+                            <td>{{solicitud}}</td>
+                            <td>{{vendedor}}</td>
+                            <td>{{emsamblador}}</td>
+                            <td>{{designer}}</td>
+                            <td>{{cortador}}</td>
+                            <td>{{costurero}}</td>
+                            <td>{{bordador}}</td>
+                            <td>
+                                {{#if fechaMostrar}}
+                                    {{timeago fecha}}
+                                {{/if}}
+                                {{#else}}
+                                <p>GG</p>
+                                {{/else}}
+                            </td>
+                            {{/each}}
+                        </tr>
+                        {{#else}}
+                            <div class="col-md-4 mx-auto">
+                                <div class="card card-body text-center">
+                                    <p>No se ha Registrado Nada aun</p>
+                                </div>
+                            </div>
+                            {{/else}}
+
+                </tbody>
+            </div>
+            </div>
+        </div>
+        <script src="/static/js/scripts.js"></script>
+        <script type="text/javascript">
+        $(document).ready( function () {
+            tabla();
+        } );
+        </script>
+        <link rel="stylesheet" type="text/css" href="/static/css/dataTables.bootstrap4.css">
+        <script type="text/javascript" src="/static/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="/static/js/dataTables.bootstrap4.min.js"></script>

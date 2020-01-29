@@ -1,0 +1,65 @@
+<div class="container-fluid">
+        {{#if proveedor}}
+        <div class="mx-auto p-4">
+            <a href="/proveedor/agregar" class="btn btn-outline-success btn-block">Añadir nuevo proveedor</a>
+            <hr>
+            <table id="tabla" class="table table-hover table-striped text-center">
+              <h4 class="text-center">Proveedores</h4>
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">idProveedor</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Direccion</th>
+      <th scope="col">Telefono</th>
+      <th scope="col">Ciudad</th>
+      <th scope="col">Sector</th>
+      <th scope="col">Operaciones</th>
+
+    </tr>
+  </thead>
+  <tbody>
+      {{#each proveedor}}
+    <tr>
+
+      <th scope="row">{{idProveedor}}</th>
+      <td>{{nombre}}</td>
+      <td>{{direccion}}</td>
+      <td>{{telefono}}</td>
+      <td>{{ciudad}}</td>
+      <td>{{sector}}</td>
+      <td>
+          <a href="/proveedor/editar/{{ idProveedor }}" class="btn btn-success">Editar</a>
+          <a href="/proveedor/borrar/{{ idProveedor }}" class="btn btn-danger">Borrar</a>
+      </td>
+
+      {{/each}}
+    </tr>
+  </tbody>
+</table>
+                        </div>
+
+                        {{else}}
+
+                            <div class="col-md-4 mx-auto">
+                                <div class="card card-body text-center">
+                                    <p>Aun No Ha agregado ningun proveedor</p>
+                                    <a href="/proveedor/agregar" class="btn btn-outline-success">Agregar proveedor</a>
+                                </div>
+                                <hr>
+                                {{/if}}
+                            </div>
+                        <div class="row">
+                            <a href="/perfil " class="mx-auto my-auto btn btn-outline-primary col-md-5">Volver</a>
+                    </div>
+
+
+                </div>
+                <script src="/static/js/scripts.js"></script>
+                <script type="text/javascript">
+                $(document).ready( function () {
+                    tabla();
+                } );
+                </script>
+        <link rel="stylesheet" type="text/css" href="/static/css/dataTables.bootstrap4.css">
+        <script type="text/javascript" src="/static/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="/static/js/dataTables.bootstrap4.min.js"></script>

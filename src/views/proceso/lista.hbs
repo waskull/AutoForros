@@ -1,0 +1,113 @@
+<div class="modal fade" id="modalInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Informacion</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="modalRetraso" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                              <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalCenterTitle">Retraso en la Solicitud</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <p>La Solicitud: #<b>{{idSolicitud}}</b> <p>debio haberse entregado aproximadamente {{fechaTentativa}}</p></p>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+<div class="container-fluid">
+    <div class="row mt-2">
+        {{#if solicitud}}
+        <div class="mx-auto">
+            <a href="/perfil" class="btn btn-outline-info btn-block">Volver</a>
+            <hr>
+            <table id="tabla" class="table table-sm table-bordered table-hover text-justify">
+                <h4 class="text-center">Producción</h4>
+                <thead>
+                    <tr class="table">
+
+                        <th>#</th>
+                        <th>Vehiculo</th>
+                        <th>Estado</th>
+                        <th>Material</th>
+                        <th>Color</th>
+                        <th>Cantidad</th>
+                        <th>Bordado</th>
+                        <th>Costura</th>
+                        <th>Opciones</th>
+                        <th>Cliente</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        {{#each solicitud}}
+                        <tr>
+                            <td>{{idSolicitud}} 
+                                {{#if retraso}} <span class="badge badge-danger" data-toggle="tooltip" data-html="true" href="/procesos/" title="Esta solicitud debio haberse entregado: {{timeago fechaTentativa}}">RETRASO</span> {{/if}}
+                            </td>
+                            <td>{{placa}}</td>
+                            <td>{{fase}}</td>
+                            <td>{{descrip}}</td>
+                            <td>{{descripcion}}</td>
+                            <td>{{cantidad}}</td>
+                            <td>{{bordado}}</td>
+                            <td>{{texto}}</td>
+                            <td>
+                                <div class="col">
+                                    <a href="/produccion/aprobar/{{idSolicitud}}" class="badge badge-success">Completar Tarea</a>
+                                </div>
+                                <div class="col">
+                                    <a id="info" data-toggle="modal" href="/proceso/" data-target="#modalInfo" name="info" class="customm badge badge-info">Mostrar Solicitud</a>
+                                </div>
+                            </td>
+                            <td>{{nombre}} {{apellido}}</td>
+                            {{/each}}
+                        </tr>
+                        {{else}}
+                            <div class="col-md-4 mx-auto">
+                                <div class="card card-body text-center">
+                                    <h5>No Hay Nada que hacer Por Ahora, puedes ir a Holgazanear</h5></a>
+                                </div>
+                            </div>
+                            {{/if}}
+
+                </tbody>
+            </div>
+            </div>
+        </div>
+        <script src="/static/js/scripts.js"></script>
+        <script type="text/javascript">
+        $(document).ready( function () {
+            tabla();
+        });
+        </script>
+        <script type="text/javascript">
+        verDatosProceso("modalAceptar", "custom-modal");verDatosProceso("modalInfo","customm");
+
+        </script>
+        <script type="text/javascript">
+        $('#tabla').on('click', function (e) {
+            verDatosProceso("modalInfo","customm");
+        });
+        </script>
+        <link rel="stylesheet" type="text/css" href="/static/css/dataTables.bootstrap4.css">
+        <script type="text/javascript" src="/static/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="/static/js/dataTables.bootstrap4.min.js"></script>

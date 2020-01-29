@@ -1,0 +1,80 @@
+/*!
+ * Start Bootstrap - Simple Sidebar HTML Template (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+/* Toggle Styles */
+
+table{
+    text-align: justify;
+    text-justify: inter-word;
+    width: 100%;
+    clear: both;
+    border-collapse: collapse;
+    table-layout: fixed; // ***********add this
+    word-wrap:break-word; // ***********and this
+}
+
+th, td { white-space: nowrap; }
+div.dataTables_wrapper {
+    margin: 0 auto;
+}
+
+div.container {
+    width: 80%;
+}
+
+.center-block {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+ }
+
+ td{
+     max-width: 100px;
+     overflow: hidden;
+     text-overflow: ellipsis;
+     white-space: nowrap;
+     font-size: 12px;
+     margin: 0
+     width: 50;
+ }
+
+th{
+    font-size: 12px;
+}
+
+body{
+    background: #f5f6f5;
+    font-family: 'Solway', sans-serif;
+    overflow:auto;
+}
+
+.index{
+    width: 100vw;
+    height: 100vh;
+}
+
+.masthead{
+    color: white;
+    min-height: 30rem;
+    width: 100%;
+    height: 100%;
+    padding-top: 8rem;
+    background: url('/static/img/background.jpg');
+    background-position: center center;
+    background-size: cover;
+}
+
+.masthead h1{
+    font-size: 5rem;
+    margin: 0;
+    padding: 0;
+}
+
+@@media (min-width: 992px) {
+    .masthead h1{
+        font-size: 5.5rem;
+    }
+}

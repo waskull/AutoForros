@@ -1,0 +1,39 @@
+<div class="container p-3">
+    <div class="row">
+        <div class="col-md-5 mx-auto">
+           <div class="card">
+                <div class="card-body">
+                    <form action="/solicitud/pago/  " method="POST">
+                        <div class="form-group">
+                            <h4>Agregar Pago</h4>
+                        </div>
+                        <label>Solicitud #:</label><select class="idSoli" name="idSoli">
+                            <option value="{{idSoli}}">{{idSoli}}</option>
+                        </select>
+                        <br>
+                        <label>Banco</label><select name="banco" class="form-control">
+                            {{#each banco}}
+                              <option value="{{codbanco}}">{{_nombre}}</option>
+                            {{/each}}
+                        </select>
+                        <label>Metodo de Pago</label><select name="tipo" class="form-control">
+                            {{#each pago}}
+                              <option value="{{idpago}}">{{descPago}}</option>
+                            {{/each}}
+                        </select>
+                        <div class="form-group">
+                            <label>Numero de Referencia</label><input value="" type="text"  class="form-control" name="referencia" placeholder="Numero de Deposito o Transferencia">
+                        </div>
+                        <div class="form-group">
+                            <label>Monto</label><input value="" type="number"  class="form-control" name="monto" placeholder="monto">
+                            <small>El monto debe ser introducidos en dolares</small>
+                        </div>
+                        <div class="form-group">
+                              <button class="btn btn-success btn-block" type="submit">Agregar Pago</button>
+                        </div>
+                    </form>
+                </div>
+           </div>
+        </div>
+    </div>
+</div>

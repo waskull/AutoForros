@@ -1,0 +1,59 @@
+<div class="container">
+        {{#if material}}
+        <div class="mx-auto p-2">
+            <a href="/perfil" class="btn btn-outline-primary btn-block">Volver</a>
+            <a href="/material/agregar" class="btn btn-outline-success btn-block">Añadir nuevo Material</a>
+            <hr>
+
+            <table id="tabla" class="table table-sm table-hover table-striped text-center">
+              <h4 class="text-center">Materiales Registrados</h4>
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Tipo</th>
+      <th scope="col">Color</th>
+      <th scope="col">Imagen</th>
+      <th scope="col">Operaciones</th>
+
+    </tr>
+  </thead>
+  <tbody>
+      {{#each material}}
+    <tr>
+      <th scope="row">{{idMaterial}}</th>
+      <td>{{descrip}}</td>
+      <td>{{descripcion}}</td>
+      <td><img src="/static/img/{{url_img}}" alt="img" class="img-thumbnail w-25"></td>
+
+      <td>
+          <a href="/material/borrar/{{ idMaterial }}" class="btn btn-danger">Borrar</a>
+      </td>
+
+      {{/each}}
+    </tr>
+  </tbody>
+</table>
+                        </div>
+
+                        {{else}}
+
+                            <div class="col-md-4 mx-auto">
+                                <div class="card card-body text-center">
+                                    <p>Aun No Has agregado ningun Material</p>
+                                    <a href="/material/agregar" class="btn btn-outline-success">Agregar Material</a>
+                                </div>
+                                <hr>
+                                {{/if}}
+                            </div>
+
+
+                </div>
+                <script src="/static/js/scripts.js"></script>
+                <script type="text/javascript">
+                $(document).ready( function () {
+                    tabla();
+                } );
+                </script>
+                <link rel="stylesheet" type="text/css" href="/static/css/dataTables.bootstrap4.css">
+                <script type="text/javascript" src="/static/js/jquery.dataTables.min.js"></script>
+                <script type="text/javascript" src="/static/js/dataTables.bootstrap4.min.js"></script>

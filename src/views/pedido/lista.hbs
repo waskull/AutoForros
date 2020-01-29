@@ -1,0 +1,58 @@
+<div class="container">
+        {{#if pedido}}
+        <div class="mx-auto p-2">
+            <a href="/perfil" class="btn btn-outline-primary btn-block">Regresar</a>
+            <a href="/pedido/agregar" class="btn btn-outline-success btn-block">Añadir nuevo Pedido</a>
+            <hr>
+
+            <table id="tabla" class="table table-hover table-striped text-center">
+              <h4 class="text-center">Pedidos</h4>
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Solicitador</th>
+      <th scope="col">Proveedor</th>
+      <th scope="col">Producto</th>
+      <th scope="col">Cantidad</th>
+      <th scope="col">Costo</th>
+      <th scope="col">Fecha</th>
+    </tr>
+  </thead>
+  <tbody>
+      {{#each pedido}}
+    <tr>
+      <th scope="row">{{idPedido}}</th>
+      <td>{{nombre}} {{apellido}}</td>
+      <td>{{proveedor}}</td>
+      <td>{{descrip}} {{descripcion}}</td>
+      <td>{{cantidad}}</td>
+      <td>${{costo}}</td>
+      <td>{{timeago fecha}}</td>
+      {{/each}}
+    </tr>
+  </tbody>
+</table>
+                        </div>
+
+                        {{else}}
+
+                            <div class="col-md-4 mx-auto">
+                                <div class="card card-body text-center">
+                                    <p>Aun No Has realizado ningun pedido</p>
+                                    <a href="/pedido/agregar" class="btn btn-outline-success">Registrar</a>
+                                </div>
+                                <hr>
+                                {{/if}}
+                            </div>
+
+
+                </div>
+                <script src="/static/js/scripts.js"></script>
+                <script type="text/javascript">
+                $(document).ready( function () {
+                    tabla();
+                } );
+            </script>
+            <link rel="stylesheet" type="text/css" href="/static/css/dataTables.bootstrap4.css">
+            <script type="text/javascript" src="/static/js/jquery.dataTables.min.js"></script>
+            <script type="text/javascript" src="/static/js/dataTables.bootstrap4.min.js"></script>

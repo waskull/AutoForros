@@ -1,0 +1,60 @@
+  <link href="/static/css/simple-sidebar.css" rel="stylesheet">
+<body>
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">Menu Principal</div>
+      <div class="list-group list-group-flush">
+        <a href="/perfil" class="list-group-item list-group-item-action bg-light">Dashboard</a>
+        <a href="/vehiculos" class="list-group-item list-group-item-action bg-light">Mis Vehiculos</a>
+        <a href="/solicitud/agregar" class="list-group-item list-group-item-action bg-light">Hacer Solicitud</a>
+        <a href="/solicitud" class="list-group-item list-group-item-action bg-light">Ver Solicitudes</a>
+        <a href="/logout" class="list-group-item list-group-item-action bg-light">Salir</a>
+      </div>
+    </div>
+    <div id="page-content-wrapper">
+      <div class="container-fluid p-3">
+                <div class="col-xl-3 col-sm-6 mb-3">
+            <div class="card text-white bg-success o-hidden h-100">
+              <div class="card-body">
+                <div class="card-body-icon">
+                  <i class="fas fa-fw fa-shopping-cart"></i>
+                </div>
+                <div class="mr-4">{{solicitudes}} Solicitudes Hechas!</div>
+              </div>
+              <a class="card-footer text-white clearfix small z-1" href="/solicitud">
+                <span class="float-left">Ir a Solicitudes</span>
+                <span class="float-right">
+                  <i class="fas fa-angle-right"></i>
+                </span>
+              </a>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6 mb-3">
+            <div class="card text-white bg-danger o-hidden h-100">
+              <div class="card-body">
+                <div class="card-body-icon">
+                  <i class="fas fa-fw fa-life-ring"></i>
+                </div>
+                <div class="mr-5">{{vehiculos}} Vehiculos Registrados </div>
+              </div>
+              <a class="card-footer text-white clearfix small z-1" href="/vehiculos">
+                <span class="float-left">Ver Vehiculos</span>
+                <span class="float-right">
+                  <i class="fas fa-angle-right"></i>
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>   
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    $("#sidebarToggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>

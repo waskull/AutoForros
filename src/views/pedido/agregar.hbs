@@ -1,0 +1,57 @@
+<div class="container p-4">
+    <div class="form-group">
+        <a href="/pedido" class="btn btn-primary btn-block">Volver</a>
+    </div>
+    <hr>
+    <form action="/pedido/agregar" method="POST">
+        <div class="form-group">
+            <label>Proveedor</label>
+            <select name="proveedor" class="form-control" required>
+                {{#each proveedor}}
+                  <option>{{nombre}}</option>
+                {{/each}}
+            </select>
+        </div>
+        <div class="form-group">
+            {{log producto}}
+            <label>Producto</label>
+            <select name="idproducto" class="form-control" required>
+                {{#each producto}}
+                  <option value="{{idMaterial}}">{{descrip}} {{descripcion}}</option>
+                {{/each}}
+            </select>
+        </div>
+        <div class="form-group">
+            <input value="" type="number" step="1" class="form-control" name="cantidad"  placeholder="Cantidad" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" required>
+        </div>
+        <div class="form-group">
+            <input value="" type="number" step="0.01" class="form-control" name="costo"  placeholder="Costo en Dolares" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" required>
+        </div>
+        <hr>
+        <button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#exampleModalCenter">Hacer Pedido</button>
+        </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Por favor Confirme</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+         <p>{{user.nombre}}, deseas registrar este pedido?, una vez hecho no podras volver atras</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button submit"  class="btn btn-primary">Registrar Pedido</button>
+      </div>
+    </div>
+  </div>
+</div>
+    </form>
+
+</div>

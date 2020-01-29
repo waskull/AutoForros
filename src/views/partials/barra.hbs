@@ -1,0 +1,116 @@
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/perfil">
+      <i class="fas fa-link" id="sidebarToggle" ></i> AutoForros
+    </a>
+    <button id="sidebarToggle" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        {{#if user}}
+        <!-- 
+
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span class="text-white">Usuarios</span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+        <h6 class="dropdown-header">Usuarios</h6>
+        <a class="dropdown-item" href="/usuarios">Lista Usuarios</a>
+        <a class="dropdown-item" href="/usuarios/Agregar">Agregar Usuario</a>
+        <div class="dropdown-menu" aria-labelledby="pagesDropdown"></div>
+        <div class="dropdown-divider"></div>
+        <h6 class="dropdown-header">Vehiculos</h6>
+        <a class="dropdown-item" href="/vehiculos">Lista de Vehiculos</a>
+        <a class="dropdown-item" href="/vehiculos/Agregar">Agregar Vehiculos</a>
+          <div class="dropdown-divider"></div>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span class="text-white">Inventario</span class="text-white">
+        </a>
+        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+        <h6 class="dropdown-header">Inventario</h6>
+          <a class="dropdown-item" href="/inventario">Ver Inventario</a>
+          <a class="dropdown-item" href="/pedido/">Ver Pedidos</a>
+          <a class="dropdown-item" href="/pedido/agregar">Registrar Pedido</a>
+        <div class="dropdown-menu" aria-labelledby="pagesDropdown"></div>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span class="text-white">Materiales</span class="text-white">
+        </a>
+        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+        <h6 class="dropdown-header">Materiales</h6>
+        <a class="dropdown-item" href="/material">Ver Materiales</a>
+        <a class="dropdown-item" href="/material/agregar">Agregar Materiales</a>
+        <a class="dropdown-item" href="/material/agregarColor">Agregar Color</a>
+        <div class="dropdown-divider"></div>
+         <h6 class="dropdown-header">Tipos de Costura</h6>
+        <a class="dropdown-item" href="/material/costura">Ver Materiales</a>
+        <a class="dropdown-item" href="/material/costura/agregar">Agregar Materiales</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span class="text-white">Proveedores</span class="text-white">
+        </a>
+        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+        <h6 class="dropdown-header">Proveedores</h6>
+          <a class="dropdown-item" href="/proveedor">Proveedores</a>
+          <a class="dropdown-item" href="/proveedor/Agregar">Agregar Proveedor</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span class="text-white">Solicitudes</span class="text-white">
+        </a>
+        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+        <h6 class="dropdown-header">Solicitudes</h6>
+          <a class="dropdown-item" href="/solicitud">Solicitudes</a>
+          <a class="dropdown-item" href="/solicitud/Agregar">Agregar Solicitud</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/venta">
+          <span class="text-white">Ventas</span class="text-white"></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/reg">
+          <span class="text-white">Procesos</span class="text-white"></a>
+      </li>
+      -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+          {{user.nombre}} {{user.apellido}}</a>
+          <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
+            <h6 class="dropdown-header">Tipo: {{user.Descripcion}}</h6>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/usuarios/editar/{{user.idUsuario}}">Editar Datos</a>
+
+            <a class="dropdown-item" href="/solicitud/">Ver Solicitudes</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/logout">Salir</a>
+          </div>
+        </li>
+        {{else}}
+        <li class="nav-item">
+          <a class="nav-link" href="/registro">Registro</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/login">Login</a>
+        </li>
+        {{/if}}
+      </ul>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript" src="/static/js/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="/static/js/popper.min.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>

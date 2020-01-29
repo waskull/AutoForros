@@ -1,0 +1,54 @@
+<div class="container">
+        {{#if tipoCostura}}
+        <div class="mx-auto p-2">
+            <a href="/perfil/" class="btn btn-outline-primary btn-block">Volver</a>
+            <a href="/material/costura/agregar" class="btn btn-outline-success btn-block">Añadir nueva Costura</a>
+            <hr>
+
+            <table id="tabla" class="table table-sm table-hover table-striped text-center">
+              <h4 class="text-center">Tipos de Costura</h4>
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Tipo</th>
+      <th scope="col">Operaciones</th>
+
+    </tr>
+  </thead>
+  <tbody>
+      {{#each tipoCostura}}
+    <tr>
+      <th scope="row">{{idc}}</th>
+      <td>{{texto}}</td>
+      <td>
+          <a href="/material/costura/borrar/{{ idc }}" class="btn btn-danger">Borrar</a>
+      </td>
+
+      {{/each}}
+    </tr>
+  </tbody>
+</table>
+                        </div>
+
+                        {{else}}
+
+                            <div class="col-md-4 mx-auto">
+                                <div class="card card-body text-center">
+                                    <p>Aun No Has agregado ninguna Costura</p>
+                                    <a href="/material/costura/agregar" class="btn btn-outline-success">Agregar Material</a>
+                                </div>
+                                <hr>
+                                {{/if}}
+                            </div>
+
+
+                </div>
+                <script src="/static/js/scripts.js"></script>
+                <script type="text/javascript">
+                $(document).ready( function () {
+                    tabla();
+                } );
+                </script>
+                <link rel="stylesheet" type="text/css" href="/static/css/dataTables.bootstrap4.css">
+                <script type="text/javascript" src="/static/js/jquery.dataTables.min.js"></script>
+                <script type="text/javascript" src="/static/js/dataTables.bootstrap4.min.js"></script>

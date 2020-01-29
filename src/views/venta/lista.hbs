@@ -1,0 +1,62 @@
+<div class="container-fluid">
+        {{#if ventas}}
+        <div class="mx-auto p-2">
+            <a href="/perfil" class="btn btn-outline-primary btn-block">Volver</a>
+            <hr>
+            <h3 class="text-center">Ventas</h3>
+            <table id="tabla" class="table table-sm table-hover table-striped text-center">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Venta #</th>
+      <th scope="col">ID Solicitud</th>
+      <th scope="col">Cliente</th>
+      <th scope="col">ID de Pago</th>
+      <th scope="col">Banco</th>
+      <th scope="col">Metodo de Pago</th>
+      <th scope="col">Referencia</th>
+      <th scope="col">Cantidad</th>
+      <th scope="col">Monto</th>
+      <th scope="col">Fecha</th>
+    </tr>
+  </thead>
+  <tbody>
+      {{#each ventas}}
+    <tr>
+      <th scope="row">{{idVenta}}</th>
+      <td>{{id_solicitud}}</td>
+      <td>{{nombre}} {{apellido}}</td>
+      <td>{{pago}}</td>
+      <td>{{_nombre}}</td>
+      <td>{{descPago}}</td>
+      <td>{{referencia}}</td>
+      <td>{{cantidad}}</td>
+      <td>{{monto}}</td>
+      <td>{{timeago fecha_pago}}</td>
+
+      {{/each}}
+    </tr>
+  </tbody>
+</table>
+                        </div>
+
+                        {{else}}
+
+                            <div class="col-md-4 mx-auto">
+                                <div class="card card-body text-center">
+                                    <p>No se ha concretado ninguna venta aun</p>
+                                </div>
+                                <hr>
+                                {{/if}}
+                            </div>
+
+
+                </div>
+                <script src="/static/js/scripts.js"></script>
+                <script type="text/javascript">
+                $(document).ready( function () {
+                    tabla();
+                } );
+                </script>
+                <link rel="stylesheet" type="text/css" href="/static/css/dataTables.bootstrap4.css">
+                <script type="text/javascript" src="/static/js/jquery.dataTables.min.js"></script>
+                <script type="text/javascript" src="/static/js/dataTables.bootstrap4.min.js"></script>

@@ -1,0 +1,56 @@
+<div class="container-fluid">
+    <div class="row mt-4">
+        {{#if vehiculos}}
+        <div class="mx-auto">
+            <a href="/perfil " class="mx-auto my-auto btn btn-primary btn-block">Volver</a>
+            <a href="/vehiculos/agregar" class="btn btn-outline-success btn-block">Añadir nuevo vehiculo</a>
+            <hr>
+            <table id="tabla" class="table table-bordered table-sm">
+  <thead class="thead-dark">
+    <tr class="text-center">
+      <th scope="col">Placa</th>
+      <th scope="col">Dueño</th>
+      <th scope="col">Marca</th>
+      <th scope="col">Modelo</th>
+      <th scope="col">Año</th>
+      <th scope="col">Operaciones</th>
+
+    </tr>
+  </thead>
+  <tbody>
+      {{#each vehiculos}}
+
+    <tr>
+      <th scope="row">{{placa}}</th>
+      <td>{{nombre}} {{apellido}}</td>
+      <td>{{marca}}</td>
+      <td>{{modelo}}</td>
+      <td class="text-center">{{year}}</td>
+      <td>
+          <a href="/vehiculos/editar/{{ idAutomovil }}" class="btn btn-success">Editar</a>
+          <a href="/vehiculos/borrar/{{ idAutomovil }}" class="btn btn-danger">Borrar</a>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+                        </div>
+                        {{else}}
+                            <div class="col-md-4 mx-auto">
+                                <div class="card card-body text-center">
+                                    <p>Aun No Ha agregado ningun vehiculo</p>
+                                    <a href="/vehiculos/agregar" class="btn btn-outline-success">Agregar vehiculo</a>
+                                </div>
+                            </div>{{/if}}
+
+                </div>
+</div>
+<script src="/static/js/scripts.js"></script>
+<script type="text/javascript">
+$(document).ready( function () {
+    tabla();
+} );
+</script>
+<link rel="stylesheet" type="text/css" href="/static/css/dataTables.bootstrap4.css">
+<script type="text/javascript" src="/static/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/static/js/dataTables.bootstrap4.min.js"></script>

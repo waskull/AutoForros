@@ -1,0 +1,30 @@
+<div class="container p-4">
+    <div class="row">
+        <div class="col-md-5 mx-auto">
+           <div class="card">
+                <div class="card-body">
+                    <form action="/material/editar/{{material.idMaterial}}" method="POST">
+                        <div class="form-group">
+                            <h4>Editar Material</h4>
+                        </div>
+                        <label>Tipo de Material</label>
+                        <select name="idTipo" class="form-control">
+                            {{#each tipo}}
+                              <option value={{idTipo}}>{{descrip}}</option>
+                            {{/each}}
+                        </select>
+                        <label>Color</label>
+                        <select name="color" class="form-control">
+                            {{#each color}}
+                              <option value={{idColor}}>{{descripcion}}</option>
+                            {{/each}}
+                        </select>
+                        <div class="form-group">
+                              <button class="btn btn-success btn-block" type="submit">Editar Proveedor</button>
+                        </div>
+                    </form>
+                </div>
+           </div>
+        </div>
+    </div>
+</div>
