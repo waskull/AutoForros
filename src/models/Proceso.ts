@@ -1,4 +1,4 @@
 export default class Proceso{
-	idProceso:number,
-	descripcion:string
+	idProceso:number;
+	descripcion:string;
 }

@@ -1,4 +1,4 @@
 export default class tipoMaterial{
-	idTipo:number,
-	descrip:string
+	idTipo:number;
+	descrip:string;
 }
