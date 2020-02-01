@@ -274,7 +274,7 @@ let verDatosUsuario = function (modal, custom){
 }
 
 let verDatosProceso = function (modal, custom){
-    var id,placa,estado,material,color,nombre,costura,bordado,cantidad,fecha,metodo,referencia;
+    var id,placa,estado,material,color,nombre,costura,bordado,cantidad,fecha,fechaTentativa,metodo,referencia;
     $('.'+custom).click(function(e){
         id = $(this).parents('tr').find("td:eq(0)").text();
         placa = $(this).parents('tr').find("td:eq(1)").text();
@@ -285,6 +285,7 @@ let verDatosProceso = function (modal, custom){
         costura = $(this).parents('tr').find("td:eq(7)").text();
         cantidad = $(this).parents('tr').find("td:eq(5)").text();
         nombre = $(this).parents('tr').find("td:eq(9)").text();
+        fechaTentativa = $(this).parents('tr').find("td:eq(10)").text();
         e.preventDefault();
         var mymodal = $('#'+modal);
         var html = '  <b>'+'Solicitud #: </b>'+id+'<br>';
@@ -296,6 +297,7 @@ let verDatosProceso = function (modal, custom){
         html += '  <b>'+'Costura: </b>'+costura+'<br>';
         html += '  <b>'+'Cantidad: </b>'+cantidad+'<br>';
         html += '  <b>'+'Cliente: </b>'+nombre+'<br>';
+        html += '  <b>'+'Fecha Tentativa: </b>'+fechaTentativa+'<br>';
         mymodal.find('.modal-body').html(html);
         mymodal.modal('show');
     });

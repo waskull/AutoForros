@@ -34,9 +34,9 @@ class Produccion{
 
                     var fechaTentativa = new Date(solicitud[i].fechaTentativa);
                     var fechaActual = new Date();
-                    fechaActual.setHours(fechaActual.getHours()-solicitud[i].eta);
+                    //fechaActual.setHours(fechaActual.getHours()-solicitud[i].eta);
                     if(fechaActual >= fechaTentativa){
-                        console.log("La Solicitud: "+solicitud[i].idSolicitud +" esta retrasada"+fechaTentativa+" "+fechaActual+" "+fechaActual);
+                        console.log("La Solicitud: "+solicitud[i].idSolicitud +" esta retrasada"+fechaTentativa+" "+fechaActual);
                         solicitud[i].retraso = true;
                     }
                 }
@@ -68,7 +68,6 @@ class Produccion{
     public lista = async (req:any,res:any) => {
         if(isAdmin(req.user)){
             const solicitud = await this.listaFiltrada();
-            console.log(solicitud);
             res.render('proceso/lista',{solicitud});
         }
         else if (isEmsamblador(req.user)){

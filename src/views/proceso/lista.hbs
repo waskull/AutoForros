@@ -55,6 +55,7 @@
                         <th>Costura</th>
                         <th>Opciones</th>
                         <th>Cliente</th>
+                        <th>Fecha Entrega</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -82,6 +83,7 @@
                                 </div>
                             </td>
                             <td>{{nombre}} {{apellido}}</td>
+                            <td>{{timeago fechaTentativa}}</td>
                             {{/each}}
                         </tr>
                         {{else}}
