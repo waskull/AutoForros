@@ -150,10 +150,12 @@ function table(tabla) {
 const getDatos = function () {
     const URI = '/vehiculos/usuario';
     var user = $('#usuario').children("option:selected").val();
+    console.log(user);
     $.ajax({
         url:`${URI}/${user}`,
         type: 'GET',
         success: function (vehiculos){
+            //console.log(vehiculos);
             vehiculos.forEach(vehiculo => {
                 $('#autos').append(`<option value="${vehiculo.idAutomovil}">${vehiculo.placa} ${vehiculo.marca} ${vehiculo.modelo}</option>`);
             });

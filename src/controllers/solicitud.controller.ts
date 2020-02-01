@@ -218,7 +218,7 @@ class Solicitud{
             const idSoli = id.id;
             const banco = await this.modelSolicitud.getBancos();
             const pago = await this.modelPago.getTipos();
-            if(isAdmin(req.user)){
+            if(isAdmin(req.user) || isVendedor(req.user) ){
                 const usuario = await this.modelSolicitud.getUsuario(idSoli);
                 if(usuario.length==0){
                     res.redirect('/solicitud/');
