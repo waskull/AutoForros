@@ -102,7 +102,8 @@ class Produccion{
         const id = req.params.id;
         const estadoActual = await this.ModelProduccion.getFase(id);
         if (isEmsamblador(req.user)){
-            if(estadoActual[0].fase != 4 || estadoActual[0].fase != 9){
+            if(estadoActual[0].fase < 4 || estadoActual[0].fase > 9){
+                console.log("xd "+estadoActual[0].fase); 
                 res.redirect('/produccion/');
             }
             else{
