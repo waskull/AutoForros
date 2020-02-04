@@ -77,6 +77,9 @@ class ModelProduccion{
     public getInfoUsuario = async(id:number) => {
         return await pool.query("SELECT nombre,apellido,correo FROM Usuarios Where idUsuario = ?",[id]);
     }
+    public getInfoSolicitud = async(id:number) =>{
+        return await pool.query("SELECT Solicitudes.cantidad,id_material,id_color,descrip as material,descripcion as color FROM Solicitudes,tipoMaterial,Colores Where idSolicitud=? and Solicitudes.id_color=Colores.idColor and Solicitudes.id_material=tipoMaterial.idTipo",[id]);
+    }
 }
 
 export default ModelProduccion;

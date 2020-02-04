@@ -85,9 +85,12 @@
                                       </div>
                                     </div>                                    </form>
                                     <form action="/solicitud/cancelar/{{idSolicitud}}" method="GET">
+                                        <!--Para recuperar pagos en Admins/gerentes quitar el if-->
+                                        {{#if isVendedor}}
                                         <div class="row">
                                             <a id="pago" name="pago" href="/solicitud/pago/{{ idSolicitud }}" class="badge badge-success mx-auto">Registrar Pago</a>
                                         </div>
+                                        {{/if}}
                                         <div class="row">
                                             <a id="cancelar" name="cancelar" href="/solicitud/cancelar/{{ idSolicitud }}" data-toggle="modal" data-target="#modalCancelar" class="mx-auto modalCancel badge badge-danger">Cancelar Solicitud</a>
                                         </div>

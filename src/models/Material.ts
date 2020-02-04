@@ -100,6 +100,9 @@ class ModelMaterial{
     public getColorByMaterial = async (idMaterial:number) =>{
         return await pool.query("SELECT Materiales.color,Colores.descripcion FROM Colores,Materiales,tipoMaterial Where Materiales.idTipo=? and Materiales.idTipo=tipoMaterial.idTipo and Materiales.color=Colores.idColor",[idMaterial]);
     }
+    public getIdMaterialByTipoAndColor = async (material:number,color:number) =>{
+        return await pool.query("SELECT idMaterial FROM Materiales Where idTipo=? and color=?",[material,color]);
+    }
 }
 
 export default ModelMaterial;

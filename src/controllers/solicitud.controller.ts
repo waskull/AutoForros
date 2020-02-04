@@ -87,7 +87,7 @@ class Solicitud{
                     var fechaActual = new Date();
                     fechaActual.setHours(fechaActual.getHours()-solicitud[i].eta);
                     if(fechaActual >= fechaTentativa){
-                        console.log("La Solicitud: "+solicitud[i].idSolicitud +" esta retrasada"+fechaTentativa+" "+fechaActual+" "+fechaActual);
+                        //console.log("La Solicitud: "+solicitud[i].idSolicitud +" esta retrasada"+fechaTentativa+" "+fechaActual+" "+fechaActual);
                         solicitud[i].retraso = true;
                     }
                 }
@@ -112,6 +112,8 @@ class Solicitud{
             var i=0;
             solicitud.forEach(function() {
                 solicitud[i].estado = (solicitud[i].fase == 'Esperando confirmacion de Pago');
+                //comentar para recuperar el pago con administrador y gerentes comentar solo la linea de abajo
+                solicitud[i].isVendedor = isVendedor(req.user);
                 i++;
             });
             res.render('solicitud/lista', {solicitud});
@@ -122,7 +124,7 @@ class Solicitud{
             const materiales = await this.modelSolicitud.getTipoMateriales();
             const colores = await this.modelSolicitud.getColores();
             const costuras = await this.modelSolicitud.getCosturas();
-            if(isAdmin(req.user) || req.user.Descripcion.toString().trim() == 'Vendedor'){
+            if(isAdmin(req.user) || isVendedor(req.user)){
                 const usuarios = await this.modelSolicitud.getUsuarios();
                 const vehiculos = await this.modelSolicitud.getVehiculos();
                 res.render('solicitud/agregar', {usuarios, vehiculos, bordados, materiales, colores,costuras});

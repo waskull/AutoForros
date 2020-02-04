@@ -1,4 +1,6 @@
 import ModelProduccion from '../models/Produccion';
+import ModelInventario from '../models/Inventario';
+import ModelMaterial from '../models/Material';
 import {isAdmin,isUsuario,isEmsamblador,isBordador,isCortador,isCosturero,isDesigner,isVendedor,isGerente} from '../lib/helpers';
 import NodeMailer from '../lib/nodemailer';
 
@@ -165,10 +167,24 @@ class Produccion{
                 res.redirect('/produccion/');
             }
             else{
-                await this.ModelProduccion.subirFase(id);
-                await this.ModelProduccion.setDesigner(req.user.nombre+" "+req.user.apellido,id);
-                req.flash('success', 'El forro ahora esta en fase de Corte');
-                res.redirect('/produccion/');
+                //AQUI VA LA VAINA
+                const solicitud = await this.ModelProduccion.getInfoSolicitud(req.params.id);
+                const MI = new ModelInventario();
+                const MM = new ModelMaterial();
+                const idMaterial = await MM.getIdMaterialByTipoAndColor(solicitud[0].id_material,solicitud[0].id_color);
+                const checkCantidad = await MI.getMaterialById(idMaterial[0].idMaterial);
+                if(checkCantidad[0].cantidad > 0 && checkCantidad[0].cantidad>=solicitud[0].cantidad){
+                    await MI.subtractionMaterial(idMaterial[0].idMaterial,solicitud[0].cantidad);
+                    await this.ModelProduccion.subirFase(id);
+                    await this.ModelProduccion.setDesigner(req.user.nombre+" "+req.user.apellido,id);
+                    req.flash('success', 'El forro ahora esta en fase de Corte');
+                    res.redirect('/produccion/');
+                }
+                else{
+                    req.flash('message', 'Ya no queda '+solicitud[0].material+' '+solicitud[0].color+' en el inventario, pidele al encargado que realize un pedido');
+                    res.redirect('/produccion/');
+                }
+                
             }
         }
         else if(isAdmin(req.user)){
@@ -179,10 +195,22 @@ class Produccion{
                 res.redirect('/produccion/');
             }
             else if(estadoActual[0].fase == 5){
-                await this.ModelProduccion.setDesigner(req.user.nombre+" "+req.user.apellido,id);
-                await this.ModelProduccion.subirFase(id);
-                req.flash('success', 'El forro ahora esta en fase de Corte');
-                res.redirect('/produccion/');
+                const solicitud = await this.ModelProduccion.getInfoSolicitud(req.params.id);
+                const MI = new ModelInventario();
+                const MM = new ModelMaterial();
+                const idMaterial = await MM.getIdMaterialByTipoAndColor(solicitud[0].id_material,solicitud[0].id_color);
+                const checkCantidad = await MI.getMaterialById(idMaterial[0].idMaterial);
+                if(checkCantidad[0].cantidad > 0 && checkCantidad[0].cantidad>=solicitud[0].cantidad){
+                    await MI.subtractionMaterial(idMaterial[0].idMaterial,solicitud[0].cantidad);
+                    await this.ModelProduccion.subirFase(id);
+                    await this.ModelProduccion.setDesigner(req.user.nombre+" "+req.user.apellido,id);
+                    req.flash('success', 'El forro ahora esta en fase de Corte');
+                    res.redirect('/produccion/');
+                }
+                else{
+                    req.flash('message', 'Ya no queda '+solicitud[0].material+' '+solicitud[0].color+' en el inventario, pidele al encargado que realize un pedido');
+                    res.redirect('/produccion/');
+                }
             }
             else if(estadoActual[0].fase == 6){
                 await this.ModelProduccion.setCortador(req.user.nombre+" "+req.user.apellido,id);
