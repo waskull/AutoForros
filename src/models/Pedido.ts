@@ -55,7 +55,7 @@ class ModelPedido{
         return nuevoProducto;
     }
     public lista = async () =>{
-        this.pedidos = await pool.query('SELECT idPedido, Usuario.nombre, Proveedores.nombre as proveedor, Usuario.apellido, Colores.descripcion, tipoMaterial.descrip, cantidad, costo, fecha FROM Pedidos,Usuario,Proveedores,Materiales,Colores, tipoMaterial  Where id_empleado = idUsuario and id_proveedor = idProveedor and idproducto = idMaterial and Colores.idColor = Materiales.color and tipoMaterial.idTipo = Materiales.idTipo');
+        this.pedidos = await pool.query('SELECT idPedido, Usuarios.nombre, Proveedores.nombre as proveedor, Usuarios.apellido, Colores.descripcion, tipoMaterial.descrip, cantidad, costo, fecha FROM Pedidos,Usuarios,Proveedores,Materiales,Colores, tipoMaterial  Where id_empleado = idUsuario and id_proveedor = idProveedor and idproducto = idMaterial and Colores.idColor = Materiales.color and tipoMaterial.idTipo = Materiales.idTipo');
         return this.pedidos;
     };
     

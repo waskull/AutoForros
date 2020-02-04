@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 29-01-2020 a las 05:18:21
+-- Tiempo de generación: 03-02-2020 a las 20:51:26
 -- Versión del servidor: 10.4.11-MariaDB-1:10.4.11+maria~bionic
 -- Versión de PHP: 7.4.2
 
@@ -118,8 +118,16 @@ CREATE TABLE `Colores` (
 --
 
 INSERT INTO `Colores` (`idColor`, `descripcion`) VALUES
-(2, 'Beige'),
-(1, 'Negro');
+(13, 'Amarillo'),
+(12, 'Aquamarina'),
+(5, 'Azul'),
+(6, 'Gris'),
+(2, 'Marron'),
+(8, 'Naranja'),
+(1, 'Negro'),
+(11, 'Purpura'),
+(9, 'Rojo'),
+(10, 'Vinotinto');
 
 -- --------------------------------------------------------
 
@@ -160,10 +168,17 @@ CREATE TABLE `Materiales` (
 --
 
 INSERT INTO `Materiales` (`idMaterial`, `idTipo`, `color`, `url_img`) VALUES
-(9, 1, 1, 'bordado.png'),
-(10, 2, 1, 'sc-negro.jpg'),
-(11, 2, 2, 'sc-beige.jpg'),
-(12, 1, 2, 'bordado.png');
+(9, 1, 1, 'cuero_negro.png'),
+(10, 2, 6, 'semi_cuero_gris.png'),
+(11, 2, 2, 'semi_cuero_marron.png'),
+(12, 1, 2, 'cuero_marron.png'),
+(17, 2, 5, 'semi_cuero_azul.png'),
+(19, 2, 8, 'semi_cuero_naranja.png'),
+(21, 1, 13, 'cuero_amarillo.png'),
+(22, 1, 12, 'cuero_aquamarina.png'),
+(24, 1, 11, 'cuero_purpura.png'),
+(25, 1, 9, 'cuero_rojo.png'),
+(26, 1, 10, 'cuero_vinotinto.png');
 
 -- --------------------------------------------------------
 
@@ -215,7 +230,10 @@ INSERT INTO `Pagos` (`idPago`, `idSoli`, `tipo`, `referencia`, `banco`, `monto`,
 (28, 38, 1, '123', 116, 20, '2020-01-24 16:44:44'),
 (29, 39, 3, '', 1, 0, '2020-01-24 17:00:46'),
 (30, 40, 2, '434234', 175, 20, '2020-01-24 19:12:29'),
-(31, 41, 2, '2312324434', 134, 20, '2020-01-24 19:43:08');
+(31, 41, 2, '2312324434', 134, 20, '2020-01-24 19:43:08'),
+(32, 42, 1, '54534543', 108, 20, '2020-01-29 16:59:50'),
+(33, 43, 1, 'fghfghhfd343434', 116, 20, '2020-02-01 18:21:07'),
+(34, 44, 2, 'hghgfhfg', 102, 20, '2020-02-04 00:39:33');
 
 -- --------------------------------------------------------
 
@@ -310,16 +328,18 @@ INSERT INTO `Produccion` (`idReg`, `solicitud`, `vendedor`, `emsamblador`, `bord
 (12, 28, 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', '2020-01-12 08:04:12'),
 (13, 29, 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', '2020-01-13 16:52:09'),
 (14, 30, 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', '2020-01-24 19:21:42'),
-(15, 31, 'Martin Castillo', 'Martin Castillo', NULL, 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', NULL),
+(15, 31, 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', NULL),
 (16, 32, 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', '2020-01-15 20:55:57'),
 (17, 33, 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', NULL),
 (18, 34, 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', 'Martin Castillo', '2020-01-24 19:17:23'),
-(26, 35, 'Martin Castillo', NULL, NULL, NULL, NULL, NULL, NULL),
-(27, 36, 'Martin Castillo', NULL, NULL, NULL, NULL, NULL, NULL),
+(26, 35, 'Martin Castillo', 'Martin Castillo', NULL, 'Cesar Estaba', NULL, NULL, NULL),
+(27, 36, 'Martin Castillo', 'Frank Diaz', NULL, NULL, NULL, NULL, NULL),
 (28, 37, 'Martin Castillo', NULL, NULL, NULL, NULL, NULL, NULL),
 (29, 38, 'Martin Castillo', NULL, NULL, NULL, NULL, NULL, NULL),
 (30, 40, 'Martin Castillo', NULL, NULL, NULL, NULL, NULL, NULL),
-(31, 41, 'Martin Castillo', NULL, NULL, NULL, NULL, NULL, NULL);
+(31, 41, 'Martin Castillo', NULL, NULL, NULL, NULL, NULL, NULL),
+(32, 42, 'Martin Castillo', 'Martin Castillo', NULL, NULL, NULL, NULL, NULL),
+(33, 43, 'Yeisland Rodriguez', NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -408,17 +428,20 @@ INSERT INTO `Solicitudes` (`idSolicitud`, `idUsuario`, `idVehiculo`, `id_materia
 (28, 34, 6, 2, 1, 5, 1, 2, '2020-01-09 21:21:36', '2020-01-10 20:11:52', 10),
 (29, 34, 3, 1, 2, 1, 1, 2, '2020-01-10 02:41:19', '2020-01-11 20:11:52', 10),
 (30, 36, 10, 2, 1, 8, 2, 2, '2020-01-12 08:04:44', '2020-01-13 20:11:52', 10),
-(31, 36, 10, 1, 1, 7, 3, 2, '2020-01-17 06:12:52', '2020-01-17 06:13:52', 8),
+(31, 36, 10, 1, 1, 7, 3, 2, '2020-01-17 06:12:52', '2020-01-17 06:13:52', 9),
 (32, 34, 5, 1, 1, 1, 1, 2, '2020-01-15 20:48:58', '2020-01-16 22:11:52', 10),
 (33, 34, 5, 2, 1, 1, 1, 2, '2020-01-15 20:55:04', '2020-01-16 23:11:52', 9),
 (34, 34, 6, 1, 2, 1, 1, 2, '2020-01-15 20:56:28', '2020-01-19 00:11:52', 10),
-(35, 36, 10, 1, 2, 1, 2, 2, '2020-01-18 14:12:52', '2020-01-28 14:26:03', 4),
-(36, 36, 10, 1, 1, 7, 1, 2, '2020-01-18 14:26:31', '2020-01-31 14:26:53', 4),
+(35, 36, 10, 1, 2, 1, 2, 2, '2020-01-18 14:12:52', '2020-01-28 14:26:03', 6),
+(36, 36, 10, 1, 1, 7, 1, 2, '2020-01-18 14:26:31', '2020-01-31 14:26:53', 5),
 (37, 34, 3, 2, 2, 1, 1, 2, '2020-01-20 20:48:53', '2020-02-09 16:03:13', 4),
 (38, 35, 11, 2, 2, 1, 1, 2, '2020-01-24 16:44:31', '2020-02-11 16:44:59', 4),
 (39, 34, 5, 2, 2, 1, 1, 2, '2020-01-24 17:00:46', NULL, 2),
 (40, 34, 3, 2, 1, 7, 1, 2, '2020-01-24 19:12:01', '2020-02-12 23:14:13', 4),
-(41, 40, 15, 2, 1, 5, 1, 2, '2020-01-24 19:42:56', '2020-02-12 03:43:20', 4);
+(41, 40, 15, 2, 1, 5, 1, 2, '2020-01-24 19:42:56', '2020-02-12 03:43:20', 4),
+(42, 40, 15, 2, 2, 1, 1, 2, '2020-01-29 16:59:33', '2020-02-19 01:00:00', 5),
+(43, 36, 10, 1, 2, 1, 1, 2, '2020-02-01 18:17:07', '2020-02-23 06:21:12', 4),
+(44, 40, 15, 2, 6, 7, 1, 2, '2020-02-04 00:39:07', NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -495,6 +518,7 @@ CREATE TABLE `tipoUsuario` (
 INSERT INTO `tipoUsuario` (`idTipo`, `Descripcion`) VALUES
 (1, 'Administrador'),
 (6, 'Bordador'),
+(9, 'Cortador'),
 (8, 'Costurero'),
 (7, 'Diseñador'),
 (5, 'Emsamblador'),
@@ -530,7 +554,10 @@ INSERT INTO `Usuarios` (`idUsuario`, `nombre`, `apellido`, `correo`, `sexo`, `cl
 (34, 'Waskll', 'QWERTY', 'cbmj92@gmail.com', 'Hombre', '$2a$10$mCZTeFJRzEqXiBPxZ405K.gGLjf.YP.y3fBNV64RCMk24Hm96F3y.', 3, 'asd', '67676576', '2019-11-07 23:56:13'),
 (35, 'Rommel', 'Guevara', 'rommel@gmail.com', 'Hombre', '$2a$10$iMAUVL3ZIHgHRMq0qJ/3eOHHQTMeRE.HFLh2o4wYQ/U4OkRUooz7m', 3, '12345', '12345', '2019-12-13 03:07:27'),
 (36, 'Pepe', 'Aguilar', 'pepe@gmail.com', 'Hombre', '$2a$10$UKp8tMOBPR9lViQO99OvvuIvM.4Ag8CH13Um1sXnltCVNK12pLfzu', 3, 'asd', '545345', '2019-12-20 07:29:00'),
-(40, 'Elon', 'Musk', 'cbmj00@gmail.com', 'Hombre', '$2a$10$PIcKJVqmKJl.uXBTEIvP0uD.9mnSrMGXCG86Posc5TyP5chhS9DI2', 3, 'USA', '000000', '2020-01-24 18:50:43');
+(40, 'Elon', 'Musk', 'cbmj00@gmail.com', 'Hombre', '$2a$10$PIcKJVqmKJl.uXBTEIvP0uD.9mnSrMGXCG86Posc5TyP5chhS9DI2', 3, 'USA', '000000', '2020-01-24 18:50:43'),
+(41, 'Frank', 'Diaz', 'frank@gmail.com', 'Hombre', '$2a$10$ElTI89l/Wox.Cie.Voki3eonSBAMYa0MSGK00cg.xDPBmsGhYT/Zq', 5, '123', '123', '2020-02-01 17:55:10'),
+(42, 'Yeisland', 'Rodriguez', 'yeisland@gmail.com', 'Mujer', '$2a$10$ynRNnhmAZ4rd9wD7Re3AYuVi6BhxpZgVanMPSTwxPUmR9jHDS0RSW', 4, 'asd', 'qwe', '2020-02-01 18:08:24'),
+(43, 'Cesar', 'Estaba', 'cesar@gmail.com', 'Hombre', '$2a$10$TDHWBpiJLYCrCE5KU/zrEOP2PCKhO6/.bWvLXDfTN1k.kgwCh3oCW', 7, 'cfb', 'dfg', '2020-02-01 18:33:37');
 
 -- --------------------------------------------------------
 
@@ -573,7 +600,9 @@ INSERT INTO `Ventas` (`idVenta`, `id_solicitud`, `pago`, `fecha_pago`) VALUES
 (35, 37, 27, '2020-01-24 16:03:13'),
 (36, 38, 28, '2020-01-24 16:44:59'),
 (37, 40, 30, '2020-01-24 19:14:13'),
-(38, 41, 31, '2020-01-24 19:43:20');
+(38, 41, 31, '2020-01-24 19:43:20'),
+(39, 42, 32, '2020-01-29 17:00:00'),
+(40, 43, 33, '2020-02-01 18:21:12');
 
 --
 -- Índices para tablas volcadas
@@ -750,7 +779,7 @@ ALTER TABLE `Bordados`
 -- AUTO_INCREMENT de la tabla `Colores`
 --
 ALTER TABLE `Colores`
-  MODIFY `idColor` int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idColor` int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `Inventario`
@@ -762,13 +791,13 @@ ALTER TABLE `Inventario`
 -- AUTO_INCREMENT de la tabla `Materiales`
 --
 ALTER TABLE `Materiales`
-  MODIFY `idMaterial` int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `idMaterial` int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT de la tabla `Pagos`
 --
 ALTER TABLE `Pagos`
-  MODIFY `idPago` int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `idPago` int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT de la tabla `Pedidos`
@@ -786,7 +815,7 @@ ALTER TABLE `Procesos`
 -- AUTO_INCREMENT de la tabla `Produccion`
 --
 ALTER TABLE `Produccion`
-  MODIFY `idReg` int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `idReg` int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT de la tabla `Proveedores`
@@ -798,7 +827,7 @@ ALTER TABLE `Proveedores`
 -- AUTO_INCREMENT de la tabla `Solicitudes`
 --
 ALTER TABLE `Solicitudes`
-  MODIFY `idSolicitud` int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `idSolicitud` int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT de la tabla `tipoCostura`
@@ -822,19 +851,19 @@ ALTER TABLE `tipoPago`
 -- AUTO_INCREMENT de la tabla `tipoUsuario`
 --
 ALTER TABLE `tipoUsuario`
-  MODIFY `idTipo` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idTipo` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `Usuarios`
 --
 ALTER TABLE `Usuarios`
-  MODIFY `idUsuario` int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `idUsuario` int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT de la tabla `Ventas`
 --
 ALTER TABLE `Ventas`
-  MODIFY `idVenta` int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `idVenta` int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- Restricciones para tablas volcadas
