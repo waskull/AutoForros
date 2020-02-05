@@ -113,7 +113,7 @@ class Solicitud{
             solicitud.forEach(function() {
                 solicitud[i].estado = (solicitud[i].fase == 'Esperando confirmacion de Pago');
                 //comentar para recuperar el pago con administrador y gerentes comentar solo la linea de abajo
-                solicitud[i].isVendedor = isVendedor(req.user);
+                //solicitud[i].isVendedor = isVendedor(req.user);
                 i++;
             });
             res.render('solicitud/lista', {solicitud});
