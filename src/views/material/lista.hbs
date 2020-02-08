@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
         {{#if material}}
         <div class="mx-auto p-2">
             <a href="/perfil" class="btn btn-outline-primary btn-block">Volver</a>
@@ -26,7 +26,7 @@
       <td><img src="/static/img/{{url_img}}" alt="img" class="img-thumbnail w-25"></td>
 
       <td>
-          <a href="/material/borrar/{{ idMaterial }}" class="btn btn-danger">Borrar</a>
+          <a href="/material/borrar/{{ idMaterial }}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
       </td>
 
       {{/each}}
