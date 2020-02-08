@@ -1,13 +1,16 @@
 const pool = require('../database');
 
 class ModelVenta{
+    private ventas:any = [];
     private intervalo:number=0;
     private intervalo2:number=0;
     public lista = async() => {
-        return await pool.query("SELECT idVenta, id_solicitud,pago,Bancos._nombre,tipoPago.descPago,Pagos.referencia,Pagos.monto, cantidad,Ventas.fecha_pago FROM Pagos,Solicitudes,Ventas,tipoPago,Bancos Where Solicitudes.idSolicitud = id_solicitud and Pagos.idPago=pago and tipoPago.idpago=Pagos.tipo and Bancos.codbanco=Pagos.banco");
+        this.ventas = await pool.query("SELECT idVenta, id_solicitud,pago,Bancos._nombre,tipoPago.descPago,Pagos.referencia,Pagos.monto, cantidad,Ventas.fecha_pago FROM Pagos,Solicitudes,Ventas,tipoPago,Bancos Where Solicitudes.idSolicitud = id_solicitud and Pagos.idPago=pago and tipoPago.idpago=Pagos.tipo and Bancos.codbanco=Pagos.banco");
+        return this.ventas;
     };
     public listaP = async() => {
-        return await pool.query("SELECT idVenta,nombre,apellido, id_solicitud,pago,Bancos._nombre,tipoPago.descPago,Pagos.referencia,Pagos.monto, cantidad,Ventas.fecha_pago FROM Usuarios,Pagos,Solicitudes,Ventas,tipoPago,Bancos Where Solicitudes.idSolicitud = id_solicitud and Pagos.idPago=pago and tipoPago.idpago=Pagos.tipo and Bancos.codbanco=Pagos.banco and Usuarios.idUsuario=Solicitudes.idUsuario");
+        this.ventas =await pool.query("SELECT idVenta,nombre,apellido, id_solicitud,pago,Bancos._nombre,tipoPago.descPago,Pagos.referencia,Pagos.monto, cantidad,Ventas.fecha_pago FROM Usuarios,Pagos,Solicitudes,Ventas,tipoPago,Bancos Where Solicitudes.idSolicitud = id_solicitud and Pagos.idPago=pago and tipoPago.idpago=Pagos.tipo and Bancos.codbanco=Pagos.banco and Usuarios.idUsuario=Solicitudes.idUsuario");
+        return this.ventas;
     }
     public ventasEntre = async(intervalo:number) => {
         this.intervalo=intervalo;
@@ -17,5 +20,8 @@ class ModelVenta{
     public getNumVentas = async () =>{
         return await pool.query("select COUNT(*) semanal from Ventas where fecha_pago between date_sub(now(),INTERVAL 7 DAY) and now()");
     }
+    public registrarVenta = async (idsol:number,idpago:number) =>{
+        await pool.query("INSERT INTO Ventas (id_solicitud,pago) Values (?,?)", [idsol,idpago]);
+    };
 }
 export default ModelVenta;

@@ -19,7 +19,7 @@ function dibujarGrafica(semanal,mayor,semana,ctx){
         data: {
           labels: D.reverse(),
           datasets: [{
-            label: "Sessions",
+            label: "Ventas",
             lineTension: 0.3,
             backgroundColor: "rgba(2,117,216,0.2)",
             borderColor: "rgba(2,117,216,1)",
@@ -216,8 +216,8 @@ let verDatos = function (modal, custom){
         nombre = $(this).parents('tr').find("td:eq(1)").text();
         placa = $(this).parents('tr').find("td:eq(2)").text();
         estado = $(this).parents('tr').find("td:eq(3)").text();
-        referencia = $(this).parents('tr').find("td:eq(4)").text();
-        metodo = $(this).parents('tr').find("td:eq(5)").text();
+        referencia = $(this).parents('tr').find("td:eq(5)").text();
+        metodo = $(this).parents('tr').find("td:eq(4)").text();
         material = $(this).parents('tr').find("td:eq(6)").text();
         color = $(this).parents('tr').find("td:eq(7)").text();
         bordado = $(this).parents('tr').find("td:eq(11)").text();
@@ -303,4 +303,46 @@ let verDatosProceso = function (modal, custom){
         mymodal.find('.modal-body').html(html);
         mymodal.modal('show');
     });
+}
+
+async function graficaUsuario(){
+const response = await $.ajax('/solicitud/api/tipos/');
+const cuero = await JSON.parse(response.cuero);
+var semicuero = await JSON.parse(response.semicuero);
+var maximo = cuero;
+if(semicuero>cuero){maximo=semicuero}
+var ctx = document.getElementById('graficaUsuario');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Cuero', 'SemiCuero'],
+        datasets: [{
+            label: 'Cantidad',
+            data: [cuero, semicuero],
+            backgroundColor: [
+                'rgba(154, 18, 179, 0.4)',
+                'rgba(54, 162, 235, 0.2)'
+            ],
+            borderColor: [
+                'rgba(128, 0, 128, 1)',
+                'rgba(54, 162, 235, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true,
+				callback: function(value) {if (value % 1 === 0) {return value;}},
+                min: 0,
+                max: maximo,
+                }
+            }]
+        },legend: {
+            display: false
+          }
+    }
+});
 }

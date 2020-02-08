@@ -6,13 +6,13 @@
         <form action="/material/agregar" method="POST" enctype="multipart/form-data">
             <label>Tipo de Material</label>
             <select name="idTipo" class="form-control" required>
-                {{#each material}}
+                {{#each tiposMaterial}}
                   <option value={{idTipo}}>{{descrip}}</option>
                 {{/each}}
             </select>
             <label>Color</label>
             <select name="color" class="form-control" required>
-                {{#each color}}
+                {{#each colores}}
                   <option value={{idColor}}>{{ descripcion }}</option>
                 {{/each}}
             </select>

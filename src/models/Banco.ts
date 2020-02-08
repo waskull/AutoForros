@@ -1,10 +1,8 @@
 const pool = require('../database');
-export default class Bancos{
-	private codbanco:number = 1;
-	private _nombre:string = '';
-	private list:any = [];
+export default class Banco{
+	private bancos:any = [];
 	public getBancos = async() =>{
-        this.list = await pool.query("SELECT * FROM Bancos Where codbanco!=1");
-        return this.list;
+        this.bancos = await pool.query("SELECT * FROM Bancos Where codbanco!=1");
+        return this.bancos;
     };
 }

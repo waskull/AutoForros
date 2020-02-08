@@ -1,78 +1,18 @@
 const pool = require('../database');
 
 class ModelUsuario{
-    private idUsuario:number = 0;
-    private nombre:string = '';
-    private apellido:string = '';
-    private correo?:string = '';
-    private sexo:string = '';
-    private nivelAcceso?:number = 0;
-    private clave?:any = '';
-    private direccion:string = '';
-    private telefono:string = '';
-    public setidUsuario(idUsuario:number){
-        this.idUsuario = idUsuario;
-    }
-    public getidUsuario(){
-        return this.idUsuario;
-    }
-    public setUsuario(body:any){
-        this.nombre = body.nombre;
-        this.apellido = body.apellido;
-        this.correo = body.correo;
-        this.sexo = body.sexo;
-        this.nivelAcceso = body.nivelAcceso;
-        this.clave = body.clave;
-        this.direccion = body.direccion;
-        this.telefono = body.telefono;
-    }
-    public nuevoUsuario(){
-        const nuevoUsuario = {
-            nombre:this.nombre,
-            apellido:this.apellido,
-            correo:this.correo,
-            sexo:this.sexo,
-            clave:this.clave,
-            nivelAcceso:this.nivelAcceso,
-            direccion:this.direccion,
-            telefono:this.telefono
-        }
-        return nuevoUsuario;
-    }
-    public usuarioEditado(){
-        const usuarioEditado = {
-            nombre:this.nombre,
-            apellido:this.apellido,
-            sexo:this.sexo,
-            clave:this.clave,
-            nivelAcceso:this.nivelAcceso,
-            direccion:this.direccion,
-            telefono:this.telefono
-        }
-        return usuarioEditado;
-    }
-    public setPass(clave:string){
-        this.clave = clave;
-    }
-    public getPass(){
-        return this.clave
-    }
-    public setNivelAcceso(nivelAcceso:number){
-        this.nivelAcceso = nivelAcceso;
-    }
-    public getNivelAcceso(){
-        return this.nivelAcceso;
-    }
-    public getCorreo(){
-        return this.correo;
-    }
+    private usuarios:any = [];
     public getNivel = async (id:number) => {
         return await pool.query("SELECT nivelAcceso,idUsuario From Usuarios Where idUsuario = ?",[id]);
     }
     public lista = async () =>{
-        return await pool.query("SELECT idUsuario, nombre, apellido, correo, sexo, clave, Descripcion, direccion, telefono, fechaInscripcion FROM Usuarios,tipoUsuario WHERE nivelAcceso=tipoUsuario.idTipo and nivelAcceso>1");
+        this.usuarios = await pool.query("SELECT idUsuario, nombre, apellido, correo, sexo, clave, Descripcion, direccion, telefono, fechaInscripcion FROM Usuarios,tipoUsuario WHERE nivelAcceso=tipoUsuario.idTipo and nivelAcceso>1");
+        return this.usuarios;
     };
-    
+    public getUsuarios = async() => {
+        this.usuarios = await pool.query("SELECT idUsuario, nombre, apellido FROM Usuarios Where nivelAcceso = 3");
+        return this.usuarios;
+    }
     public descr = async () =>{
         return await pool.query("SELECT descripcion,idTipo FROM tipoUsuario Where idTipo >= 3");
     };
@@ -81,34 +21,37 @@ class ModelUsuario{
         return await pool.query("SELECT idTipo FROM tipoUsuario Where Descripcion = ?", [nivelAcceso]);
     };
     
-    public agregar = async () =>{
-        await pool.query('INSERT INTO Usuarios set ?', [this.nuevoUsuario()]);
+    public agregar = async (body:any,pass:any) =>{
+        const nuevoUsuario = {
+            nombre : body.nombre,
+            apellido : body.apellido,
+            correo : body.correo,
+            sexo : body.sexo,
+            nivelAcceso : body.nivelAcceso,
+            clave : pass,
+            direccion : body.direccion,
+            telefono : body.telefono,
+        }
+        await pool.query('INSERT INTO Usuarios set ?', [nuevoUsuario]);
     };
     
-    public borrar = async () =>{
-        await pool.query('DELETE FROM Usuarios WHERE idUsuario = ?', [this.idUsuario]);
+    public borrar = async (idUsuario:number) =>{
+        await pool.query('DELETE FROM Usuarios WHERE idUsuario = ?', [idUsuario]);
     };
 
-    public checkCorreo = async () => {
-        return await pool.query('SELECT correo FROM Usuarios WHERE correo = ?', [this.correo]);
+    public checkCorreo = async (correo:string) => {
+        return await pool.query('SELECT correo FROM Usuarios WHERE correo = ?', [correo]);
     };
     
-    public getUsuario = async () => {
-        return await pool.query('SELECT * FROM Usuarios WHERE idUsuario = ?', [this.idUsuario]);
-    };
-    public geditar = async () => {
-        return await pool.query("SELECT descripcion FROM tipoUsuario Where idTipo >= 3");
+    public getUsuario = async (idUsuario:number) => {
+        return await pool.query('SELECT * FROM Usuarios WHERE idUsuario = ?', [idUsuario]);
     };
     
-    public nivelUsuario = async (nivel:string) => {
-        return await pool.query("SELECT idTipo FROM tipoUsuario Where Descripcion = ?", [nivel]);
+    public editar = async (usuarioEditado:any,id:number) => {
+        await pool.query("UPDATE Usuarios SET ? WHERE idUsuario = ? ", [usuarioEditado, id]);
     };
-    
-    public editar = async () => {
-        await pool.query("UPDATE Usuarios SET ? WHERE idUsuario = ? ", [this.usuarioEditado(), this.idUsuario]);
-    };
-    public checkForeignKey = async () => {
-        return await pool.query("SELECT Automoviles.idAutomovil FROM Usuarios,Automoviles Where idUsuario = ? and Automoviles.idCliente = Usuarios.idUsuario", [this.idUsuario]);
+    public checkForeignKey = async (idUsuario:number) => {
+        return await pool.query("SELECT Automoviles.idAutomovil FROM Usuarios,Automoviles Where idUsuario = ? and Automoviles.idCliente = Usuarios.idUsuario", [idUsuario]);
     } 
 
 

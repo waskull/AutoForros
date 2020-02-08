@@ -6,18 +6,16 @@ import session from 'express-session';
 import passport from 'passport';
 import flash from 'connect-flash';
 const MySQLStore = require('express-mysql-session')(session);
-import bodyParser from 'body-parser';
 import multer from 'multer';
 import uuid from 'uuid';
-const { database } = require('./keys');
+const { database } = require('./conf');
 const pass = require('./lib/passport');
 import timeago from './lib/handlebars';
-import favicon from 'serve-favicon';
-
 import index from './routes/index';
 import authentication from './routes/authentication';
 import usuario from './routes/usuario';
 import bordado from './routes/bordado';
+import costura from './routes/costura';
 import inventario from './routes/inventario';
 import material from './routes/material';
 import pedido from './routes/pedido';
@@ -96,19 +94,20 @@ export class App{
         });
     }
     private routes(){
-    this.app.use(index);
-    this.app.use(authentication);
-    this.app.use('/usuarios',usuario);
-    this.app.use('/bordado',bordado);
-    this.app.use('/inventario',inventario);
-    this.app.use('/material',material);
-    this.app.use('/pedido',pedido);
-    this.app.use('/proveedor',proveedor);
-    this.app.use('/produccion',produccion);
-    this.app.use('/solicitud',solicitud);
-    this.app.use('/vehiculos',vehiculos);
-    this.app.use('/venta',venta);
-    this.app.use('/static', express.static(__dirname + '/public'));
+        this.app.use(index);
+        this.app.use(authentication);
+        this.app.use('/usuarios',usuario);
+        this.app.use('/bordado',bordado);
+        this.app.use('/inventario',inventario);
+        this.app.use('/material',material);
+        this.app.use('/pedido',pedido);
+        this.app.use('/costura',costura);
+        this.app.use('/proveedor',proveedor);
+        this.app.use('/produccion',produccion);
+        this.app.use('/solicitud',solicitud);
+        this.app.use('/vehiculos',vehiculos);
+        this.app.use('/venta',venta);
+        this.app.use('/static', express.static(__dirname + '/public'));
     }
     private errores(){
         this.app.use(function(req:any, res:any, next:any) {

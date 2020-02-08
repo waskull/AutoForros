@@ -9,19 +9,20 @@ class Pedido{
     }
     
     public agregarPedido = async (req:any, res:any) => {
-        this.modelPedido.setIdEmpleado(req.user.idUsuario);
-        this.modelPedido.setIdProducto(req.body.idproducto);
-        this.modelPedido.setCantidad(req.body.cantidad);
-        this.modelPedido.setCosto(req.body.costo);
         const id_pro = await this.modelPedido.getProveedorById(req.body.proveedor);
-        this.modelPedido.setIdProveedor(id_pro[0].idProveedor);
-        const consulta = await this.modelPedido.checkInventario(this.modelPedido.getIdProduct());
+        const consulta = await this.modelPedido.checkInventario(req.body.idproducto);
         if (consulta.length == 0){
-            await this.modelPedido.registrarProducto();
-            
+            await this.modelPedido.registrarProducto(req.body.idproducto);
         }
-        await this.modelPedido.registro();
-        await this.modelPedido.actualizarInventario();
+        const pedido = {
+            id_empleado:req.user.idUsuario,
+            id_proveedor:id_pro[0].idProveedor,
+            idproducto:req.body.idproducto,
+            cantidad:req.body.cantidad,
+            costo:req.body.costo
+        }
+        await this.modelPedido.registro(pedido);
+        await this.modelPedido.actualizarInventario(req.body.cantidad,req.body.idproducto);
         req.flash('success', 'El pedido ha sido registrado en el inventario');
         res.redirect('/pedido/');
     }

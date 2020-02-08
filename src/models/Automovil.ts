@@ -1,84 +1,55 @@
 const pool = require('../database');
 
 export default class ModelAutomovil{
-    private idAutomovil?:number = 0;
-    private idCliente:number = 0;
-    private placa:string = '';
-    private marca:string = '';
-    private modelo:string = '';
-    private year:string = '';
-    public setClienteId(idCliente:number){
-        this.idCliente = idCliente;
+    private automoviles:any = [];
+    public getVehiculos = async() => {
+        this.automoviles = await pool.query("SELECT * FROM Automoviles");
+        return this.automoviles;
     }
-    public getClienteId(){
-       return this.idCliente;
+
+    public getVehiculosById = async(idUsuario:number) => {
+        this.automoviles = await pool.query("SELECT * FROM Automoviles Where idCliente = ?", [idUsuario]);
+        return this.automoviles;
     }
-    public setAutomovilId(idAutomovil:number){
-        this.idAutomovil = idAutomovil;
-    }
-    public setAutomovil(body:any){
-        this.placa = body.placa;
-        this.marca = body.marca;
-        this.modelo = body.modelo;
-        this.year = body.year;
-    }
-    public setAutomovilCliente(body:any){
-        this.idCliente = body.idCliente;
-        this.placa = body.placa;
-        this.marca = body.marca;
-        this.modelo = body.modelo;
-        this.year = body.year;
-    }
-    public getAutomovil(){
-        const nuevoAutomovil = {
-            idCliente:this.idCliente,
-            placa:this.placa,
-            marca:this.marca,
-            modelo:this.modelo,
-            year:this.year
-        };
-        return nuevoAutomovil;
-    }
-    public getAutomoviId(){
-        return this.idAutomovil;
-    }
-    public usuario = async () =>{
-        return await pool.query("SELECT idUsuario, nombre,apellido FROM Usuarios");
-    };
-    
     public getAutosByUsuario = async (id:number) =>{
-        return await pool.query("SELECT idAutomovil, placa, marca, modelo FROM Usuarios, Automoviles Where idUsuario = ? and idCliente = idUsuario",[id]);
+        this.automoviles = await pool.query("SELECT idAutomovil, placa, marca, modelo FROM Usuarios, Automoviles Where idUsuario = ? and idCliente = idUsuario",[id]);
+        return this.automoviles;
     };
-    public getUserByVehiculos = async () => {
-        return await pool.query("SELECT idUsuario FROM Usuarios, Automoviles Where idAutomovil = ? and idCliente = idUsuario",[this.idAutomovil]);
+    public getUserByVehiculos = async (id:number) => {
+        return await pool.query("SELECT idUsuario FROM Usuarios, Automoviles Where idAutomovil = ? and idCliente = idUsuario",[id]);
     }
-    public checkPlaca = async () => {
-        return await pool.query("SELECT placa,idAutomovil FROM Automoviles Where placa = ?",[this.placa]);
+    public checkPlaca = async (placa:string) => {
+        return await pool.query("SELECT placa,idAutomovil FROM Automoviles Where placa = ?",[placa]);
     }
     
-    public agregar = async () =>{
-        await pool.query('INSERT INTO Automoviles set ?', [this.getAutomovil()]);
+    public agregar = async (nuevoAutomovil:any) =>{
+        await pool.query('INSERT INTO Automoviles set ?', [nuevoAutomovil]);
     };
     
     public listaCliente = async (parametro:number) =>{
-        return await pool.query("SELECT idAutomovil, placa, marca, modelo, year FROM Automoviles Where idCliente = ?", [parametro]);
+        this.automoviles = await pool.query("SELECT idAutomovil, placa, marca, modelo, year FROM Automoviles Where idCliente = ?", [parametro]);
+        return this.automoviles;
     };
     
     public listaGerencia = async () =>{
-        return await pool.query("SELECT idAutomovil, nombre, apellido, placa, marca, modelo, year FROM Automoviles, Usuarios Where idCliente = idUsuario ORDER BY fecha");
+        this.automoviles = await pool.query("SELECT idAutomovil, nombre, apellido, placa, marca, modelo, year FROM Automoviles, Usuarios Where idCliente = idUsuario ORDER BY fecha");
+        return this.automoviles;
     };
     
-    public eliminar = async () =>{
-        await pool.query("DELETE FROM Automoviles Where idAutomovil = ?", [this.idAutomovil]);
+    public eliminar = async (id:number) =>{
+        await pool.query("DELETE FROM Automoviles Where idAutomovil = ?", [id]);
     };
-    public geditar = async () =>{
-        return await pool.query("SELECT * FROM Automoviles Where idAutomovil = ?", [this.idAutomovil]);
+    public usuario = async () =>{
+        return await pool.query("SELECT idUsuario, nombre,apellido FROM Usuarios");
+    };
+    public geditar = async (id:number) =>{
+        return await pool.query("SELECT * FROM Automoviles Where idAutomovil = ?", [id]);
     };
     
-    public editar = async () =>{
-        await pool.query("UPDATE Automoviles SET placa = ?, marca = ?, modelo = ?, year = ? Where idAutomovil = ?", [this.placa,this.marca,this.modelo,this.year, this.idAutomovil]);
+    public editar = async (nuevoVehiculo:any,id:number) =>{
+        await pool.query("UPDATE Automoviles SET placa = ?, marca = ?, modelo = ?, year = ? Where idAutomovil = ?", [nuevoVehiculo.placa,nuevoVehiculo.marca,nuevoVehiculo.modelo,nuevoVehiculo.year, id]);
     };
-    public checkForeignKey = async () =>{
-        return await pool.query("SELECT idSolicitud FROM Automoviles,Solicitudes Where Automoviles.idAutomovil = ? and Solicitudes.idVehiculo = Automoviles.idAutomovil", [this.idAutomovil]);
+    public checkForeignKey = async (id:number) =>{
+        return await pool.query("SELECT idSolicitud FROM Automoviles,Solicitudes Where Automoviles.idAutomovil = ? and Solicitudes.idVehiculo = Automoviles.idAutomovil", [id]);
     };
 }

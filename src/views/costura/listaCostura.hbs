@@ -1,8 +1,8 @@
 <div class="container">
-        {{#if tipoCostura}}
+        {{#if costuras}}
         <div class="mx-auto p-2">
             <a href="/perfil/" class="btn btn-outline-primary btn-block">Volver</a>
-            <a href="/material/costura/agregar" class="btn btn-outline-success btn-block">Añadir nueva Costura</a>
+            <a href="/costura/agregar" class="btn btn-outline-success btn-block">Añadir nueva Costura</a>
             <hr>
 
             <table id="tabla" class="table table-sm table-hover table-striped text-center">
@@ -16,12 +16,12 @@
     </tr>
   </thead>
   <tbody>
-      {{#each tipoCostura}}
+      {{#each costuras}}
     <tr>
       <th scope="row">{{idc}}</th>
       <td>{{texto}}</td>
       <td>
-          <a href="/material/costura/borrar/{{ idc }}" class="btn btn-danger">Borrar</a>
+          <a href="/costura/borrar/{{ idc }}" class="btn btn-danger">Borrar</a>
       </td>
 
       {{/each}}
@@ -35,7 +35,7 @@
                             <div class="col-md-4 mx-auto">
                                 <div class="card card-body text-center">
                                     <p>Aun No Has agregado ninguna Costura</p>
-                                    <a href="/material/costura/agregar" class="btn btn-outline-success">Agregar Material</a>
+                                    <a href="/costura/agregar" class="btn btn-outline-success">Agregar Material</a>
                                 </div>
                                 <hr>
                                 {{/if}}

@@ -12,34 +12,29 @@ class Proveedor{
     }
     
     public registrar = async(req:any,res:any) => {
-        this.modelProveedor.setProveedor(req.body);
-        await this.modelProveedor.agregar();
+        await this.modelProveedor.agregar(req.body);
         req.flash('success', 'El Proveedor ha sido Agregado');
         res.redirect('/proveedor/');
     }
     
     public borrar = async(req:any,res:any) => {
-        this.modelProveedor.setIdProveedor(req.params.id);
-        const result = await this.modelProveedor.checkSiExiste();
+        const result = await this.modelProveedor.checkSiExiste(req.params.id);
         if(result){
             req.flash('message', 'Ya no puedes borrar este proveedor, ya que tiene registros asignados en otra tabla');
             res.redirect('/proveedor/');
         }
-        await this.modelProveedor.borrar();
+        await this.modelProveedor.borrar(req.params.id);
         req.flash('success', 'Proveedor Eliminado');
         res.redirect('/proveedor/');
     }
     
     public geditar = async(req:any,res:any) => {
-        this.modelProveedor.setIdProveedor(req.params.id);
-        const proveedor = await this.modelProveedor.geditar();
+        const proveedor = await this.modelProveedor.geditar(req.params.id);
         res.render('proveedor/editar', {proveedor:proveedor[0]});
     }
     
     public editar = async(req:any,res:any) => {
-        this.modelProveedor.setIdProveedor(req.params.id);
-        this.modelProveedor.setProveedor(req.body);
-        await this.modelProveedor.editar();
+        await this.modelProveedor.editar(req.body,req.params.id);
         req.flash('success', 'El Proveedor ha sido Editado');
         res.redirect('/proveedor/');
     }

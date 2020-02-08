@@ -1,6 +1,16 @@
 import ModelSolicitud from '../models/Solicitud';
 import ModelPago from '../models/Pago';
+import ModelMetodo from '../models/Metodo';
+import ModelBanco from '../models/Banco';
+import ModelCostura from '../models/Costura';
+import ModelBordado from '../models/Bordado';
+import ModelTipo from '../models/Tipo';
+import ModelColor from '../models/Color';
 import {isUsuario,isAdmin,isVendedor} from '../lib/helpers';
+import ModelAutomovil from '../models/Automovil';
+import ModelUsuario from '../models/Usuario';
+import ModelVenta from '../models/Venta';
+import ModelProduccion from '../models/Produccion';
 
 class Solicitud{
     private modelSolicitud = new ModelSolicitud();
@@ -50,7 +60,6 @@ class Solicitud{
         solicitud.forEach(() => {
             solicitud[i].estado = (solicitud[i].fase == 'Esperando confirmacion de Pago');
                 const dia = solicitud[i].fechaSolicitud.getDay();
-                //solicitud[i].eta=this.getETA(dia,solicitud[i].idfase);
                 if(solicitud[i].idfase === 3 || solicitud[i].idfase === 10){
                     solicitud[i].eta = 0;
                 }
@@ -80,14 +89,10 @@ class Solicitud{
                 else{
                     this.hours += solicitud[i].eta=this.getETA(dia,solicitud[i].idfase);
                     solicitud[i].eta = this.hours;
-                    //var fechaSolicitud = new Date(solicitud[i].fechaSolicitud);
-                    //fechaSolicitud.setHours(fechaSolicitud.getHours()+solicitud[i].eta);
-
                     var fechaTentativa = new Date(solicitud[i].fechaTentativa);
                     var fechaActual = new Date();
                     fechaActual.setHours(fechaActual.getHours()-solicitud[i].eta);
                     if(fechaActual >= fechaTentativa){
-                        //console.log("La Solicitud: "+solicitud[i].idSolicitud +" esta retrasada"+fechaTentativa+" "+fechaActual+" "+fechaActual);
                         solicitud[i].retraso = true;
                     }
                 }
@@ -112,25 +117,29 @@ class Solicitud{
             var i=0;
             solicitud.forEach(function() {
                 solicitud[i].estado = (solicitud[i].fase == 'Esperando confirmacion de Pago');
-                //comentar para recuperar el pago con administrador y gerentes comentar solo la linea de abajo
-                //solicitud[i].isVendedor = isVendedor(req.user);
                 i++;
             });
             res.render('solicitud/lista', {solicitud});
         }
     }
     public agregar = async (req:any, res:any) => {
-            const bordados = await this.modelSolicitud.getBordados();
-            const materiales = await this.modelSolicitud.getTipoMateriales();
-            const colores = await this.modelSolicitud.getColores();
-            const costuras = await this.modelSolicitud.getCosturas();
+            const modelBordado = new ModelBordado();
+            const modelCostura = new ModelCostura();
+            const modelTipo = new ModelTipo();
+            const modelColor = new ModelColor();
+            const modelauto = new ModelAutomovil();
+            const modelUsuario = new ModelUsuario();
+            const bordados = await modelBordado.getBordados();
+            const materiales = await modelTipo.getTipoMateriales();
+            const colores = await modelColor.getColors();
+            const costuras = await modelCostura.getCosturas();
             if(isAdmin(req.user) || isVendedor(req.user)){
-                const usuarios = await this.modelSolicitud.getUsuarios();
-                const vehiculos = await this.modelSolicitud.getVehiculos();
+                const usuarios = await modelUsuario.getUsuarios();
+                const vehiculos = await modelauto.getVehiculos();
                 res.render('solicitud/agregar', {usuarios, vehiculos, bordados, materiales, colores,costuras});
             }
             else{
-                const vehiculos = await this.modelSolicitud.getVehiculosById(req.user.idUsuario);
+                const vehiculos = await modelauto.getVehiculosById(req.user.idUsuario);
                 res.render('solicitud/agregarCliente',{vehiculos, bordados, materiales, colores,costuras});
             }
     }
@@ -193,10 +202,12 @@ class Solicitud{
 
             const idpago = await this.modelPago.getiIdPago(id);
             const pago = parseInt(idpago[0].idPago);
-            await this.modelSolicitud.registrarVenta(id,pago);
-            const solci = await this.modelSolicitud.getSolicitud(pago);
+            const modelVenta = new ModelVenta();
+            await modelVenta.registrarVenta(id,pago);
+            const solci = await this.modelPago.getSolicitud(pago);
             const nombre = req.user.nombre+" "+req.user.apellido;
-            await this.modelSolicitud.crearRegistro(solci[0].idSoli,nombre);
+            const modelProduccion = new ModelProduccion();
+            await modelProduccion.crearRegistro(solci[0].idSoli,nombre);
             req.flash('success', 'La solicitud ha sido aprobada');
             res.redirect('/solicitud/');
     }
@@ -218,8 +229,10 @@ class Solicitud{
     public agregarPago = async (req:any, res:any) => {
             const id = req.params;
             const idSoli = id.id;
-            const banco = await this.modelSolicitud.getBancos();
-            const pago = await this.modelPago.getTipos();
+            const modelBanco = new ModelBanco();
+            const banco = await modelBanco.getBancos();
+            const modelMetodo = new ModelMetodo();
+            const pago = await modelMetodo.getTipos();
             if(isAdmin(req.user) || isVendedor(req.user) ){
                 const usuario = await this.modelSolicitud.getUsuario(idSoli);
                 if(usuario.length==0){
@@ -267,6 +280,14 @@ class Solicitud{
             req.flash('success', 'El Pago ha sido registrado');
             res.redirect('/solicitud/');
     
+    }
+
+    public tipos = async(req:any,res:any) =>{
+        const resp = {
+            cuero: await this.modelSolicitud.getTipos(1),
+            semicuero: await this.modelSolicitud.getTipos(2),
+        }
+        return res.status(200).json(resp);
     }
 }
 

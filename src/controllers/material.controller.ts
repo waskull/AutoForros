@@ -1,60 +1,32 @@
 import ModelMaterial from '../models/Material';
-
+import ModelTipo from '../models/Tipo';
+import ModelColor from '../models/Color';
+import ModelCostura from '../models/Costura';
 class Material{
     private modelMaterial = new ModelMaterial();
+    private modelColor = new ModelColor();
+    private modelTipo = new ModelTipo();
+    private modelCostura = new ModelCostura();
     public agregar = async (req:any, res:any) => {
-        const material = await this.modelMaterial.getMaterial();
-        const color = await this.modelMaterial.getColor();
-        res.render('material/agregar',{material, color});
+        const tiposMaterial = await this.modelTipo.getTipos();
+        const colores = await this.modelColor.getColores();
+        console.log(tiposMaterial);
+        res.render('material/agregar',{tiposMaterial, colores});
     }
-    public listaCostura = async (req:any, res:any) => {
-        const tipoCostura = await this.modelMaterial.getCosturas();
-        res.render('material/listaCostura',{tipoCostura});
-    }
-
-    public agregarCostura = async (req:any, res:any) => {
-        res.render('material/agregarCostura');
-    }
-
-    public registrarCostura = async (req:any, res:any) => {
-        const {texto} = req.body;
-        const check = await this.modelMaterial.checkCostura(texto);
-        if(check.length>0){
-            req.flash('message', 'La descripcion del color de la Costura ya Existe');
-            res.render('material/agregarCostura');
-        }
-        else{
-            this.modelMaterial.agregarCostura(texto);
-            res.redirect('/material/costura/');
-        }
-    }
-
-    public borrarCostura = async (req:any, res:any) => {
-        const consulta = await this.modelMaterial.checkllaveFCostura(req.params.id);
-        if(consulta.length>0){
-            req.flash('message', 'Ya no puedes Borrar Esta Costura');
-            res.redirect('/material/costura/');
-        }else{
-            this.modelMaterial.borrarCostura(req.params.id);
-            req.flash('success', 'Color de Costura Eliminada');
-            res.redirect('/material/costura/');
-        }
         
-    }
-    
     public agregarColor = async (req:any, res:any) => {
         res.render('material/agregarColor');
     }
     
     public registrarColor = async (req:any, res:any) => {
         const { color } = req.body;
-        const colores = await this.modelMaterial.getColorByDesc(color);
+        const colores = await this.modelColor.getColorByDesc(color);
         if(colores.length >= 1){
             req.flash('message', 'El Color Ya Existe');
             res.redirect('/material/agregarColor');
         }
         else{
-            await this.modelMaterial.agregarColor(color);
+            await this.modelColor.agregarColor(color);
             req.flash('success', 'El Color Fue Agregado');
             res.redirect('/material/');
         }
@@ -96,8 +68,8 @@ class Material{
     public geditar = async (req:any, res:any) => {
         const { id } = req.params;
         const material = await this.modelMaterial.getDatos(id);
-        const tipo = await this.modelMaterial.getMaterial();
-        const color = await this.modelMaterial.getColor();
+        const tipo = await this.modelTipo.getTipos();
+        const color = await this.modelColor.getColores();
         res.render('material/editar', {material:material[0],color,tipo});
     }
     

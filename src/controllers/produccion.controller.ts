@@ -1,11 +1,13 @@
 import ModelProduccion from '../models/Produccion';
 import ModelInventario from '../models/Inventario';
 import ModelMaterial from '../models/Material';
+import ModelSolicitud from '../models/Solicitud';
 import {isAdmin,isUsuario,isEmsamblador,isBordador,isCortador,isCosturero,isDesigner,isVendedor,isGerente} from '../lib/helpers';
 import NodeMailer from '../lib/nodemailer';
 
 class Produccion{
     private hours:number = 0;
+    private modelSolicitud = new ModelSolicitud();
     private ModelProduccion = new ModelProduccion();
     public listaP = async (req:any, res:any) => {
         const registros = await this.ModelProduccion.listaP();
@@ -16,11 +18,11 @@ class Produccion{
         		}else{registros[i].fechaMostrar=true;}
         	}
     	}
-    	res.render('registro/lista',{registros});
+    	res.render('produccion/listaregistros',{registros});
 	}
     public async listaFiltrada(){
         this.hours = 0;
-        const solicitud = await this.ModelProduccion.listaTodos();
+        const solicitud = await this.modelSolicitud.listatodos();
         var i=0;
         var listaFiltrada:any = [];
         solicitud.forEach(() => {
@@ -70,30 +72,30 @@ class Produccion{
     public lista = async (req:any,res:any) => {
         if(isAdmin(req.user)){
             const solicitud = await this.listaFiltrada();
-            res.render('proceso/lista',{solicitud});
+            res.render('produccion/lista',{solicitud});
         }
         else if (isEmsamblador(req.user)){
-            const solicitud = await this.ModelProduccion.listaFases(4,9);
-            res.render('proceso/lista',{solicitud});
+            const solicitud = await this.modelSolicitud.listaFases(4,9);
+            res.render('produccion/lista',{solicitud});
         }
         else if (isVendedor(req.user)){
             res.redirect('/solicitud/');
         }
         else if (isDesigner(req.user)){
-            const solicitud = await this.ModelProduccion.listaEmpleado(5);
-            res.render('proceso/lista',{solicitud});
+            const solicitud = await this.modelSolicitud.listaEmpleado(5);
+            res.render('produccion/lista',{solicitud});
         }
         else if (isCortador(req.user)){
-            const solicitud = await this.ModelProduccion.listaEmpleado(6);
-            res.render('proceso/lista',{solicitud});
+            const solicitud = await this.modelSolicitud.listaEmpleado(6);
+            res.render('produccion/lista',{solicitud});
         }
         else if (isCosturero(req.user)){
-            const solicitud = await this.ModelProduccion.listaEmpleado(7);
-            res.render('proceso/lista',{solicitud});
+            const solicitud = await this.modelSolicitud.listaEmpleado(7);
+            res.render('produccion/lista',{solicitud});
         }
         else if (isBordador(req.user)){
-            const solicitud = await this.ModelProduccion.listaEmpleado(8);
-            res.render('proceso/lista',{solicitud});
+            const solicitud = await this.modelSolicitud.listaEmpleado(8);
+            res.render('produccion/lista',{solicitud});
         }
         else{
             res.redirect('/solicitud/');
