@@ -313,7 +313,7 @@ var maximo = cuero;
 if(semicuero>cuero){maximo=semicuero}
 var ctx = document.getElementById('graficaUsuario');
 var myChart = new Chart(ctx, {
-    type: 'bar',
+    type: 'horizontalBar',
     data: {
         labels: ['Cuero', 'SemiCuero'],
         datasets: [{
@@ -332,13 +332,14 @@ var myChart = new Chart(ctx, {
     },
     options: {
         scales: {
+            xAxes: [{
+               ticks: {
+                   beginAtZero: true,
+                   min: 0
+               }
+            }],
             yAxes: [{
-                ticks: {
-                    beginAtZero: true,
-				callback: function(value) {if (value % 1 === 0) {return value;}},
-                min: 0,
-                max: maximo,
-                }
+                stacked:true,
             }]
         },legend: {
             display: false

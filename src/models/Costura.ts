@@ -2,17 +2,17 @@ const pool = require('../database');
 class ModelCostura{
 	private costuras:any = [];
 	public getCosturas = async() => {
-		 this.costuras = await pool.query("SELECT * FROM tipoCostura");
+		 this.costuras = await pool.query("SELECT * FROM Costura");
 		 return this.costuras;
 	}
     public checkCostura = async (texto:string) => {
-        return await pool.query("SELECT * From tipoCostura Where texto= ?",[texto]);
+        return await pool.query("SELECT * From Costura Where texto= ?",[texto]);
     }
     public borrarCostura = async (idc:number) => {
-        return await pool.query("DELETE FROM tipoCostura WHERE idc = ?",[idc]);
+        return await pool.query("DELETE FROM Costura WHERE idc = ?",[idc]);
     }
     public agregarCostura = async (costu:string) => {
-        await pool.query('INSERT INTO tipoCostura SET texto = ?',[costu]);
+        await pool.query('INSERT INTO Costura SET texto = ?',[costu]);
     };
 }
 export default ModelCostura;

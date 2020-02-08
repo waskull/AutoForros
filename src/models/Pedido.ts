@@ -3,7 +3,7 @@ const pool = require('../database');
 class ModelPedido{
     private pedidos:any = [];
     public lista = async () =>{
-        this.pedidos = await pool.query('SELECT idPedido, Usuarios.nombre, Proveedores.nombre as proveedor, Usuarios.apellido, Colores.descripcion, tipoMaterial.descrip, cantidad, costo, fecha FROM Pedidos,Usuarios,Proveedores,Materiales,Colores, tipoMaterial  Where id_empleado = idUsuario and id_proveedor = idProveedor and idproducto = idMaterial and Colores.idColor = Materiales.color and tipoMaterial.idTipo = Materiales.idTipo');
+        this.pedidos = await pool.query('SELECT idPedido, Usuarios.nombre, Proveedores.nombre as proveedor, Usuarios.apellido, Colores.descripcion, Tipos.descrip, cantidad, costo, fecha FROM Pedidos,Usuarios,Proveedores,Materiales,Colores, Tipos  Where id_empleado = idUsuario and id_proveedor = idProveedor and idproducto = idMaterial and Colores.idColor = Materiales.color and Tipos.idTipo = Materiales.idTipo');
         return this.pedidos;
     };
     
@@ -12,7 +12,7 @@ class ModelPedido{
     };
     
     public getProducto= async () =>{
-        return await pool.query('SELECT idMaterial, descrip, descripcion FROM Materiales,Colores,tipoMaterial Where Colores.idColor = Materiales.color and tipoMaterial.idTipo = Materiales.idTipo');
+        return await pool.query('SELECT idMaterial, descrip, descripcion FROM Materiales,Colores,Tipos Where Colores.idColor = Materiales.color and Tipos.idTipo = Materiales.idTipo');
     };
     
     public getProveedorById = async (nombre:string) =>{
@@ -20,7 +20,7 @@ class ModelPedido{
     };
     
     public getProductoById = async (id:any) =>{
-        return await pool.query('SELECT idMaterial FROM Materiales,tipoMaterial Where descrip = ? and Materiales.idTipo = tipoMaterial.idTipo', [id]);
+        return await pool.query('SELECT idMaterial FROM Materiales,Tipos Where descrip = ? and Materiales.idTipo = Tipos.idTipo', [id]);
     };
     
     public registro = async (nuevoPedido:any) => {

@@ -6,7 +6,7 @@ class ModelUsuario{
         return await pool.query("SELECT nivelAcceso,idUsuario From Usuarios Where idUsuario = ?",[id]);
     }
     public lista = async () =>{
-        this.usuarios = await pool.query("SELECT idUsuario, nombre, apellido, correo, sexo, clave, Descripcion, direccion, telefono, fechaInscripcion FROM Usuarios,tipoUsuario WHERE nivelAcceso=tipoUsuario.idTipo and nivelAcceso>1");
+        this.usuarios = await pool.query("SELECT idUsuario, nombre, apellido, correo, sexo, clave, Descripcion, direccion, telefono, fechaInscripcion FROM Usuarios,Roles WHERE nivelAcceso=Roles.idTipo and nivelAcceso>1");
         return this.usuarios;
     };
     public getUsuarios = async() => {
@@ -14,11 +14,11 @@ class ModelUsuario{
         return this.usuarios;
     }
     public descr = async () =>{
-        return await pool.query("SELECT descripcion,idTipo FROM tipoUsuario Where idTipo >= 3");
+        return await pool.query("SELECT descripcion,idTipo FROM Roles Where idTipo >= 3");
     };
     
     public rango = async (nivelAcceso:number) =>{
-        return await pool.query("SELECT idTipo FROM tipoUsuario Where Descripcion = ?", [nivelAcceso]);
+        return await pool.query("SELECT idTipo FROM Roles Where Descripcion = ?", [nivelAcceso]);
     };
     
     public agregar = async (body:any,pass:any) =>{
@@ -66,11 +66,11 @@ class ModelUsuario{
     };
     
     public datosUsuario = async (idUsuario:number) => {
-        return await pool.query('SELECT idUsuario, nombre, apellido, correo, sexo, clave, Descripcion, direccion, telefono, fechaInscripcion,nivelAcceso FROM Usuarios,tipoUsuario Where idUsuario = ? AND Usuarios.nivelAcceso = tipoUsuario.idTipo ', [idUsuario]);
+        return await pool.query('SELECT idUsuario, nombre, apellido, correo, sexo, clave, Descripcion, direccion, telefono, fechaInscripcion,nivelAcceso FROM Usuarios,Roles Where idUsuario = ? AND Usuarios.nivelAcceso = Roles.idTipo ', [idUsuario]);
     };
 
     public getNumSolicitudes = async () =>{
-        return await pool.query("SELECT COUNT(*) AS solicitudes FROM tipoCostura,Pagos,tipoPago, Usuarios,Automoviles, Colores, Bordados, tipoMaterial, Solicitudes, Procesos Where idVehiculo=Automoviles.idAutomovil and id_material=tipoMaterial.idTipo and id_color=Colores.idColor and id_bordado=Bordados.idBordado and Solicitudes.idUsuario=Usuarios.idUsuario and Procesos.idProceso=Solicitudes.fase and Solicitudes.fase=3 and Pagos.idSoli=Solicitudes.idSolicitud and tipoCostura.idc=Solicitudes.costura and Pagos.tipo=tipoPago.idpago ORDER BY fechaSolicitud");
+        return await pool.query("SELECT COUNT(*) AS solicitudes FROM Costura,Pagos,Metodos, Usuarios,Automoviles, Colores, Bordados, Tipos, Solicitudes, Procesos Where idVehiculo=Automoviles.idAutomovil and id_material=Tipos.idTipo and id_color=Colores.idColor and id_bordado=Bordados.idBordado and Solicitudes.idUsuario=Usuarios.idUsuario and Procesos.idProceso=Solicitudes.fase and Solicitudes.fase=3 and Pagos.idSoli=Solicitudes.idSolicitud and Costura.idc=Solicitudes.costura and Pagos.tipo=Metodos.idpago ORDER BY fechaSolicitud");
     };
     
     public getNumeroSolicitudesById = async (id:number) => {
@@ -78,7 +78,7 @@ class ModelUsuario{
     }
 
     public getNumSolicitudesById = async (id:number) =>{
-        return await pool.query("SELECT COUNT(*) AS solicitudes FROM tipoCostura,Pagos,tipoPago, Usuarios,Automoviles, Colores, Bordados, tipoMaterial, Solicitudes, Procesos Where idVehiculo=Automoviles.idAutomovil and id_material=tipoMaterial.idTipo and id_color=Colores.idColor and id_bordado=Bordados.idBordado and Solicitudes.idUsuario=Usuarios.idUsuario and Procesos.idProceso=Solicitudes.fase and Pagos.idSoli=Solicitudes.idSolicitud and Pagos.tipo=tipoPago.idpago and Solicitudes.costura=tipoCostura.idc and Solicitudes.idUsuario=? ORDER BY fechaSolicitud",[id]);
+        return await pool.query("SELECT COUNT(*) AS solicitudes FROM Costura,Pagos,Metodos, Usuarios,Automoviles, Colores, Bordados, Tipos, Solicitudes, Procesos Where idVehiculo=Automoviles.idAutomovil and id_material=Tipos.idTipo and id_color=Colores.idColor and id_bordado=Bordados.idBordado and Solicitudes.idUsuario=Usuarios.idUsuario and Procesos.idProceso=Solicitudes.fase and Pagos.idSoli=Solicitudes.idSolicitud and Pagos.tipo=Metodos.idpago and Solicitudes.costura=Costura.idc and Solicitudes.idUsuario=? ORDER BY fechaSolicitud",[id]);
     };
     
     public getNumeroVehiculosById = async (id:number) => {

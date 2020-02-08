@@ -8,7 +8,7 @@ export default class ModelPago{
     }
 
     public getTipos = async() =>{
-        return await pool.query("SELECT * FROM tipoPago Where idpago!=3");
+        return await pool.query("SELECT * FROM Metodos Where idpago!=3");
     };
     public getSolicitud = async(id:number) => {
         return await pool.query("SELECT idSoli FROM Pagos Where idPago = ?",[id]);

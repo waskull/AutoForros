@@ -1,9 +1,10 @@
+
 const pool = require('../database');
 
 class ModelMaterial{
     private materiales:any = [];
     public lista = async () =>{
-        this.materiales = await pool.query('SELECT idMaterial, Colores.descripcion, tipoMaterial.descrip, url_img FROM Materiales, Colores, tipoMaterial Where Colores.idColor = Materiales.color and tipoMaterial.idTipo = Materiales.idTipo ORDER BY IdMaterial');
+        this.materiales = await pool.query('SELECT idMaterial, Colores.descripcion, Tipos.descrip, url_img FROM Materiales, Colores, Tipos Where Colores.idColor = Materiales.color and Tipos.idTipo = Materiales.idTipo ORDER BY IdMaterial');
         return this.materiales;
     };
     
@@ -20,7 +21,7 @@ class ModelMaterial{
     };
     
     public getDatos = async (id:number) => {
-        return await pool.query("SELECT idMaterial, Materiales.idTipo, color, tipoMaterial.descrip, Colores.descripcion FROM Materiales, Colores, tipoMaterial Where Materiales.idTipo = tipoMaterial.idTipo and Materiales.color = Colores.idColor and idMaterial = ?",[id]);
+        return await pool.query("SELECT idMaterial, Materiales.idTipo, color, Tipos.descrip, Colores.descripcion FROM Materiales, Colores, Tipos Where Materiales.idTipo = Tipos.idTipo and Materiales.color = Colores.idColor and idMaterial = ?",[id]);
     };
     public getMaterialById = async(id:number) => {
         return await pool.query("SELECT * FROM Materiales Where idMaterial = ?",[id]);
@@ -42,10 +43,10 @@ class ModelMaterial{
         else{return [];}
     }
     public checkllaveFCostura = async (idc:number) =>{
-        return await pool.query("SELECT Solicitudes.costura From Solicitudes,tipoCostura Where tipoCostura.idc=Solicitudes.costura and Solicitudes.costura=?",[idc]);
+        return await pool.query("SELECT Solicitudes.costura From Solicitudes,Costura Where Costura.idc=Solicitudes.costura and Solicitudes.costura=?",[idc]);
     }
     public getColorByMaterial = async (idMaterial:number) =>{
-        return await pool.query("SELECT Materiales.color,Colores.descripcion FROM Colores,Materiales,tipoMaterial Where Materiales.idTipo=? and Materiales.idTipo=tipoMaterial.idTipo and Materiales.color=Colores.idColor",[idMaterial]);
+        return await pool.query("SELECT Materiales.color,Colores.descripcion FROM Colores,Materiales,Tipos Where Materiales.idTipo=? and Materiales.idTipo=Tipos.idTipo and Materiales.color=Colores.idColor",[idMaterial]);
     }
     public getIdMaterialByTipoAndColor = async (material:number,color:number) =>{
         return await pool.query("SELECT idMaterial FROM Materiales Where idTipo=? and color=?",[material,color]);

@@ -3,7 +3,7 @@ const pool = require('../database');
 class ModelInventario{
     private inventario:any = [];
     public lista = async () => {
-        this.inventario = await pool.query("SELECT cod,cantidadStock, Colores.descripcion,tipoMaterial.descrip FROM Inventario,Colores,tipoMaterial,Materiales Where Inventario.id_material=Materiales.idMaterial and Materiales.idTipo=tipoMaterial.idTipo and Colores.idColor=Materiales.color");
+        this.inventario = await pool.query("SELECT cod,cantidadStock, Colores.descripcion,Tipos.descrip FROM Inventario,Colores,Tipos,Materiales Where Inventario.id_material=Materiales.idMaterial and Materiales.idTipo=Tipos.idTipo and Colores.idColor=Materiales.color");
         return this.inventario;
     };
     public getMaterialById = async (id:number) => {
