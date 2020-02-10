@@ -45,6 +45,8 @@ class Automovil{
                 res.redirect('/vehiculos/agregar/');
             }
             else{
+                const nuevoVehiculo = req.body;
+                nuevoVehiculo.idCliente = req.user.idUsuario;
                 await this.modelAutomovil.agregar(req.body);
                 req.flash('success', 'El Vehiculo ha sido Creado');
                 res.redirect('/vehiculos/');
