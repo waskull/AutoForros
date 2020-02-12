@@ -20,6 +20,18 @@ export default class NodeMailer{
         <p>${this.mensaje}</p>
     `;
     }
+    public setMensaje(codigo:string){
+        this.mensaje = "Debes introducir ese codigo para recuperar tu contraseña";
+        this.contentHTML = `
+        <h1>AutoForros</h1>
+        <ul>
+            <li>Hola ${this.nombre+" "+this.apellido}</li>
+        </ul>
+        <p>${"Tu Codigo es : "+codigo+""}</p>
+        <br>
+        <p>${this.mensaje}</p>
+    `;
+    }
     private transporter = nodemailer.createTransport({
             host:'smtp.gmail.com',
             port: 587,
@@ -38,6 +50,24 @@ export default class NodeMailer{
             from: "forrosauto@gmail.com",
             to: this.destino,
             subject: 'Tu Solicitud se ha Completado',
+            html: this.contentHTML
+        }
+        await this.transporter.sendMail(opciones,function(error,info) {
+            if (error) {
+                console.log(error);
+                return error;
+            } else {
+                console.log(info.response);
+                console.log("E-mail enviado con Exito");
+                return "E-mail enviado con Exito";
+            }
+        });   
+    }
+    public async enviarCodigo(){
+        let opciones = {
+            from: "forrosauto@gmail.com",
+            to: this.destino,
+            subject: 'Codigo para Cambio de Clave',
             html: this.contentHTML
         }
         await this.transporter.sendMail(opciones,function(error,info) {

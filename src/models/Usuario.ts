@@ -46,6 +46,10 @@ class ModelUsuario{
     public getUsuario = async (idUsuario:number) => {
         return await pool.query('SELECT * FROM Usuarios WHERE idUsuario = ?', [idUsuario]);
     };
+
+    public getUsuarioByCorreo = async (correo:string) => {
+        return await pool.query('SELECT * FROM Usuarios WHERE correo = ?', [correo]);
+    };
     
     public editar = async (usuarioEditado:any,id:number) => {
         await pool.query("UPDATE Usuarios SET ? WHERE idUsuario = ? ", [usuarioEditado, id]);
@@ -101,6 +105,10 @@ class ModelUsuario{
     
     public getNumeroProcesos = async () => {
         return await pool.query('SELECT COUNT(*) AS procesos From Solicitudes Where Solicitudes.fase>=4 and Solicitudes.fase<=9');
+    }
+
+    public setClave = async (clave:string,id:number) => {
+        return await pool.query('UPDATE Usuarios SET clave=? WHERE idUsuario=?',[clave,id]);
     }
 }
 

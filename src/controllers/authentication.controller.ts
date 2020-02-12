@@ -1,8 +1,10 @@
 const express = require('express');
 const passport = require('passport');
 import Model from '../models/Usuario';
+import ModelPasswordreset from '../models/Passwordreset';
 import {isUsuario} from '../lib/helpers';
-
+import NodeMailer from '../lib/nodemailer';
+import {encriptarClave} from '../lib/helpers';
 class Authentication{
     private model = new Model();
     public registro = (req:any, res:any) => {
@@ -45,6 +47,66 @@ class Authentication{
             failureRedirect : '/login/',
             failureFlash: true
         })(req, res, next);
+    }
+    public reset = (req:Request, res:any) => {
+        res.render('auth/reset');
+    }
+    public enviarCodigo = async (req:any,res:any) =>{
+        const resp:any = await this.model.checkCorreo(req.body.correo);
+        if(resp.length < 1){
+            req.flash('message', 'El correo '+req.body.correo+' no existe');
+            res.redirect('/reset/');
+        }
+        const user:any = await this.model.getUsuarioByCorreo(req.body.correo);
+        if(user[0].nivelAcceso===1){
+            req.flash('message', 'Ese usuario no puede recuperar su contraseña de esta forma. Misterios de la Vida');
+            res.redirect('/login/');
+        }
+        const modelPR = new ModelPasswordreset();
+        let codigo:string = Math.floor((Math.random() * (1100000-500000))+500000).toString();
+        const cod = await modelPR.crearCodigo({idusuario:user[0].idUsuario,codigo:codigo,estaActivo:1});
+        const mailer = new NodeMailer("Recuperacion de Contraseña",user[0].nombre,user[0].apellido,0,req.body.correo);
+        mailer.setMensaje(codigo);
+        mailer.enviarCodigo();
+        console.log(codigo);
+        req.flash('success', 'Hemos enviado un codigo al correo: '+req.body.correo+', debes introducirlo aca para cambiar tu clave');
+        res.redirect('/reset2/'+cod.insertId+"/");
+
+    }
+    public changePassword = (req:any, res:any) => {
+        const id = req.params.id;
+        res.render('auth/resetPassword',{id});
+    }
+    public resetPassword = async (req:any,res:any) =>{
+        const modelPR = new ModelPasswordreset();
+        const resp:any = await modelPR.getCodigo(req.params.id);
+        if(resp.length<1){
+            req.flash('message', 'El codigo no existe');
+            res.redirect('/login/');
+        }
+        if(req.body.clave.length < 2){
+            req.flash('message', 'La clave es muy corta, debes ser mayor a 2 caracteres');
+            res.redirect('/reset2/'+req.params.id+"/");
+        }
+        if(req.body.codigo.length < 1){
+            req.flash('message', 'El codigo es invalido');
+            res.redirect('/reset2/'+req.params.id+"/");
+        }
+        
+        if(resp[0].codigo  !== req.body.codigo){
+            req.flash('message', 'El codigo '+req.body.codigo+' es erroneo');
+            res.redirect('/reset2/'+req.params.id+"/");
+        }
+        if(resp[0].estaActivo  !== 1){
+            req.flash('message', 'El codigo '+req.body.codigo+' ya no es valido');
+            res.redirect('/login/');
+        }
+        const clave = await encriptarClave(req.body.clave);
+        await this.model.setClave(clave,resp[0].idusuario);
+        await modelPR.deshabilitarCodigo(resp[0].id);
+        req.flash('success', 'Contraseña Actualizada');
+        res.redirect('/login/');
+
     }
 }
 
