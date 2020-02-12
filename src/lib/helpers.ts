@@ -36,7 +36,7 @@ export const isVendedor = (req:any) => {
 };
 
 export const isEmsamblador = (req:any) => {
-    if(req.Descripcion.toString().trim() == 'Emsamblador'){
+    if(req.Descripcion.toString().trim() == 'Ensamblador'){
         return true;
     }
     else {return false;}

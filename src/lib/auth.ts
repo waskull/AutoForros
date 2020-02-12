@@ -38,8 +38,24 @@ module.exports = {
             return next();
         }
     },
+    isNotVendedorOrAdmin(req:any, res:Response,next:NextFunction){
+        if(req.user.Descripcion.toString().trim() === 'Vendedor' || req.user.Descripcion.toString().trim() === 'Administrador' || req.user.Descripcion.toString().trim() === 'Gerente'){
+            return next();
+        }
+        else{
+            return res.redirect('/perfil/');
+        }
+    },
+    isProductor(req:any, res:Response,next:NextFunction){
+        if(req.user.Descripcion.toString().trim() === 'Cortador' || req.user.Descripcion.toString().trim() === 'Bordador' || req.user.Descripcion.toString().trim() === 'Ensamblador'){
+            return res.redirect('/perfil/');
+        }
+        else{
+            return next();
+        }
+    },
     isEmpleado(req:any, res:Response,next:NextFunction){
-        if(req.user.Descripcion.toString().trim() == 'Cortador' || req.user.Descripcion.toString().trim() == 'Vendedor' || req.user.Descripcion.toString().trim() == 'Bordador' || req.user.Descripcion.toString().trim() == 'Emsamblador'){
+        if(req.user.Descripcion.toString().trim() === 'Cortador' || req.user.Descripcion.toString().trim() === 'Vendedor' || req.user.Descripcion.toString().trim() === 'Bordador' || req.user.Descripcion.toString().trim() === 'Ensamblador'){
             return res.redirect('/perfil/');
         }
         else{
