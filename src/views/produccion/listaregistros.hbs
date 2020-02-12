@@ -12,11 +12,11 @@
                         <th>Registro #</th>
                         <th>Solicitud</th>
                         <th>Vendedor</th>
-                        <th>Emsamblador</th>
-                        <th>Diseñador</th>
-                        <th>Cortador</th>
-                        <th>Costurero</th>
+                        <th>Ensamblador</th>
                         <th>Bordador</th>
+                        <th>Diseñador</th>
+                        <th>Costurero</th>
+                        <th>Cortador</th>
                         <th>Fecha de Completacion</th>
                         {{/if}}
                     </tr>
@@ -25,14 +25,14 @@
                         {{#each registros}}
 
                         <tr>
-                            <td>{{idReg}}</td>
+                            <td>{{id}}</td>
                             <td>{{solicitud}}</td>
-                            <td>{{vendedor}}</td>
-                            <td>{{emsamblador}}</td>
-                            <td>{{designer}}</td>
-                            <td>{{cortador}}</td>
-                            <td>{{costurero}}</td>
-                            <td>{{bordador}}</td>
+                            <td>{{nombreVendedor}}</td>
+                            <td>{{nombreEnsamblador}}</td>
+                            <td>{{nombreBordador}}</td>
+                            <td>{{nombreDesigner}}</td>
+                            <td>{{nombreCosturero}}</td>
+                            <td>{{nombreCortador}}</td>
                             <td>
                                 {{#if fechaMostrar}}
                                     {{timeago fecha}}

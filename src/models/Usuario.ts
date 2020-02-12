@@ -74,7 +74,7 @@ class ModelUsuario{
     };
 
     public getNumSolicitudes = async () =>{
-        return await pool.query("SELECT COUNT(*) AS solicitudes FROM Costura,Pagos,Metodos, Usuarios,Automoviles, Colores, Bordados, Tipos, Solicitudes, Procesos Where idVehiculo=Automoviles.idAutomovil and id_material=Tipos.idTipo and id_color=Colores.idColor and id_bordado=Bordados.idBordado and Solicitudes.idUsuario=Usuarios.idUsuario and Procesos.idProceso=Solicitudes.fase and Solicitudes.fase=3 and Pagos.idSoli=Solicitudes.idSolicitud and Costura.idc=Solicitudes.costura and Pagos.tipo=Metodos.idpago ORDER BY fechaSolicitud");
+        return await pool.query("SELECT COUNT(*) AS solicitudes FROM Costuras,Pagos,Metodos, Usuarios,Automoviles, Colores, Bordados, Tipos, Solicitudes, Procesos Where idVehiculo=Automoviles.idAutomovil and id_material=Tipos.idTipo and id_color=Colores.idColor and id_bordado=Bordados.idBordado and Solicitudes.idUsuario=Usuarios.idUsuario and Procesos.idProceso=Solicitudes.fase and Solicitudes.fase=3 and Pagos.idSoli=Solicitudes.idSolicitud and Costuras.idc=Solicitudes.costura and Pagos.tipo=Metodos.idpago ORDER BY fechaSolicitud");
     };
     
     public getNumeroSolicitudesById = async (id:number) => {
@@ -82,7 +82,7 @@ class ModelUsuario{
     }
 
     public getNumSolicitudesById = async (id:number) =>{
-        return await pool.query("SELECT COUNT(*) AS solicitudes FROM Costura,Pagos,Metodos, Usuarios,Automoviles, Colores, Bordados, Tipos, Solicitudes, Procesos Where idVehiculo=Automoviles.idAutomovil and id_material=Tipos.idTipo and id_color=Colores.idColor and id_bordado=Bordados.idBordado and Solicitudes.idUsuario=Usuarios.idUsuario and Procesos.idProceso=Solicitudes.fase and Pagos.idSoli=Solicitudes.idSolicitud and Pagos.tipo=Metodos.idpago and Solicitudes.costura=Costura.idc and Solicitudes.idUsuario=? ORDER BY fechaSolicitud",[id]);
+        return await pool.query("SELECT COUNT(*) AS solicitudes FROM Costuras,Pagos,Metodos, Usuarios,Automoviles, Colores, Bordados, Tipos, Solicitudes, Procesos Where idVehiculo=Automoviles.idAutomovil and id_material=Tipos.idTipo and id_color=Colores.idColor and id_bordado=Bordados.idBordado and Solicitudes.idUsuario=Usuarios.idUsuario and Procesos.idProceso=Solicitudes.fase and Pagos.idSoli=Solicitudes.idSolicitud and Pagos.tipo=Metodos.idpago and Solicitudes.costura=Costuras.idc and Solicitudes.idUsuario=? ORDER BY fechaSolicitud",[id]);
     };
     
     public getNumeroVehiculosById = async (id:number) => {

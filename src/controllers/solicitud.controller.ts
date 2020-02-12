@@ -205,9 +205,8 @@ class Solicitud{
             const modelVenta = new ModelVenta();
             await modelVenta.registrarVenta(id,pago);
             const solci = await this.modelPago.getSolicitud(pago);
-            const nombre = req.user.nombre+" "+req.user.apellido;
             const modelProduccion = new ModelProduccion();
-            await modelProduccion.crearRegistro(solci[0].idSoli,nombre);
+            await modelProduccion.crearRegistro(solci[0].idSoli,req.user.idUsuario);
             req.flash('success', 'La solicitud ha sido aprobada');
             res.redirect('/solicitud/');
     }

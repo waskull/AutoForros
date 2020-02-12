@@ -43,7 +43,7 @@ class ModelMaterial{
         else{return [];}
     }
     public checkllaveFCostura = async (idc:number) =>{
-        return await pool.query("SELECT Solicitudes.costura From Solicitudes,Costura Where Costura.idc=Solicitudes.costura and Solicitudes.costura=?",[idc]);
+        return await pool.query("SELECT Solicitudes.costura From Solicitudes,Costuras Where Costuras.idc=Solicitudes.costura and Solicitudes.costura=?",[idc]);
     }
     public getColorByMaterial = async (idMaterial:number) =>{
         return await pool.query("SELECT Materiales.color,Colores.descripcion FROM Colores,Materiales,Tipos Where Materiales.idTipo=? and Materiales.idTipo=Tipos.idTipo and Materiales.color=Colores.idColor",[idMaterial]);

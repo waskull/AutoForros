@@ -2,6 +2,7 @@ import ModelProduccion from '../models/Produccion';
 import ModelInventario from '../models/Inventario';
 import ModelMaterial from '../models/Material';
 import ModelSolicitud from '../models/Solicitud';
+import ModelUsuario from '../models/Usuario';
 import {isAdmin,isUsuario,isEmsamblador,isBordador,isCortador,isCosturero,isDesigner,isVendedor,isGerente} from '../lib/helpers';
 import NodeMailer from '../lib/nodemailer';
 
@@ -9,10 +10,31 @@ class Produccion{
     private hours:number = 0;
     private modelSolicitud = new ModelSolicitud();
     private ModelProduccion = new ModelProduccion();
+    private MU = new ModelUsuario();
     public listaP = async (req:any, res:any) => {
         const registros = await this.ModelProduccion.listaP();
         if(registros){
         	for (var i = 0; i < registros.length; ++i) {
+                var tmp;
+
+                tmp = await this.MU.getUsuario(registros[i].vendedor);
+                if(registros[i].vendedor){registros[i].nombreVendedor = tmp[0].nombre+" "+tmp[0].apellido;}
+
+                tmp = await this.MU.getUsuario(registros[i].ensamblador);
+                if(registros[i].ensamblador){registros[i].nombreEnsamblador = tmp[0].nombre+" "+tmp[0].apellido;}
+
+                tmp = await this.MU.getUsuario(registros[i].bordador);
+                if(registros[i].bordador){registros[i].nombreBordador = tmp[0].nombre+" "+tmp[0].apellido;}
+
+                tmp = await this.MU.getUsuario(registros[i].designer);
+                if(registros[i].designer){registros[i].nombreDesigner = tmp[0].nombre+" "+tmp[0].apellido;}
+
+                tmp = await this.MU.getUsuario(registros[i].costurero);
+                if(registros[i].costurero){registros[i].nombreCosturero = tmp[0].nombre+" "+tmp[0].apellido;}
+
+                tmp = await this.MU.getUsuario(registros[i].cortador);
+                if(registros[i].cortador){registros[i].nombreCortador = tmp[0].nombre+" "+tmp[0].apellido;}
+
         		if(registros[i].fecha==null){
         			registros[i].fechaMostrar=false;
         		}else{registros[i].fechaMostrar=true;}
@@ -104,7 +126,7 @@ class Produccion{
     
     public aprobar = async (req:any,res:any) => {
         const id = req.params.id;
-        const estadoActual = await this.ModelProduccion.getFase(id);
+        const estadoActual = await this.modelSolicitud.getFase(id);
         if (isEmsamblador(req.user)){
             if(estadoActual[0].fase < 4 || estadoActual[0].fase > 9){
                 console.log("xd "+estadoActual[0].fase); 
@@ -113,19 +135,19 @@ class Produccion{
             else{
                 if(estadoActual[0].fase == 9){
                     const fecha = new Date();
-                    await this.ModelProduccion.subirFase(id);
+                    await this.modelSolicitud.subirFase(id);
                     await this.ModelProduccion.setFecha(fecha,id);
                     req.flash('success', 'El forro esta listo para ser entregado');
                     console.log(id);
-                    const consulta = await this.ModelProduccion.getidUsuario(id);
-                    const infoUsuario = await this.ModelProduccion.getInfoUsuario(consulta[0].idUsuario);
+                    const consulta = await this.modelSolicitud.getidUsuario(id);
+                    const infoUsuario = await this.MU.getUsuario(consulta[0].idUsuario);
                     const mailer = new NodeMailer("Forro Completado",infoUsuario[0].nombre,infoUsuario[0].apellido,id,infoUsuario[0].correo);
                     await mailer.enviarCorreo();
                     res.redirect('/produccion/');
                 }
                 else{
-                    await this.ModelProduccion.subirFase(id);
-                    await this.ModelProduccion.setEmsamblador(req.user.nombre+" "+req.user.apellido,id);
+                    await this.modelSolicitud.subirFase(id);
+                    await this.ModelProduccion.setEnsamblador(req.user.idUsuario,id);
                     req.flash('success', 'El forro ahora esta en fase de Diseño');
                     res.redirect('/produccion/');
                 }
@@ -136,9 +158,9 @@ class Produccion{
                 res.redirect('/produccion/');
             }
             else{
-                await this.ModelProduccion.subirFase(id);
-                await this.ModelProduccion.setBordador(req.user.nombre+" "+req.user.apellido,id);
-                req.flash('success', 'El forro ahora esta en fase de Emsamblaje');
+                await this.modelSolicitud.subirFase(id);
+                await this.ModelProduccion.setBordador(req.user.idUsuario,id);
+                req.flash('success', 'El forro ahora esta en fase de Ensamblaje');
                 res.redirect('/produccion/');
             }
         }
@@ -147,8 +169,8 @@ class Produccion{
                 res.redirect('/produccion/');
             }
             else{
-                await this.ModelProduccion.subirFase(id);
-                await this.ModelProduccion.setCosturero(req.user.nombre+" "+req.user.apellido,id);
+                await this.modelSolicitud.subirFase(id);
+                await this.ModelProduccion.setCosturero(req.user.idUsuario,id);
                 req.flash('success', 'El forro ahora esta en fase de Bordado');
                 res.redirect('/produccion/');
             }
@@ -158,8 +180,8 @@ class Produccion{
                 res.redirect('/produccion/');
             }
             else{
-                await this.ModelProduccion.subirFase(id);
-                await this.ModelProduccion.setCortador(req.user.nombre+" "+req.user.apellido,id);
+                await this.modelSolicitud.subirFase(id);
+                await this.ModelProduccion.setCortador(req.user.idUsuario,id);
                 req.flash('success', 'El forro ahora esta en fase de Costura');
                 res.redirect('/produccion/');
             }
@@ -170,7 +192,7 @@ class Produccion{
             }
             else{
                 //AQUI VA LA VAINA
-                const solicitud = await this.ModelProduccion.getInfoSolicitud(req.params.id);
+                const solicitud = await this.modelSolicitud.getInfoSolicitud(req.params.id);
                 const MI = new ModelInventario();
                 const MM = new ModelMaterial();
                 console.log(solicitud);
@@ -179,8 +201,8 @@ class Produccion{
                 const checkCantidad = await MI.getMaterialById(idMaterial[0].idMaterial);
                 if(checkCantidad[0].cantidad > 0 && checkCantidad[0].cantidad>=solicitud[0].cantidad){
                     await MI.subtractionMaterial(idMaterial[0].idMaterial,solicitud[0].cantidad);
-                    await this.ModelProduccion.subirFase(id);
-                    await this.ModelProduccion.setDesigner(req.user.nombre+" "+req.user.apellido,id);
+                    await this.modelSolicitud.subirFase(id);
+                    await this.ModelProduccion.setDesigner(req.user.idUsuario,id);
                     req.flash('success', 'El forro ahora esta en fase de Corte');
                     res.redirect('/produccion/');
                 }
@@ -193,13 +215,13 @@ class Produccion{
         }
         else if(isAdmin(req.user)){
             if(estadoActual[0].fase == 4){
-                await this.ModelProduccion.setEmsamblador(req.user.nombre+" "+req.user.apellido,id);
-                await this.ModelProduccion.subirFase(id);
+                await this.ModelProduccion.setEnsamblador(req.user.idUsuario,id);
+                await this.modelSolicitud.subirFase(id);
                 req.flash('success', 'El forro ahora esta en fase de Diseño');
                 res.redirect('/produccion/');
             }
             else if(estadoActual[0].fase == 5){
-                const solicitud = await this.ModelProduccion.getInfoSolicitud(req.params.id);
+                const solicitud = await this.modelSolicitud.getInfoSolicitud(req.params.id);
                 const MI = new ModelInventario();
                 const MM = new ModelMaterial();
                 const idMaterial = await MM.getIdMaterialByTipoAndColor(solicitud[0].id_material,solicitud[0].id_color);
@@ -207,8 +229,8 @@ class Produccion{
                 const checkCantidad = await MI.getMaterialById(idMaterial[0].idMaterial);
                 if(checkCantidad[0].cantidad > 0 && checkCantidad[0].cantidad>=solicitud[0].cantidad){
                     await MI.subtractionMaterial(idMaterial[0].idMaterial,solicitud[0].cantidad);
-                    await this.ModelProduccion.subirFase(id);
-                    await this.ModelProduccion.setDesigner(req.user.nombre+" "+req.user.apellido,id);
+                    await this.modelSolicitud.subirFase(id);
+                    await this.ModelProduccion.setDesigner(req.user.idUsuario,id);
                     req.flash('success', 'El forro ahora esta en fase de Corte');
                     res.redirect('/produccion/');
                 }
@@ -218,29 +240,29 @@ class Produccion{
                 }
             }
             else if(estadoActual[0].fase == 6){
-                await this.ModelProduccion.setCortador(req.user.nombre+" "+req.user.apellido,id);
-                await this.ModelProduccion.subirFase(id);
+                await this.ModelProduccion.setCortador(req.user.idUsuario,id);
+                await this.modelSolicitud.subirFase(id);
                 req.flash('success', 'El forro ahora esta en fase de Costura');
                 res.redirect('/produccion/');
             }
             else if(estadoActual[0].fase == 7){
-                await this.ModelProduccion.setCosturero(req.user.nombre+" "+req.user.apellido,id);
-                await this.ModelProduccion.subirFase(id);
+                await this.ModelProduccion.setCosturero(req.user.idUsuario,id);
+                await this.modelSolicitud.subirFase(id);
                 req.flash('success', 'El forro ahora esta en fase de Bordado');
                 res.redirect('/produccion/');
             }
             else if(estadoActual[0].fase == 8){
-                await this.ModelProduccion.setBordador(req.user.nombre+" "+req.user.apellido,id);
-                await this.ModelProduccion.subirFase(id);
-                req.flash('success', 'El forro ahora esta en fase de Emsamblado');
+                await this.ModelProduccion.setBordador(req.user.idUsuario,id);
+                await this.modelSolicitud.subirFase(id);
+                req.flash('success', 'El forro ahora esta en fase de Ensamblado');
                 res.redirect('/produccion/');
             }
             else if(estadoActual[0].fase == 9){
-                await this.ModelProduccion.subirFase(id);
+                await this.modelSolicitud.subirFase(id);
                 const fecha = new Date();
                 await this.ModelProduccion.setFecha(fecha,id);
-                const consulta = await this.ModelProduccion.getidUsuario(id);
-                const infoUsuario = await this.ModelProduccion.getInfoUsuario(consulta[0].idUsuario);
+                const consulta = await this.modelSolicitud.getidUsuario(id);
+                const infoUsuario = await this.MU.getUsuario(consulta[0].idUsuario);
                 req.flash('success', 'El forro esta listo para ser entregado');
                 const mailer = new NodeMailer("Forro Completado",infoUsuario[0].nombre,infoUsuario[0].apellido,id,infoUsuario[0].correo);
                 await mailer.enviarCorreo();
