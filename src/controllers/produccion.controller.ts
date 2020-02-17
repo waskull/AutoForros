@@ -198,7 +198,7 @@ class Produccion{
                 console.log(solicitud);
                 const idMaterial = await MM.getIdMaterialByTipoAndColor(solicitud[0].id_material,solicitud[0].id_color);
                 console.log(idMaterial);
-                const checkCantidad = await MI.getMaterialById(idMaterial[0].idMaterial);
+                const checkCantidad = await MI.checkStock(idMaterial[0].idMaterial);
                 if(checkCantidad[0].cantidad > 0 && checkCantidad[0].cantidad>=solicitud[0].cantidad){
                     await MI.subtractionMaterial(idMaterial[0].idMaterial,solicitud[0].cantidad);
                     await this.modelSolicitud.subirFase(id);
@@ -226,7 +226,7 @@ class Produccion{
                 const MM = new ModelMaterial();
                 const idMaterial = await MM.getIdMaterialByTipoAndColor(solicitud[0].id_material,solicitud[0].id_color);
                 console.log(idMaterial);
-                const checkCantidad = await MI.getMaterialById(idMaterial[0].idMaterial);
+                const checkCantidad = await MI.checkStock(idMaterial[0].idMaterial);
                 if(checkCantidad[0].cantidad > 0 && checkCantidad[0].cantidad>=solicitud[0].cantidad){
                     await MI.subtractionMaterial(idMaterial[0].idMaterial,solicitud[0].cantidad);
                     await this.modelSolicitud.subirFase(id);
