@@ -7,13 +7,13 @@ class ModelInventario{
         return this.inventario;
     };
     public getMaterialById = async (id:number) => {
-        return await pool.query("SELECT COUNT(*) as cantidad FROM Inventario WHERE id_material=?",[id]);
+        return await pool.query("SELECT cantidadStock as cantidad FROM Inventario WHERE id_material=?",[id]);
     }
     public subtractionMaterial = async (id:number,cantidad:number) =>{
         return await pool.query("UPDATE Inventario SET cantidadStock=cantidadStock-? WHERE id_material=?",[cantidad,id]);
     }
-    public checkStock = async (idproducto:number) =>{
-        return await pool.query("SELECT cantidadStock FROM Inventario Where id_material = ?", [idproducto]);
+    public checkStock = async (id:number) =>{
+        return await pool.query("SELECT cantidadStock as cantidad FROM Inventario WHERE id_material=?",[id]);
     };
 }
 
