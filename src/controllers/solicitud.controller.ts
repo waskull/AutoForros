@@ -203,25 +203,32 @@ class Solicitud{
     
     public aprobar = async (req:any, res:any) => {
             const { id } = req.params;
-            const fechaTentativa = new Date();
-            var horasestimadas = await this.ultimoETA();
-            horasestimadas+=this.getETA(fechaTentativa.getDay(),4);
-            const sol = await this.modelSolicitud.getSolicitudById(id);
-            if (sol[0].cantidad > 1){
-                horasestimadas+=Math.floor(horasestimadas/4);
+            const reg = await this.modelPago.checkPago(id);
+            if(reg.tipo === 3){
+                req.flash('message', 'El Pago no ha sido cargado');
+                res.redirect('/solicitud/');
             }
-            fechaTentativa.setHours(fechaTentativa.getHours()+horasestimadas);
-            await this.modelSolicitud.aprobarPago(id,fechaTentativa);
+            else{
+                const fechaTentativa = new Date();
+                var horasestimadas = await this.ultimoETA();
+                horasestimadas+=this.getETA(fechaTentativa.getDay(),4);
+                const sol = await this.modelSolicitud.getSolicitudById(id);
+                if (sol[0].cantidad > 1){
+                    horasestimadas+=Math.floor(horasestimadas/4);
+                }
+                fechaTentativa.setHours(fechaTentativa.getHours()+horasestimadas);
+                await this.modelSolicitud.aprobarPago(id,fechaTentativa);
 
-            const idpago = await this.modelPago.getiIdPago(id);
-            const pago = parseInt(idpago[0].idPago);
-            const modelVenta = new ModelVenta();
-            await modelVenta.registrarVenta(id,pago);
-            const solci = await this.modelPago.getSolicitud(pago);
-            const modelProduccion = new ModelProduccion();
-            await modelProduccion.crearRegistro(solci[0].idSoli,req.user.idUsuario);
-            req.flash('success', 'La solicitud ha sido aprobada');
-            res.redirect('/solicitud/');
+                const idpago = await this.modelPago.getiIdPago(id);
+                const pago = parseInt(idpago[0].idPago);
+                const modelVenta = new ModelVenta();
+                await modelVenta.registrarVenta(id,pago);
+                const solci = await this.modelPago.getSolicitud(pago);
+                const modelProduccion = new ModelProduccion();
+                await modelProduccion.crearRegistro(solci[0].idSoli,req.user.idUsuario);
+                req.flash('success', 'La solicitud ha sido aprobada');
+                res.redirect('/solicitud/');
+            }
     }
     
     public cancelar = async (req:any, res:any) => {
