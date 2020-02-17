@@ -226,14 +226,21 @@ class Produccion{
                 const MM = new ModelMaterial();
                 const idMaterial = await MM.getIdMaterialByTipoAndColor(solicitud[0].id_material,solicitud[0].id_color);
                 console.log(idMaterial);
-                const checkCantidad = await MI.checkStock(idMaterial[0].idMaterial);
-                if(checkCantidad[0].cantidad > 0 && checkCantidad[0].cantidad>=solicitud[0].cantidad){
-                    await MI.subtractionMaterial(idMaterial[0].idMaterial,solicitud[0].cantidad);
-                    await this.modelSolicitud.subirFase(id);
-                    await this.ModelProduccion.setDesigner(req.user.idUsuario,id);
-                    req.flash('success', 'El forro ahora esta en fase de Corte');
-                    res.redirect('/produccion/');
-                }
+                const check = await MI.getMaterialById(idMaterial[0].idMaterial);
+		const checkCantidad = await MI.checkStock(idMaterial[0].idMaterial);
+		if(check[0].cantidad > 0){
+			if(checkCantidad[0].cantidad>=solicitud[0].cantidad){
+				await MI.subtractionMaterial(idMaterial[0].idMaterial,solicitud[0].cantidad);
+				await this.modelSolicitud.subirFase(id);
+				await this.ModelProduccion.setDesigner(req.user.idUsuario,id);
+				req.flash('success', 'El forro ahora esta en fase de Corte');
+				res.redirect('/produccion/');
+			}else{
+				req.flash('message', 'Ya no queda '+solicitud[0].material+' '+solicitud[0].color+' en el inventario, pidele al encargado que realize un pedido');
+                    		res.redirect('/produccion/');
+			}
+		}
+                
                 else{
                     req.flash('message', 'Ya no queda '+solicitud[0].material+' '+solicitud[0].color+' en el inventario, pidele al encargado que realize un pedido');
                     res.redirect('/produccion/');
