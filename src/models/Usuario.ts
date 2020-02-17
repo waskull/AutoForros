@@ -95,6 +95,11 @@ class ModelUsuario{
     public checkMail = async (correo:string) => {
         return await pool.query('SELECT correo FROM Usuarios WHERE correo = ?', [correo]);
     };
+
+    public checkFK = async (idUsuario:number) => {
+        return await pool.query("SELECT * FROM Producciones Where vendedor = ? || ensamblador=? || designer=? || costurero=? || cortador=? || bordador=?", [idUsuario,idUsuario,idUsuario,idUsuario,idUsuario,idUsuario,]);
+    }
+
     public getNumeroSolicitudes = async () => {
         return await pool.query('SELECT COUNT(*) AS solicitudes FROM Solicitudes');
     }

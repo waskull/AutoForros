@@ -34,6 +34,10 @@ class ModelSolicitud{
         await pool.query("UPDATE Solicitudes SET fase=fase-1 Where idSolicitud=?",[id]);
     }
 
+    public getSolicitudById = async(id:number) => {
+        return await pool.query("SELECT cantidad FROM Solicitudes Where idSolicitud = ?",[id]);
+    }
+
     public getUsuario = async(id:number) => {
         return await pool.query("SELECT idUsuario FROM Solicitudes Where idSolicitud = ?",[id]);
     }

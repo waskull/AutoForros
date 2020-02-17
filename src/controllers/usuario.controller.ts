@@ -31,13 +31,23 @@ class Usuario{
     }
     
     public borrar = async (req:any, res:any) => {
-        const resp = await this.ModelUsuario.checkForeignKey(req.params.id);
-        if(resp.length>0){
-            req.flash('message', 'No puedes borrar ese usuario');
-            res.redirect('/usuarios/');
-        }else{
-            await this.ModelUsuario.borrar(req.params.id);
-            req.flash('success', 'Usuario Eliminado');
+        try{
+            const resp = await this.ModelUsuario.checkForeignKey(req.params.id);
+            const resp2 = await this.ModelUsuario.checkFK(req.params.id);
+            if(resp.length>0){
+                req.flash('message', 'No puedes borrar ese usuario');
+                res.redirect('/usuarios/');
+            }else if (resp2.length>0){
+                req.flash('message', 'No puedes borrar ese empleado. Razon: Llave Foranea');
+                res.redirect('/usuarios/');
+            }
+            else{
+                await this.ModelUsuario.borrar(req.params.id);
+                req.flash('success', 'Usuario Eliminado');
+                res.redirect('/usuarios/');
+            }
+        }catch(e){
+            req.flash('message', 'No puedes borrar ese Usuario.');
             res.redirect('/usuarios/');
         }
         

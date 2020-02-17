@@ -65,7 +65,12 @@ class Solicitud{
                 }
                 else{
                     this.hours += solicitud[i].eta=this.getETA(dia,solicitud[i].idfase);
-                    solicitud[i].eta = this.hours;
+                    if(solicitud[i].cantidad>1){
+                        solicitud[i].eta = this.hours+Math.floor(this.hours/4);
+                    }else{
+                        solicitud[i].eta = this.hours;
+                    }
+                    
                 }
                this.setProgreso(solicitud[i].idfase);
                 solicitud[i].progreso = this.progreso;
@@ -88,7 +93,11 @@ class Solicitud{
                 }
                 else{
                     this.hours += solicitud[i].eta=this.getETA(dia,solicitud[i].idfase);
-                    solicitud[i].eta = this.hours;
+                    if(solicitud[i].cantidad>1){
+                        solicitud[i].eta = this.hours+Math.floor(this.hours/4);
+                    }else{
+                        solicitud[i].eta = this.hours;
+                    }
                     var fechaTentativa = new Date(solicitud[i].fechaTentativa);
                     var fechaActual = new Date();
                     fechaActual.setHours(fechaActual.getHours()-solicitud[i].eta);
@@ -197,6 +206,10 @@ class Solicitud{
             const fechaTentativa = new Date();
             var horasestimadas = await this.ultimoETA();
             horasestimadas+=this.getETA(fechaTentativa.getDay(),4);
+            const sol = await this.modelSolicitud.getSolicitudById(id);
+            if (sol[0].cantidad > 1){
+                horasestimadas+=Math.floor(horasestimadas/4);
+            }
             fechaTentativa.setHours(fechaTentativa.getHours()+horasestimadas);
             await this.modelSolicitud.aprobarPago(id,fechaTentativa);
 

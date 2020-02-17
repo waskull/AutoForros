@@ -54,15 +54,15 @@ class Produccion{
                 }
                 else{
                     this.hours += solicitud[i].eta=this.getETA(dia,solicitud[i].idfase);
-                    solicitud[i].eta = this.hours;
-                    //var fechaSolicitud = new Date(solicitud[i].fechaSolicitud);
-                    //fechaSolicitud.setHours(fechaSolicitud.getHours()+solicitud[i].eta);
-
+                    if(solicitud[i].cantidad>1){
+                        solicitud[i].eta = this.hours+Math.floor(this.hours/4);
+                    }else{
+                        solicitud[i].eta = this.hours;
+                    }
+                    console.log("Solicitud: "+solicitud[i].idSolicitud+" tiempo de completado: "+solicitud[i].eta);
                     var fechaTentativa = new Date(solicitud[i].fechaTentativa);
                     var fechaActual = new Date();
-                    //fechaActual.setHours(fechaActual.getHours()-solicitud[i].eta);
                     if(fechaActual >= fechaTentativa){
-                        console.log("La Solicitud: "+solicitud[i].idSolicitud +" esta retrasada"+fechaTentativa+" "+fechaActual);
                         solicitud[i].retraso = true;
                     }
                 }
