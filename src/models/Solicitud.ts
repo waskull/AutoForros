@@ -3,7 +3,7 @@ const pool = require('../database');
 class ModelSolicitud{
     private list:any = [];
     public lista = async () =>{
-        this.list = await pool.query("SELECT idSolicitud, nombre, apellido, placa, descrip, Colores.descripcion, Bordados.descripcion as bordado, cantidad, fechaSolicitud,Procesos.descripcion as fase,descPago,referencia,Solicitudes.costura,Costuras.texto FROM Costuras,Pagos,Metodos, Usuarios,Automoviles, Colores, Bordados, Tipos, Solicitudes, Procesos Where idVehiculo=Automoviles.idAutomovil and id_material=Tipos.idTipo and id_color=Colores.idColor and id_bordado=Bordados.idBordado and Solicitudes.idUsuario=Usuarios.idUsuario and Procesos.idProceso=Solicitudes.fase and Solicitudes.fase=3 and Pagos.idSoli=Solicitudes.idSolicitud and Costuras.idc=Solicitudes.costura and Pagos.tipo=Metodos.idpago ORDER BY fechaSolicitud");
+        this.list = await pool.query("SELECT idSolicitud, nombre, apellido, placa, descrip, Colores.descripcion, Bordados.descripcion as bordado, cantidad, fechaSolicitud,Procesos.descripcion as fase,descPago,referencia,Solicitudes.costura,Costuras.texto FROM Costuras,Pagos,Metodos, Usuarios,Automoviles, Colores, Bordados, Tipos, Solicitudes, Procesos Where idVehiculo=Automoviles.idAutomovil and id_material=Tipos.idTipo and id_color=Colores.idColor and id_bordado=Bordados.idBordado and Solicitudes.idUsuario=Usuarios.idUsuario and Procesos.idProceso=Solicitudes.fase and Solicitudes.fase=3 and Pagos.idSoli=Solicitudes.idSolicitud and Costuras.idc=Solicitudes.costura and Pagos.tipo=Metodos.idpago");
         return this.list;
     };
 

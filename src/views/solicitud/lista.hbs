@@ -1,4 +1,3 @@
-<script src="/static/js/sb-admin.min.js"></script>
 <div class="modal fade" id="modalInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -47,7 +46,9 @@
                 <tbody>
                         {{#each solicitud}}
                         <tr>
-                            <td name="{{idSolicitud}}">{{idSolicitud}}</td>
+                            <td name="{{idSolicitud}}">{{idSolicitud}} <div class="">       
+                                    <a id="aprobar" data-toggle="modal" data-target="#modalAceptar" name="aprobar" href="#" class="custom-modal badge badge-info" >Ver Detalles</a>
+                                    </div> </td>
                             <td>{{nombre}} {{apellido}}</td>
                             <td>{{placa}}</td>
                             <td>{{fase}}</td>
@@ -59,17 +60,22 @@
                             <td>{{timeago fechaSolicitud}}</td>
                             <td>
                                 {{#if estado}}
-                                <form action="/solicitud/aprobar/{{idSolicitud}}" method="GET">
-                                
-                                    <a id="aprobar" data-toggle="modal" data-target="#modalAceptar" name="aprobar" href="/solicitud/aprobar/{{ idSolicitud }}" class="custom-modal badge badge-primary" >Aprobar Solicitud</a>
-                                
+                                    <div class="col">
+                                      <a class="badge badge-primary" href="/solicitud/pago/{{idSolicitud}}" type="submit">Cargar Pago</a>
+                                    </div>
+                                    <div class="col">
+                                      <a class="badge badge-success" href="/solicitud/aprobar/{{idSolicitud}}" type="submit">Aprobar Solicitud</a>
+                                    </div>
+                                    <div class="col">
+                                      <a class="badge badge-danger" href="/solicitud/cancelar/{{idSolicitud}}" type="submit">Cancelar Solicitud</a>
+                                    </div>
                                 <div class="col">
                                     <!-- Modal -->
                                     <div class="modal fade" id="modalAceptar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                       <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
                                           <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLongTitle">Aprobar Solicitud</h5>
+                                            <h5 class="modal-title" id="exampleModalLongTitle">Detalle Solicitud</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                               <span aria-hidden="true">&times;</span>
                                             </button>
@@ -79,42 +85,10 @@
                                           </div>
                                           <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                            <button type="button submit" class="btn btn-primary">Guardar Cambios</button>
                                           </div>
                                         </div>
                                       </div>
-                                    </div>                                    </form>
-                                    <form action="/solicitud/cancelar/{{idSolicitud}}" method="GET">
-                                        <!--Para recuperar pagos en Admins/gerentes quitar el if-->
-                                        
-                                        <div class="row">
-                                            <a id="pago" name="pago" href="/solicitud/pago/{{ idSolicitud }}" class="badge badge-success mx-auto">Registrar Pago</a>
-                                        </div>
-                                        
-                                        <div class="row">
-                                            <a id="cancelar" name="cancelar" href="/solicitud/cancelar/{{ idSolicitud }}" data-toggle="modal" data-target="#modalCancelar" class="mx-auto modalCancel badge badge-danger">Cancelar Solicitud</a>
-                                        </div>
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="modalCancelar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                          <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content">
-                                              <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLongTitle">CANCELAR SOLICITUD</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                  <span aria-hidden="true">&times;</span>
-                                                </button>
-                                              </div>
-                                              <div class="modal-body">
-
-                                              </div>
-                                              <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                                <button type="button submit" class="btn btn-danger">Cancelar Solicitud</button>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                    </form>
+                                    </div>
 
                                 </div>
                                 {{else}}

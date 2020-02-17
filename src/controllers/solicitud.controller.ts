@@ -203,6 +203,7 @@ class Solicitud{
     
     public aprobar = async (req:any, res:any) => {
             const { id } = req.params;
+            console.log(id);
             const reg = await this.modelPago.checkPago(id);
             if(reg.tipo === 3){
                 req.flash('message', 'El Pago no ha sido cargado');
