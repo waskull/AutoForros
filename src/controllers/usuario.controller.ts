@@ -85,7 +85,7 @@ class Usuario{
         if(isAdmin(req.user)){
             const nivel = await this.modelRol.nivelUsuario(req.body.nivelAcceso);
             const nA = await this.ModelUsuario.getNivel(req.user.idUsuario);
-            //edit
+            //evitar edicion admin
             if(nA[0].nivelAcceso == 1 && req.params.id==nA[0].idUsuario){
                 req.flash('message', 'No puedes editar el usuario administrador');
                 res.redirect('/usuarios/');
