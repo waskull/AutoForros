@@ -26,27 +26,32 @@ class Authentication{
             else if (isEmsamblador(req.user)){
                 const procesos = await this.model.getNumeroProcesosByIntervalo(4,9);
                 const numProcesos = procesos[0].procesos;
-                res.render('homeEmpleado',{solicitudes:numSolicitudes,procesos:numProcesos});
+                const mensaje = "Forros en fase de Ensamble y desensamble";
+                res.render('homeEmpleado',{solicitudes:numSolicitudes,procesos:numProcesos,mensaje});
             }
             else if (isDesigner(req.user)){
-                const procesos = await this.model.getNumeroProcesosByFase (5);
+                const procesos = await this.model.getNumeroProcesosByFase(5);
                 const numProcesos = procesos[0].procesos;
-                res.render('homeEmpleado',{solicitudes:numSolicitudes,procesos:numProcesos});
+                const mensaje = "Forros en fase de Diseño";
+                res.render('homeEmpleado',{solicitudes:numSolicitudes,procesos:numProcesos,mensaje});
             }
             else if (isCortador(req.user)){
-                const procesos = await this.model.getNumeroProcesosByFase (6);
+                const procesos = await this.model.getNumeroProcesosByFase(6);
                 const numProcesos = procesos[0].procesos;
-                res.render('homeEmpleado',{solicitudes:numSolicitudes,procesos:numProcesos});
+                const mensaje = "Forros en fase de Corte";
+                res.render('homeEmpleado',{solicitudes:numSolicitudes,procesos:numProcesos,mensaje});
             }
             else if (isCosturero(req.user)){
-                const procesos = await this.model.getNumeroProcesosByFase (7);
+                const procesos = await this.model.getNumeroProcesosByFase(7);
                 const numProcesos = procesos[0].procesos;
-                res.render('homeEmpleado',{solicitudes:numSolicitudes,procesos:numProcesos});
+                const mensaje = "Forros en fase de Costura";
+                res.render('homeEmpleado',{solicitudes:numSolicitudes,procesos:numProcesos,mensaje});
             }
             else if (isBordador(req.user)){
-                const procesos = await this.model.getNumeroProcesosByFase (8);
+                const procesos = await this.model.getNumeroProcesosByFase(8);
                 const numProcesos = procesos[0].procesos;
-                res.render('homeEmpleado',{solicitudes:numSolicitudes,procesos:numProcesos});
+                const mensaje = "Forros en fase de Bordado";
+                res.render('homeEmpleado',{solicitudes:numSolicitudes,procesos:numProcesos,mensaje});
             }
             else {
                 const procesos = await this.model.getNumeroProcesos();
