@@ -74,11 +74,13 @@ class Usuario{
     }
     public editar = async (req:any, res:any) => {
         const claveEncriptada = await helpers.encriptarClave(req.body.clave);
+        const niv = await this.ModelUsuario.getNivel(req.params.id);
         const usuarioEditado = {
             nombre : req.body.nombre,
             apellido : req.body.apellido,
             sexo : req.body.sexo,
             clave : claveEncriptada,
+            nivelAcceso: niv[0].nivelAcceso,
             direccion : req.body.direccion,
             telefono : req.body.telefono,
         }
