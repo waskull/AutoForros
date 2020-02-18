@@ -86,22 +86,25 @@ class Solicitud{
         const solicitud = await this.modelSolicitud.listaTodos();
         var i=0;
         var listaFiltrada:any = [];
+        var ultimoETA = 0;
         solicitud.forEach(() => {
                 const dia = solicitud[i].fechaSolicitud.getDay();
                 if(solicitud[i].idfase === 3 || solicitud[i].idfase === 10){
                     solicitud[i].eta = 0;
                 }
                 else{
-                    this.hours += solicitud[i].eta=this.getETA(dia,solicitud[i].idfase);
+                    solicitud[i].eta=this.getETA(dia,solicitud[i].idfase);
+                    this.hours += solicitud[i].eta;
                     if(solicitud[i].cantidad>1){
                         solicitud[i].eta = this.hours+Math.floor(this.hours/4);
-                        this.hours+=Math.floor(this.hours/4);
+                        ultimoETA += solicitud[i].eta;
                     }else{
                         solicitud[i].eta = this.hours;
+                        ultimoETA += solicitud[i].eta;
                     }
                     var fechaTentativa = new Date(solicitud[i].fechaTentativa);
                     var fechaActual = new Date();
-                    fechaActual.setHours(fechaActual.getHours()+solicitud[i].eta);
+                    fechaActual.setHours(fechaActual.getHours()-solicitud[i].eta);
                     if(fechaActual >= fechaTentativa){
                         solicitud[i].retraso = true;
                     }
@@ -110,8 +113,8 @@ class Solicitud{
                 i++;
         });
         const len = listaFiltrada.length;
+        return ultimoETA;
         //return listaFiltrada[len-2].eta;
-        return this.hours;
     }
 
     public lista = async (req:any, res:any) => {
