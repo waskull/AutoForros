@@ -98,6 +98,15 @@ class Produccion{
         }
         else if (isEmsamblador(req.user)){
             const solicitud = await this.modelSolicitud.listaFases(4,9);
+		var i = 0;
+		solicitud.forEach(() => {
+		    var fechaTentativa = new Date(solicitud[i].fechaTentativa);
+                    var fechaActual = new Date();
+                    if(fechaActual >= fechaTentativa){
+                        solicitud[i].retraso = true;
+                    }
+		    i++;
+		});	
             res.render('produccion/lista',{solicitud});
         }
         else if (isVendedor(req.user)){
@@ -105,18 +114,54 @@ class Produccion{
         }
         else if (isDesigner(req.user)){
             const solicitud = await this.modelSolicitud.listaEmpleado(5);
+		var i = 0;
+		solicitud.forEach(() => {
+		    var fechaTentativa = new Date(solicitud[i].fechaTentativa);
+                    var fechaActual = new Date();
+                    if(fechaActual >= fechaTentativa){
+                        solicitud[i].retraso = true;
+                    }
+		    i++;
+		});
             res.render('produccion/lista',{solicitud});
         }
         else if (isCortador(req.user)){
             const solicitud = await this.modelSolicitud.listaEmpleado(6);
+		var i = 0;
+		solicitud.forEach(() => {
+		    var fechaTentativa = new Date(solicitud[i].fechaTentativa);
+                    var fechaActual = new Date();
+                    if(fechaActual >= fechaTentativa){
+                        solicitud[i].retraso = true;
+                    }
+		    i++;
+		});
             res.render('produccion/lista',{solicitud});
         }
         else if (isCosturero(req.user)){
             const solicitud = await this.modelSolicitud.listaEmpleado(7);
+		var i = 0;
+		solicitud.forEach(() => {
+		    var fechaTentativa = new Date(solicitud[i].fechaTentativa);
+                    var fechaActual = new Date();
+                    if(fechaActual >= fechaTentativa){
+                        solicitud[i].retraso = true;
+                    }
+		    i++;
+		});
             res.render('produccion/lista',{solicitud});
         }
         else if (isBordador(req.user)){
             const solicitud = await this.modelSolicitud.listaEmpleado(8);
+		var i = 0;
+		solicitud.forEach(() => {
+		    var fechaTentativa = new Date(solicitud[i].fechaTentativa);
+                    var fechaActual = new Date();
+                    if(fechaActual >= fechaTentativa){
+                        solicitud[i].retraso = true;
+                    }
+		    i++;
+		});
             res.render('produccion/lista',{solicitud});
         }
         else{
