@@ -79,7 +79,6 @@ class Usuario{
             apellido : req.body.apellido,
             sexo : req.body.sexo,
             clave : claveEncriptada,
-            nivelAcceso: 3,
             direccion : req.body.direccion,
             telefono : req.body.telefono,
         }
