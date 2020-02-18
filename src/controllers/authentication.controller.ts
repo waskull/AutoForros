@@ -2,7 +2,7 @@ const express = require('express');
 const passport = require('passport');
 import Model from '../models/Usuario';
 import ModelPasswordreset from '../models/Passwordreset';
-import {isUsuario} from '../lib/helpers';
+import {isUsuario,isAdmin} from '../lib/helpers';
 import NodeMailer from '../lib/nodemailer';
 import {encriptarClave} from '../lib/helpers';
 class Authentication{
@@ -21,7 +21,13 @@ class Authentication{
             const numSolicitudes = solicitudes[0].solicitudes;
             const procesos = await this.model.getNumeroProcesos();
             const numProcesos = procesos[0].procesos;
-            res.render('home',{usuarios:numUsuarios,ventas:numVentas,solicitudes:numSolicitudes,procesos:numProcesos});
+            if(isVendedor(req.user)){
+                res.render('homeVendedor',{ventas:numVentas,solicitudes:numSolicitudes});
+            }
+            else if (!isVendedor(req.user) && !isAdmin(req.user)){
+               res.render('homeEmpleado',{solicitudes:numSolicitudes,procesos:numProcesos});
+            }
+            else {res.render('home',{usuarios:numUsuarios,ventas:numVentas,solicitudes:numSolicitudes,procesos:numProcesos});}
         }
         else{
             const vehiculos = await this.model.getNumeroVehiculosById(req.user.idUsuario);
