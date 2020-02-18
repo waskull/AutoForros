@@ -95,6 +95,7 @@ class Solicitud{
                     this.hours += solicitud[i].eta=this.getETA(dia,solicitud[i].idfase);
                     if(solicitud[i].cantidad>1){
                         solicitud[i].eta = this.hours+Math.floor(this.hours/4);
+                        this.hours+=Math.floor(this.hours/4);
                     }else{
                         solicitud[i].eta = this.hours;
                     }
@@ -109,7 +110,8 @@ class Solicitud{
                 i++;
         });
         const len = listaFiltrada.length;
-        return listaFiltrada[len-2].eta;
+        //return listaFiltrada[len-2].eta;
+        return this.hours;
     }
 
     public lista = async (req:any, res:any) => {
