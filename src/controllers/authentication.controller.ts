@@ -2,7 +2,7 @@ const express = require('express');
 const passport = require('passport');
 import Model from '../models/Usuario';
 import ModelPasswordreset from '../models/Passwordreset';
-import {isUsuario,isAdmin,isVendedor} from '../lib/helpers';
+import {isUsuario,isAdmin,isVendedor,isEmsamblador,isCosturero, isBordador,isDesigner,isCortador} from '../lib/helpers';
 import NodeMailer from '../lib/nodemailer';
 import {encriptarClave} from '../lib/helpers';
 class Authentication{
@@ -19,15 +19,40 @@ class Authentication{
             const numVentas = ventas[0].ventas;
             const solicitudes = await this.model.getNumSolicitudes();
             const numSolicitudes = solicitudes[0].solicitudes;
-            const procesos = await this.model.getNumeroProcesos();
-            const numProcesos = procesos[0].procesos;
+            
             if(isVendedor(req.user)){
                 res.render('homeVendedor',{ventas:numVentas,solicitudes:numSolicitudes});
             }
-            else if (!isVendedor(req.user) && !isAdmin(req.user)){
-               res.render('homeEmpleado',{solicitudes:numSolicitudes,procesos:numProcesos});
+            else if (isEmsamblador(req.user)){
+                const procesos = await this.model.getNumeroProcesosByIntervalo(4,9);
+                const numProcesos = procesos[0].procesos;
+                res.render('homeEmpleado',{solicitudes:numSolicitudes,procesos:numProcesos});
             }
-            else {res.render('home',{usuarios:numUsuarios,ventas:numVentas,solicitudes:numSolicitudes,procesos:numProcesos});}
+            else if (isDesigner(req.user)){
+                const procesos = await this.model.getNumeroProcesosByFase (5);
+                const numProcesos = procesos[0].procesos;
+                res.render('homeEmpleado',{solicitudes:numSolicitudes,procesos:numProcesos});
+            }
+            else if (isCortador(req.user)){
+                const procesos = await this.model.getNumeroProcesosByFase (6);
+                const numProcesos = procesos[0].procesos;
+                res.render('homeEmpleado',{solicitudes:numSolicitudes,procesos:numProcesos});
+            }
+            else if (isCosturero(req.user)){
+                const procesos = await this.model.getNumeroProcesosByFase (7);
+                const numProcesos = procesos[0].procesos;
+                res.render('homeEmpleado',{solicitudes:numSolicitudes,procesos:numProcesos});
+            }
+            else if (isBordador(req.user)){
+                const procesos = await this.model.getNumeroProcesosByFase (8);
+                const numProcesos = procesos[0].procesos;
+                res.render('homeEmpleado',{solicitudes:numSolicitudes,procesos:numProcesos});
+            }
+            else {
+                const procesos = await this.model.getNumeroProcesos();
+                const numProcesos = procesos[0].procesos;
+                res.render('home',{usuarios:numUsuarios,ventas:numVentas,solicitudes:numSolicitudes,procesos:numProcesos});
+            }
         }
         else{
             const vehiculos = await this.model.getNumeroVehiculosById(req.user.idUsuario);
