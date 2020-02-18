@@ -70,7 +70,7 @@ class ModelSolicitud{
     }
     
     public listaFases = async (fase1:number,fase2:number) =>{
-        return await pool.query("SELECT idSolicitud,Costuras.texto, nombre, apellido, placa, descrip, Colores.descripcion, Bordados.descripcion as bordado, cantidad, fechaSolicitud,Procesos.descripcion as fase,descPago,referencia FROM Pagos,Metodos, Usuarios,Automoviles, Colores, Bordados,Costuras, Tipos, Solicitudes, Procesos Where idVehiculo=Automoviles.idAutomovil and id_material=Tipos.idTipo and id_color=Colores.idColor and id_bordado=Bordados.idBordado and Solicitudes.idUsuario=Usuarios.idUsuario and Procesos.idProceso=Solicitudes.fase and (Solicitudes.fase=? OR Solicitudes.fase=?) and Pagos.idSoli=Solicitudes.idSolicitud and Pagos.tipo=Metodos.idpago and Costuras.idc=Solicitudes.costura ORDER BY fechaSolicitud",[fase1,fase2]);
+        return await pool.query("SELECT idSolicitud,fechaTentativa,Costuras.texto, nombre, apellido, placa, descrip, Colores.descripcion, Bordados.descripcion as bordado, cantidad, fechaSolicitud,Procesos.descripcion as fase,descPago,referencia FROM Pagos,Metodos, Usuarios,Automoviles, Colores, Bordados,Costuras, Tipos, Solicitudes, Procesos Where idVehiculo=Automoviles.idAutomovil and id_material=Tipos.idTipo and id_color=Colores.idColor and id_bordado=Bordados.idBordado and Solicitudes.idUsuario=Usuarios.idUsuario and Procesos.idProceso=Solicitudes.fase and (Solicitudes.fase=? OR Solicitudes.fase=?) and Pagos.idSoli=Solicitudes.idSolicitud and Pagos.tipo=Metodos.idpago and Costuras.idc=Solicitudes.costura ORDER BY fechaSolicitud",[fase1,fase2]);
     }
 
     public listatodos = async () => {
@@ -78,7 +78,7 @@ class ModelSolicitud{
     }
 
     public listaEmpleado = async (fase:number) =>{
-        return await pool.query("SELECT idSolicitud, nombre, apellido, placa, descrip, Colores.descripcion, Bordados.descripcion as bordado, cantidad, fechaSolicitud,Procesos.descripcion as fase,descPago,referencia FROM Pagos,Metodos, Usuarios,Automoviles, Colores, Bordados, Tipos, Solicitudes, Procesos Where idVehiculo=Automoviles.idAutomovil and id_material=Tipos.idTipo and id_color=Colores.idColor and id_bordado=Bordados.idBordado and Solicitudes.idUsuario=Usuarios.idUsuario and Procesos.idProceso=Solicitudes.fase and Solicitudes.fase=? and Pagos.idSoli=Solicitudes.idSolicitud and Pagos.tipo=Metodos.idpago ORDER BY fechaSolicitud",[fase]);
+        return await pool.query("SELECT idSolicitud, fechaTentativa,nombre, apellido, placa, descrip, Colores.descripcion, Bordados.descripcion as bordado, cantidad, fechaSolicitud,Procesos.descripcion as fase,descPago,referencia FROM Pagos,Metodos, Usuarios,Automoviles, Colores, Bordados, Tipos, Solicitudes, Procesos Where idVehiculo=Automoviles.idAutomovil and id_material=Tipos.idTipo and id_color=Colores.idColor and id_bordado=Bordados.idBordado and Solicitudes.idUsuario=Usuarios.idUsuario and Procesos.idProceso=Solicitudes.fase and Solicitudes.fase=? and Pagos.idSoli=Solicitudes.idSolicitud and Pagos.tipo=Metodos.idpago ORDER BY fechaSolicitud",[fase]);
     }
     public getTipos = async (id:number) => {
         const result = await pool.query("SELECT count(id_material) as cantidad FROM Solicitudes WHERE id_material=?",[id]);
