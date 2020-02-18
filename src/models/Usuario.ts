@@ -115,7 +115,7 @@ class ModelUsuario{
         return await pool.query('SELECT COUNT(*) AS procesos From Solicitudes Where Solicitudes.fase=?',[id]);
     }
     public getNumeroProcesosByIntervalo = async (intervalo:number,intervalo2:number) => {
-        return await pool.query('SELECT COUNT(*) AS procesos From Solicitudes Where Solicitudes.fase=? and Solicitudes.fase=?',[intervalo,intervalo2]);
+        return await pool.query('SELECT COUNT(*) AS procesos From Solicitudes Where Solicitudes.fase=? or Solicitudes.fase=?',[intervalo,intervalo2]);
     }
     public setClave = async (clave:string,id:number) => {
         return await pool.query('UPDATE Usuarios SET clave=? WHERE idUsuario=?',[clave,id]);
