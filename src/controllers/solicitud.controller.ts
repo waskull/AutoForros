@@ -100,7 +100,7 @@ class Solicitud{
                     }
                     var fechaTentativa = new Date(solicitud[i].fechaTentativa);
                     var fechaActual = new Date();
-                    fechaActual.setHours(fechaActual.getHours()-solicitud[i].eta);
+                    fechaActual.setHours(fechaActual.getHours()+solicitud[i].eta);
                     if(fechaActual >= fechaTentativa){
                         solicitud[i].retraso = true;
                     }
