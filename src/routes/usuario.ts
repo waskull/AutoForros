@@ -8,7 +8,7 @@ router.get('/', isLoggedIn,isCliente,isEmpleado, lista);
 router.get('/agregar', isLoggedIn,isCliente,isEmpleado, agregar);
 router.post('/agregar', isLoggedIn,isCliente,isEmpleado, registrar);
 router.get('/borrar/:id', isLoggedIn,isCliente,isEmpleado, borrar);
-router.get('/editar/:id', isLoggedIn,isEmpleado, geditar);
-router.post('/editar/:id', isLoggedIn,isEmpleado, editar);
+router.get('/editar/:id', isLoggedIn, geditar);
+router.post('/editar/:id', isLoggedIn, editar);
 
 export default router;
