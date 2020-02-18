@@ -2,7 +2,7 @@ const express = require('express');
 const passport = require('passport');
 import Model from '../models/Usuario';
 import ModelPasswordreset from '../models/Passwordreset';
-import {isUsuario,isAdmin} from '../lib/helpers';
+import {isUsuario,isAdmin,isVendedor} from '../lib/helpers';
 import NodeMailer from '../lib/nodemailer';
 import {encriptarClave} from '../lib/helpers';
 class Authentication{
