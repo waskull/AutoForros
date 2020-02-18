@@ -111,7 +111,9 @@ class ModelUsuario{
     public getNumeroProcesos = async () => {
         return await pool.query('SELECT COUNT(*) AS procesos From Solicitudes Where Solicitudes.fase>=4 and Solicitudes.fase<=9');
     }
-
+    public getNumeroProcesosByFase = async (id:number) => {
+        return await pool.query('SELECT COUNT(*) AS procesos From Solicitudes Where Solicitudes.fase=?',[id]);
+    }
     public setClave = async (clave:string,id:number) => {
         return await pool.query('UPDATE Usuarios SET clave=? WHERE idUsuario=?',[clave,id]);
     }
