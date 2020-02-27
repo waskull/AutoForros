@@ -2,27 +2,39 @@
 {{>sidebar}}
 <div class="card">
 	<div class="card-body">
-		<h5>Bienvenido {{user.nombre}} {{user.apellido}}</h5>
-		<h6>Nivel de Acceso: {{user.Descripcion}}</h6>
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<h5>Bienvenido {{user.nombre}} {{user.apellido}}</h5>
+			</div>
+			<div class="form-group col-md-6">
+				<h6>Nivel de Acceso: {{user.Descripcion}}</h6>
+			</div>
+			<div class="form-group col-md-12">
+				<article>Cuentas para la realizacion de pagos:</article>
+			</div>
+            <div class="form-group col-md-6">
+              <b>Banesco: 0134-0043-18-0431051896</b>
+            </div>
+            <div class="form-group col-md-6">
+              <b>Mercantil: 0105-0734-19-1734057629</b>
+            </div>
+            <div class="form-group col-md-12">
+            	<article>El deposito o transferencia debes hacerse a nombre de AutoForros. Para transferencias debe colocar el RIF J298535369 utilizando el correo: autoforros2022@gmail.com</article>
+            </div>
+          </div>
+        </div>
 	</div>
 </div>
 <hr>
 {{> tarjetas }}
 {{> grafica }}
+<br>
 <footer class="sticky-footer background">
-<div class="container my-auto">
-		<div class="form-row">
-            <div class="form-group col-md-6">
-              <h6 class="text-white">Banesco: 0134-0043-18-0431051896</h6>
-            </div>
-            <div class="form-group col-md-6">
-              <h6 class="text-white">Mercantil: 0105-0734-19-1734057629</h6>
-            </div>
-          </div>
-		<div class="copyright text-center text-white my-auto">
+	<div class="container my-auto">
+        <div class="copyright text-center text-white my-auto">
 			<b>Copyright © AutoForros 2020</b>
 		</div>
-</div>
+	</div>
 </footer>
   <script src="/static/js/jquery.min.js"></script>
   <script src="/static/js/bootstrap.bundle.js"></script>
