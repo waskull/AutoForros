@@ -105,7 +105,9 @@ class Solicitud{
                 i++;
         });
         const len = listaFiltrada.length;
-        return listaFiltrada[len-2].eta;
+        if(len==1){return listaFiltrada[len-1].eta;}
+        else if(len==0){return 0;}
+        else{return listaFiltrada[len-2].eta;}
     }
 
     public lista = async (req:any, res:any) => {
