@@ -84,30 +84,14 @@ class Solicitud{
     public async ultimoETA(){
         this.hours = 0;
         const solicitud = await this.modelSolicitud.listaTodos();
-        var i=0;
-        var listaFiltrada:any = [];
-        solicitud.forEach(() => {
-                const dia = solicitud[i].fechaSolicitud.getDay();
-                if(solicitud[i].idfase === 3 || solicitud[i].idfase === 10){
-                    solicitud[i].eta = 0;
-                }
-                else{
-                    this.hours += solicitud[i].eta=this.getETA(dia,solicitud[i].idfase);
-                    solicitud[i].eta = this.hours;
-                    var fechaTentativa = new Date(solicitud[i].fechaTentativa);
-                    var fechaActual = new Date();
-                    fechaActual.setHours(fechaActual.getHours()-solicitud[i].eta);
-                    if(fechaActual >= fechaTentativa){
-                        solicitud[i].retraso = true;
-                    }
-                }
-                listaFiltrada.push(solicitud[i]);
-                i++;
-        });
-        const len = listaFiltrada.length;
-        if(len==1){return listaFiltrada[len-1].eta;}
-        else if(len==0){return 0;}
-        else{return listaFiltrada[len-2].eta;}
+        for (let i = 0; i < solicitud.length; i++) {
+            const dia = solicitud[i].fechaSolicitud.getDay();
+            this.hours+=this.getETA(dia,solicitud[i].idfase);
+            if(solicitud[i].cantidad>1){
+                this.hours = this.hours + Math.floor(this.hours/4);
+            }
+        }
+        return this.hours;
     }
 
     public lista = async (req:any, res:any) => {
@@ -210,12 +194,12 @@ class Solicitud{
             else{
                 var fechaTentativa = new Date();
                 var horasestimadas = await this.ultimoETA();
+                console.log(horasestimadas);
                 horasestimadas+=this.getETA(fechaTentativa.getDay(),4);
-                const sol = await this.modelSolicitud.getSolicitudById(id);
-                if (sol[0].cantidad > 1){
-                    horasestimadas+=Math.floor(horasestimadas/4);
-                }
+                console.log(horasestimadas);
+                
                 fechaTentativa.setHours(fechaTentativa.getHours()+horasestimadas);
+                console.log(fechaTentativa);
                 await this.modelSolicitud.aprobarPago(id,fechaTentativa);
 
                 const idpago = await this.modelPago.getiIdPago(id);
