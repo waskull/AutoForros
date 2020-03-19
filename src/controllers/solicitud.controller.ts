@@ -208,7 +208,7 @@ class Solicitud{
                 res.redirect('/solicitud/');
             }
             else{
-                const fechaTentativa = new Date();
+                var fechaTentativa = new Date();
                 var horasestimadas = await this.ultimoETA();
                 horasestimadas+=this.getETA(fechaTentativa.getDay(),4);
                 const sol = await this.modelSolicitud.getSolicitudById(id);
