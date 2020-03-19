@@ -8,7 +8,7 @@ class ModelSolicitud{
     };
 
     public listaTodos = async () => {
-        this.list = await pool.query("SELECT idSolicitud,Usuarios.idUsuario, nombre, apellido, placa, descrip,fechaSolicitud, Colores.descripcion, Bordados.descripcion as bordado, cantidad, fechaSolicitud,Procesos.idProceso,Procesos.descripcion as fase,Procesos.idProceso as idfase,descPago,referencia,Solicitudes.costura,Costuras.texto FROM Costuras,Pagos,Metodos, Usuarios,Automoviles, Colores, Bordados, Tipos, Solicitudes, Procesos Where idVehiculo=Automoviles.idAutomovil and id_material=Tipos.idTipo and id_color=Colores.idColor and id_bordado=Bordados.idBordado and Solicitudes.idUsuario=Usuarios.idUsuario and Procesos.idProceso=Solicitudes.fase and Pagos.idSoli=Solicitudes.idSolicitud and Pagos.tipo=Metodos.idpago and Solicitudes.costura=Costuras.idc and Solicitudes.fase>=3 and Solicitudes.fase<=9  ORDER BY fechaSolicitud");
+        this.list = await pool.query("SELECT idSolicitud,Usuarios.idUsuario, nombre, apellido, placa, descrip,fechaSolicitud, Colores.descripcion, Bordados.descripcion as bordado, cantidad,Procesos.idProceso,Procesos.descripcion as fase,Procesos.idProceso as idfase,descPago,referencia,Solicitudes.costura,Costuras.texto FROM Costuras,Pagos,Metodos, Usuarios,Automoviles, Colores, Bordados, Tipos, Solicitudes, Procesos Where idVehiculo=Automoviles.idAutomovil and id_material=Tipos.idTipo and id_color=Colores.idColor and id_bordado=Bordados.idBordado and Solicitudes.idUsuario=Usuarios.idUsuario and Procesos.idProceso=Solicitudes.fase and Pagos.idSoli=Solicitudes.idSolicitud and Pagos.tipo=Metodos.idpago and Solicitudes.costura=Costuras.idc and Solicitudes.fase>=3 and Solicitudes.fase<=9  ORDER BY fechaSolicitud");
         return this.list;
     }
 
