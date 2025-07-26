@@ -2,7 +2,13 @@ const mysql = require('mysql');
 import { promisify } from 'util';
 const { database } = require('./conf');
 console.log(database);
-const pool = mysql.createPool(database);
+const pool = mysql.createPool({
+    host: database.host,
+    port: database.port,
+    user: database.user,
+    password: database.password,
+    database: database.database,
+});
 
 pool.getConnection((err: any, conn: any) => {
     try {

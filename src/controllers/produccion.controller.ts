@@ -18,22 +18,22 @@ class Produccion{
                 var tmp;
 
                 tmp = await this.MU.getUsuario(registros[i].vendedor);
-                if(registros[i].vendedor){registros[i].nombreVendedor = tmp[0].nombre+" "+tmp[0].apellido;}
+                if(registros[i].vendedor){registros[i].nombreVendedor = tmp[0]?.nombre+" "+tmp[0]?.apellido;}
 
                 tmp = await this.MU.getUsuario(registros[i].ensamblador);
-                if(registros[i].ensamblador){registros[i].nombreEnsamblador = tmp[0].nombre+" "+tmp[0].apellido;}
+                if(registros[i].ensamblador){registros[i].nombreEnsamblador = tmp[0]?.nombre+" "+tmp[0]?.apellido;}
 
                 tmp = await this.MU.getUsuario(registros[i].bordador);
-                if(registros[i].bordador){registros[i].nombreBordador = tmp[0].nombre+" "+tmp[0].apellido;}
+                if(registros[i].bordador){registros[i].nombreBordador = tmp[0]?.nombre+" "+tmp[0]?.apellido;}
 
                 tmp = await this.MU.getUsuario(registros[i].designer);
-                if(registros[i].designer){registros[i].nombreDesigner = tmp[0].nombre+" "+tmp[0].apellido;}
+                if(registros[i].designer){registros[i].nombreDesigner = tmp[0]?.nombre+" "+tmp[0]?.apellido;}
 
                 tmp = await this.MU.getUsuario(registros[i].costurero);
-                if(registros[i].costurero){registros[i].nombreCosturero = tmp[0].nombre+" "+tmp[0].apellido;}
+                if(registros[i].costurero){registros[i].nombreCosturero = tmp[0]?.nombre+" "+tmp[0]?.apellido;}
 
                 tmp = await this.MU.getUsuario(registros[i].cortador);
-                if(registros[i].cortador){registros[i].nombreCortador = tmp[0].nombre+" "+tmp[0].apellido;}
+                if(registros[i].cortador){registros[i].nombreCortador = tmp[0]?.nombre+" "+tmp[0]?.apellido;}
 
         		if(registros[i].fecha==null){
         			registros[i].fechaMostrar=false;
